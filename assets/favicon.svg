@@ -2,8 +2,8 @@
   <defs>
     <radialGradient id="s" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="35%" stop-color="#fff176"/>
-      <stop offset="70%" stop-color="#fdd835"/>
+      <stop offset="30%" stop-color="#fff176"/>
+      <stop offset="65%" stop-color="#fdd835"/>
       <stop offset="100%" stop-color="#f9a825"/>
     </radialGradient>
     <linearGradient id="r" x1="0" y1="0" x2="0" y2="1">
@@ -12,42 +12,42 @@
     </linearGradient>
   </defs>
 
-  <!-- Orbit arcs (4 broken segments) -->
-  <path d="M256,46 A210,210 0 0,1 460,220" fill="none" stroke="#f9a825" stroke-width="6" stroke-linecap="round"/>
-  <path d="M466,292 A210,210 0 0,1 292,466" fill="none" stroke="#f9a825" stroke-width="6" stroke-linecap="round"/>
-  <path d="M220,466 A210,210 0 0,1 46,292" fill="none" stroke="#f9a825" stroke-width="6" stroke-linecap="round"/>
-  <path d="M46,220 A210,210 0 0,1 220,46" fill="none" stroke="#f9a825" stroke-width="6" stroke-linecap="round"/>
+  <!-- Orbit arcs -->
+  <path d="M260,44 A212,212 0 0,1 462,224" fill="none" stroke="#f9a825" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M468,288 A212,212 0 0,1 288,468" fill="none" stroke="#f9a825" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M224,468 A212,212 0 0,1 44,288" fill="none" stroke="#f9a825" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M44,224 A212,212 0 0,1 224,44" fill="none" stroke="#f9a825" stroke-width="5.5" stroke-linecap="round"/>
 
-  <!-- Planets (dots at arc endpoints and between) -->
-  <circle cx="205" cy="50" r="12" fill="#f9a825"/>
-  <circle cx="170" cy="62" r="6" fill="#fbc02d" opacity="0.7"/>
-  <circle cx="462" cy="230" r="8" fill="#f9a825"/>
-  <circle cx="468" cy="280" r="5" fill="#fbc02d" opacity="0.6"/>
-  <circle cx="300" cy="468" r="7" fill="#f9a825"/>
-  <circle cx="46" cy="280" r="9" fill="#f9a825"/>
-  <circle cx="42" cy="230" r="5" fill="#fbc02d" opacity="0.6"/>
+  <!-- Planets -->
+  <circle cx="218" cy="44" r="11" fill="#f9a825"/>
+  <circle cx="178" cy="56" r="5.5" fill="#fbc02d" opacity="0.65"/>
+  <circle cx="464" cy="240" r="7" fill="#f9a825" opacity="0.8"/>
+  <circle cx="296" cy="468" r="6" fill="#f9a825" opacity="0.75"/>
+  <circle cx="340" cy="462" r="4" fill="#fbc02d" opacity="0.55"/>
+  <circle cx="44" cy="280" r="8" fill="#f9a825" opacity="0.8"/>
+  <circle cx="48" cy="230" r="4.5" fill="#fbc02d" opacity="0.55"/>
 
-  <!-- Cardinal rays (N, E, S, W — longest) -->
-  <polygon points="256,52 244,192 256,180 268,192" fill="url(#r)"/>
-  <polygon points="256,460 244,320 256,332 268,320" fill="url(#r)"/>
-  <polygon points="460,256 320,244 332,256 320,268" fill="url(#r)"/>
-  <polygon points="52,256 192,244 180,256 192,268" fill="url(#r)"/>
+  <!-- Cardinal rays (4x, rotate from North template) -->
+  <polygon points="256,48 240,186 256,198 272,186" fill="url(#r)"/>
+  <polygon points="256,48 240,186 256,198 272,186" fill="url(#r)" transform="rotate(90 256 256)"/>
+  <polygon points="256,48 240,186 256,198 272,186" fill="url(#r)" transform="rotate(180 256 256)"/>
+  <polygon points="256,48 240,186 256,198 272,186" fill="url(#r)" transform="rotate(270 256 256)"/>
 
-  <!-- Diagonal rays (NE, SE, SW, NW — medium) -->
-  <polygon points="400,112 304,206 312,200 306,210" fill="url(#r)"/>
-  <polygon points="400,400 306,302 312,312 304,306" fill="url(#r)"/>
-  <polygon points="112,400 206,304 200,312 210,306" fill="url(#r)"/>
-  <polygon points="112,112 210,206 200,200 206,210" fill="url(#r)"/>
+  <!-- Diagonal rays (4x, shorter + narrower) -->
+  <polygon points="256,88 246,192 256,202 266,192" fill="url(#r)" transform="rotate(45 256 256)"/>
+  <polygon points="256,88 246,192 256,202 266,192" fill="url(#r)" transform="rotate(135 256 256)"/>
+  <polygon points="256,88 246,192 256,202 266,192" fill="url(#r)" transform="rotate(225 256 256)"/>
+  <polygon points="256,88 246,192 256,202 266,192" fill="url(#r)" transform="rotate(315 256 256)"/>
 
-  <!-- Minor rays (thin spikes between majors) -->
-  <polygon points="340,96 282,196 286,192 278,196" fill="#fbc02d" opacity="0.8"/>
-  <polygon points="416,172 308,218 312,214 306,220" fill="#fbc02d" opacity="0.8"/>
-  <polygon points="416,340 308,282 312,286 306,278" fill="#fbc02d" opacity="0.8"/>
-  <polygon points="340,416 282,308 286,312 278,306" fill="#fbc02d" opacity="0.8"/>
-  <polygon points="172,416 218,308 214,312 220,306" fill="#fbc02d" opacity="0.8"/>
-  <polygon points="96,340 196,282 192,286 196,278" fill="#fbc02d" opacity="0.8"/>
-  <polygon points="96,172 196,218 192,214 196,220" fill="#fbc02d" opacity="0.8"/>
-  <polygon points="172,96 218,196 214,192 220,196" fill="#fbc02d" opacity="0.8"/>
+  <!-- Minor thin rays (8x, short spikes) -->
+  <polygon points="256,120 250,194 256,200 262,194" fill="#fbc02d" opacity="0.6" transform="rotate(22.5 256 256)"/>
+  <polygon points="256,120 250,194 256,200 262,194" fill="#fbc02d" opacity="0.6" transform="rotate(67.5 256 256)"/>
+  <polygon points="256,120 250,194 256,200 262,194" fill="#fbc02d" opacity="0.6" transform="rotate(112.5 256 256)"/>
+  <polygon points="256,120 250,194 256,200 262,194" fill="#fbc02d" opacity="0.6" transform="rotate(157.5 256 256)"/>
+  <polygon points="256,120 250,194 256,200 262,194" fill="#fbc02d" opacity="0.6" transform="rotate(202.5 256 256)"/>
+  <polygon points="256,120 250,194 256,200 262,194" fill="#fbc02d" opacity="0.6" transform="rotate(247.5 256 256)"/>
+  <polygon points="256,120 250,194 256,200 262,194" fill="#fbc02d" opacity="0.6" transform="rotate(292.5 256 256)"/>
+  <polygon points="256,120 250,194 256,200 262,194" fill="#fbc02d" opacity="0.6" transform="rotate(337.5 256 256)"/>
 
   <!-- Sun core -->
   <circle cx="256" cy="256" r="76" fill="url(#s)"/>
