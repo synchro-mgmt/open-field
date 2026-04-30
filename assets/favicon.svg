@@ -1,42 +1,58 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <radialGradient id="sunGlow" cx="50%" cy="45%" r="50%">
-      <stop offset="0%" stop-color="#fff9c4"/>
-      <stop offset="40%" stop-color="#fdd835"/>
+    <radialGradient id="sg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#fff176"/>
+      <stop offset="70%" stop-color="#fdd835"/>
       <stop offset="100%" stop-color="#f9a825"/>
     </radialGradient>
-    <linearGradient id="petalGrad" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#fdd835"/>
       <stop offset="100%" stop-color="#f9a825"/>
     </linearGradient>
-    <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#fbc02d"/>
-      <stop offset="100%" stop-color="#f57f17"/>
-    </linearGradient>
   </defs>
 
-  <!-- Orbit circle -->
-  <circle cx="256" cy="256" r="220" fill="none" stroke="#fbc02d" stroke-width="8" opacity="0.85"/>
+  <!-- Orbit arcs (broken circle) -->
+  <path d="M256,56 A200,200 0 0,1 446,216" fill="none" stroke="#f9a825" stroke-width="5" stroke-linecap="round"/>
+  <path d="M456,256 A200,200 0 0,1 336,446" fill="none" stroke="#f9a825" stroke-width="5" stroke-linecap="round"/>
+  <path d="M296,456 A200,200 0 0,1 66,296" fill="none" stroke="#f9a825" stroke-width="5" stroke-linecap="round"/>
+  <path d="M56,256 A200,200 0 0,1 176,66" fill="none" stroke="#f9a825" stroke-width="5" stroke-linecap="round"/>
 
-  <!-- Small planet on orbit -->
-  <circle cx="138" cy="68" r="16" fill="#fbc02d"/>
+  <!-- Planets (small dots on orbit) -->
+  <circle cx="176" cy="66" r="10" fill="#fbc02d"/>
+  <circle cx="140" cy="96" r="6" fill="#f9a825" opacity="0.7"/>
+  <circle cx="446" cy="216" r="8" fill="#fbc02d"/>
+  <circle cx="456" cy="256" r="5" fill="#f9a825" opacity="0.6"/>
+  <circle cx="66" cy="296" r="9" fill="#fbc02d"/>
+  <circle cx="56" cy="256" r="5" fill="#f9a825" opacity="0.6"/>
+  <circle cx="336" cy="446" r="7" fill="#fbc02d"/>
+  <circle cx="296" cy="456" r="5" fill="#f9a825" opacity="0.6"/>
 
-  <!-- Petals (5 rays behind sun) -->
-  <!-- Center petal -->
-  <ellipse cx="256" cy="150" rx="22" ry="70" fill="url(#petalGrad)"/>
-  <!-- Left petals -->
-  <ellipse cx="256" cy="150" rx="22" ry="70" fill="url(#petalGrad)" transform="rotate(-30 256 240)"/>
-  <ellipse cx="256" cy="150" rx="22" ry="70" fill="url(#petalGrad)" transform="rotate(-60 256 240)"/>
-  <!-- Right petals -->
-  <ellipse cx="256" cy="150" rx="22" ry="70" fill="url(#petalGrad)" transform="rotate(30 256 240)"/>
-  <ellipse cx="256" cy="150" rx="22" ry="70" fill="url(#petalGrad)" transform="rotate(60 256 240)"/>
+  <!-- Major rays (compass-style, 4 cardinal + 4 diagonal) -->
+  <!-- North (longest) -->
+  <polygon points="256,60 248,180 256,170 264,180" fill="url(#rg)"/>
+  <!-- South -->
+  <polygon points="256,452 248,332 256,342 264,332" fill="url(#rg)"/>
+  <!-- East -->
+  <polygon points="452,256 332,248 342,256 332,264" fill="url(#rg)"/>
+  <!-- West -->
+  <polygon points="60,256 180,248 170,256 180,264" fill="url(#rg)"/>
+
+  <!-- NE -->
+  <polygon points="394,118 308,198 316,194 312,204" fill="url(#rg)"/>
+  <!-- SE -->
+  <polygon points="394,394 308,314 316,318 312,308" fill="url(#rg)"/>
+  <!-- SW -->
+  <polygon points="118,394 198,308 194,316 204,312" fill="url(#rg)"/>
+  <!-- NW -->
+  <polygon points="118,118 198,198 194,194 204,200" fill="url(#rg)"/>
+
+  <!-- Minor rays (thin, between majors) -->
+  <line x1="256" y1="130" x2="256" y2="170" stroke="#fbc02d" stroke-width="3" stroke-linecap="round"/>
+  <line x1="256" y1="342" x2="256" y2="382" stroke="#fbc02d" stroke-width="3" stroke-linecap="round"/>
+  <line x1="130" y1="256" x2="170" y2="256" stroke="#fbc02d" stroke-width="3" stroke-linecap="round"/>
+  <line x1="342" y1="256" x2="382" y2="256" stroke="#fbc02d" stroke-width="3" stroke-linecap="round"/>
 
   <!-- Sun core -->
-  <circle cx="256" cy="240" r="80" fill="url(#sunGlow)"/>
-
-  <!-- Wave 1 (upper) -->
-  <path d="M130,340 Q256,270 382,340 Q256,310 130,340 Z" fill="url(#waveGrad)"/>
-
-  <!-- Wave 2 (lower) -->
-  <path d="M100,390 Q256,310 412,390 Q256,355 100,390 Z" fill="url(#waveGrad)"/>
+  <circle cx="256" cy="256" r="72" fill="url(#sg)"/>
 </svg>
