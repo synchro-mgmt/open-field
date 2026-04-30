@@ -1,58 +1,54 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <radialGradient id="sg" cx="50%" cy="50%" r="50%">
+    <radialGradient id="s" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="30%" stop-color="#fff176"/>
+      <stop offset="35%" stop-color="#fff176"/>
       <stop offset="70%" stop-color="#fdd835"/>
       <stop offset="100%" stop-color="#f9a825"/>
     </radialGradient>
-    <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="r" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#fdd835"/>
       <stop offset="100%" stop-color="#f9a825"/>
     </linearGradient>
   </defs>
 
-  <!-- Orbit arcs (broken circle) -->
-  <path d="M256,56 A200,200 0 0,1 446,216" fill="none" stroke="#f9a825" stroke-width="5" stroke-linecap="round"/>
-  <path d="M456,256 A200,200 0 0,1 336,446" fill="none" stroke="#f9a825" stroke-width="5" stroke-linecap="round"/>
-  <path d="M296,456 A200,200 0 0,1 66,296" fill="none" stroke="#f9a825" stroke-width="5" stroke-linecap="round"/>
-  <path d="M56,256 A200,200 0 0,1 176,66" fill="none" stroke="#f9a825" stroke-width="5" stroke-linecap="round"/>
+  <!-- Orbit arcs (4 broken segments) -->
+  <path d="M256,46 A210,210 0 0,1 460,220" fill="none" stroke="#f9a825" stroke-width="6" stroke-linecap="round"/>
+  <path d="M466,292 A210,210 0 0,1 292,466" fill="none" stroke="#f9a825" stroke-width="6" stroke-linecap="round"/>
+  <path d="M220,466 A210,210 0 0,1 46,292" fill="none" stroke="#f9a825" stroke-width="6" stroke-linecap="round"/>
+  <path d="M46,220 A210,210 0 0,1 220,46" fill="none" stroke="#f9a825" stroke-width="6" stroke-linecap="round"/>
 
-  <!-- Planets (small dots on orbit) -->
-  <circle cx="176" cy="66" r="10" fill="#fbc02d"/>
-  <circle cx="140" cy="96" r="6" fill="#f9a825" opacity="0.7"/>
-  <circle cx="446" cy="216" r="8" fill="#fbc02d"/>
-  <circle cx="456" cy="256" r="5" fill="#f9a825" opacity="0.6"/>
-  <circle cx="66" cy="296" r="9" fill="#fbc02d"/>
-  <circle cx="56" cy="256" r="5" fill="#f9a825" opacity="0.6"/>
-  <circle cx="336" cy="446" r="7" fill="#fbc02d"/>
-  <circle cx="296" cy="456" r="5" fill="#f9a825" opacity="0.6"/>
+  <!-- Planets (dots at arc endpoints and between) -->
+  <circle cx="205" cy="50" r="12" fill="#f9a825"/>
+  <circle cx="170" cy="62" r="6" fill="#fbc02d" opacity="0.7"/>
+  <circle cx="462" cy="230" r="8" fill="#f9a825"/>
+  <circle cx="468" cy="280" r="5" fill="#fbc02d" opacity="0.6"/>
+  <circle cx="300" cy="468" r="7" fill="#f9a825"/>
+  <circle cx="46" cy="280" r="9" fill="#f9a825"/>
+  <circle cx="42" cy="230" r="5" fill="#fbc02d" opacity="0.6"/>
 
-  <!-- Major rays (compass-style, 4 cardinal + 4 diagonal) -->
-  <!-- North (longest) -->
-  <polygon points="256,60 248,180 256,170 264,180" fill="url(#rg)"/>
-  <!-- South -->
-  <polygon points="256,452 248,332 256,342 264,332" fill="url(#rg)"/>
-  <!-- East -->
-  <polygon points="452,256 332,248 342,256 332,264" fill="url(#rg)"/>
-  <!-- West -->
-  <polygon points="60,256 180,248 170,256 180,264" fill="url(#rg)"/>
+  <!-- Cardinal rays (N, E, S, W — longest) -->
+  <polygon points="256,52 244,192 256,180 268,192" fill="url(#r)"/>
+  <polygon points="256,460 244,320 256,332 268,320" fill="url(#r)"/>
+  <polygon points="460,256 320,244 332,256 320,268" fill="url(#r)"/>
+  <polygon points="52,256 192,244 180,256 192,268" fill="url(#r)"/>
 
-  <!-- NE -->
-  <polygon points="394,118 308,198 316,194 312,204" fill="url(#rg)"/>
-  <!-- SE -->
-  <polygon points="394,394 308,314 316,318 312,308" fill="url(#rg)"/>
-  <!-- SW -->
-  <polygon points="118,394 198,308 194,316 204,312" fill="url(#rg)"/>
-  <!-- NW -->
-  <polygon points="118,118 198,198 194,194 204,200" fill="url(#rg)"/>
+  <!-- Diagonal rays (NE, SE, SW, NW — medium) -->
+  <polygon points="400,112 304,206 312,200 306,210" fill="url(#r)"/>
+  <polygon points="400,400 306,302 312,312 304,306" fill="url(#r)"/>
+  <polygon points="112,400 206,304 200,312 210,306" fill="url(#r)"/>
+  <polygon points="112,112 210,206 200,200 206,210" fill="url(#r)"/>
 
-  <!-- Minor rays (thin, between majors) -->
-  <line x1="256" y1="130" x2="256" y2="170" stroke="#fbc02d" stroke-width="3" stroke-linecap="round"/>
-  <line x1="256" y1="342" x2="256" y2="382" stroke="#fbc02d" stroke-width="3" stroke-linecap="round"/>
-  <line x1="130" y1="256" x2="170" y2="256" stroke="#fbc02d" stroke-width="3" stroke-linecap="round"/>
-  <line x1="342" y1="256" x2="382" y2="256" stroke="#fbc02d" stroke-width="3" stroke-linecap="round"/>
+  <!-- Minor rays (thin spikes between majors) -->
+  <polygon points="340,96 282,196 286,192 278,196" fill="#fbc02d" opacity="0.8"/>
+  <polygon points="416,172 308,218 312,214 306,220" fill="#fbc02d" opacity="0.8"/>
+  <polygon points="416,340 308,282 312,286 306,278" fill="#fbc02d" opacity="0.8"/>
+  <polygon points="340,416 282,308 286,312 278,306" fill="#fbc02d" opacity="0.8"/>
+  <polygon points="172,416 218,308 214,312 220,306" fill="#fbc02d" opacity="0.8"/>
+  <polygon points="96,340 196,282 192,286 196,278" fill="#fbc02d" opacity="0.8"/>
+  <polygon points="96,172 196,218 192,214 196,220" fill="#fbc02d" opacity="0.8"/>
+  <polygon points="172,96 218,196 214,192 220,196" fill="#fbc02d" opacity="0.8"/>
 
   <!-- Sun core -->
-  <circle cx="256" cy="256" r="72" fill="url(#sg)"/>
+  <circle cx="256" cy="256" r="76" fill="url(#s)"/>
 </svg>
