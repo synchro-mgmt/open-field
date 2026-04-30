@@ -12,6 +12,9 @@
     </linearGradient>
   </defs>
 
+  <!-- Navy background -->
+  <rect width="512" height="512" rx="64" fill="#0a1628"/>
+
   <!-- Orbit arcs -->
   <path d="M260,44 A212,212 0 0,1 462,224" fill="none" stroke="#f9a825" stroke-width="5.5" stroke-linecap="round"/>
   <path d="M468,288 A212,212 0 0,1 288,468" fill="none" stroke="#f9a825" stroke-width="5.5" stroke-linecap="round"/>
@@ -27,19 +30,19 @@
   <circle cx="44" cy="280" r="8" fill="#f9a825" opacity="0.8"/>
   <circle cx="48" cy="230" r="4.5" fill="#fbc02d" opacity="0.55"/>
 
-  <!-- Cardinal rays (4x, rotate from North template) -->
+  <!-- Cardinal rays -->
   <polygon points="256,48 240,186 256,198 272,186" fill="url(#r)"/>
   <polygon points="256,48 240,186 256,198 272,186" fill="url(#r)" transform="rotate(90 256 256)"/>
   <polygon points="256,48 240,186 256,198 272,186" fill="url(#r)" transform="rotate(180 256 256)"/>
   <polygon points="256,48 240,186 256,198 272,186" fill="url(#r)" transform="rotate(270 256 256)"/>
 
-  <!-- Diagonal rays (4x, shorter + narrower) -->
+  <!-- Diagonal rays -->
   <polygon points="256,88 246,192 256,202 266,192" fill="url(#r)" transform="rotate(45 256 256)"/>
   <polygon points="256,88 246,192 256,202 266,192" fill="url(#r)" transform="rotate(135 256 256)"/>
   <polygon points="256,88 246,192 256,202 266,192" fill="url(#r)" transform="rotate(225 256 256)"/>
   <polygon points="256,88 246,192 256,202 266,192" fill="url(#r)" transform="rotate(315 256 256)"/>
 
-  <!-- Minor thin rays (8x, short spikes) -->
+  <!-- Minor rays -->
   <polygon points="256,120 250,194 256,200 262,194" fill="#fbc02d" opacity="0.6" transform="rotate(22.5 256 256)"/>
   <polygon points="256,120 250,194 256,200 262,194" fill="#fbc02d" opacity="0.6" transform="rotate(67.5 256 256)"/>
   <polygon points="256,120 250,194 256,200 262,194" fill="#fbc02d" opacity="0.6" transform="rotate(112.5 256 256)"/>
