@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#132040"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </radialGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f5d78e"/>
+      <stop offset="100%" stop-color="#f39c12"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- sun glow -->
+  <circle cx="32" cy="30" r="18" fill="#f39c12" opacity="0.08"/>
+  <circle cx="32" cy="30" r="13" fill="#f39c12" opacity="0.12"/>
+  <!-- sun core -->
+  <circle cx="32" cy="30" r="9" fill="url(#sun)"/>
+  <!-- rays -->
+  <g stroke="#f0d9a8" stroke-width="1.8" stroke-linecap="round" opacity="0.7">
+    <line x1="32" y1="17" x2="32" y2="13"/>
+    <line x1="32" y1="43" x2="32" y2="47"/>
+    <line x1="19" y1="30" x2="15" y2="30"/>
+    <line x1="45" y1="30" x2="49" y2="30"/>
+    <line x1="22.8" y1="20.8" x2="19.9" y2="17.9"/>
+    <line x1="41.2" y1="39.2" x2="44.1" y2="42.1"/>
+    <line x1="41.2" y1="20.8" x2="44.1" y2="17.9"/>
+    <line x1="22.8" y1="39.2" x2="19.9" y2="42.1"/>
+  </g>
+  <!-- field text -->
+  <text x="32" y="57" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="8.5" fill="#f0d9a8" letter-spacing="0.8">FIELD</text>
+</svg>
