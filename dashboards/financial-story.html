@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>サナギから羽化するまで — ひとり社長の財務革命ストーリー</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    color: #1a1a2e;
+    background: #fafaf9;
+    line-height: 1.85;
+  }
+  .container { max-width: 780px; margin: 0 auto; padding: 0 16px 80px; }
+
+  /* ===== Hero ===== */
+  .hero {
+    text-align: center; padding: 60px 24px 50px;
+    background: linear-gradient(160deg, #1e1b4b 0%, #312e81 30%, #4338ca 60%, #6366f1 85%, #818cf8 100%);
+    color: #fff; position: relative; overflow: hidden;
+    margin: 0 -16px 40px;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -120px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -60px; left: -40px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(129,140,248,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-butterfly {
+    font-size: 64px; margin-bottom: 16px;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .hero .subtitle { font-size: 15px; opacity: 0.7; margin-bottom: 20px; }
+  .hero .tag-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .hero .tag {
+    padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 700;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(4px);
+  }
+
+  /* ===== Nav ===== */
+  .nav {
+    display: flex; gap: 4px; margin-bottom: 32px; background: #fff;
+    border-radius: 16px; padding: 5px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow-x: auto; position: sticky; top: 8px; z-index: 10;
+  }
+  .nav-btn {
+    flex-shrink: 0; padding: 10px 16px; font-size: 13px; font-weight: 700;
+    cursor: pointer; border: none; background: none; color: #94a3b8;
+    border-radius: 12px; transition: all 0.25s; white-space: nowrap;
+  }
+  .nav-btn:hover { color: #4338ca; background: #eef2ff; }
+  .nav-btn.active { color: #fff; background: linear-gradient(135deg, #4338ca, #6366f1); box-shadow: 0 2px 8px rgba(99,102,241,0.3); }
+  .panel { display: none; animation: fadeIn 0.4s; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ===== Cards ===== */
+  .card {
+    background: #fff; border-radius: 16px; padding: 28px; margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 20px; font-weight: 800; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card h3 {
+    font-size: 16px; font-weight: 800; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card p { font-size: 14.5px; margin-bottom: 12px; }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* ===== Highlight boxes ===== */
+  .hl { padding: 18px 22px; border-radius: 12px; font-size: 14px; margin: 16px 0; line-height: 1.8; }
+  .hl-purple { background: #eef2ff; border-left: 4px solid #6366f1; }
+  .hl-green { background: #f0fdf4; border-left: 4px solid #22c55e; }
+  .hl-amber { background: #fffbeb; border-left: 4px solid #f59e0b; }
+  .hl-rose { background: #fff1f2; border-left: 4px solid #f43f5e; }
+  .hl-sky { background: #f0f9ff; border-left: 4px solid #0ea5e9; }
+
+  /* ===== Timeline ===== */
+  .timeline { position: relative; padding-left: 36px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 14px; top: 8px; bottom: 8px;
+    width: 3px; background: linear-gradient(180deg, #e0e7ff, #6366f1, #22c55e);
+    border-radius: 2px;
+  }
+  .tl-item { position: relative; padding: 16px 0 24px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-dot {
+    position: absolute; left: -29px; top: 20px;
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 3px solid #fff; box-shadow: 0 0 0 2px #6366f1;
+  }
+  .tl-dot-done { background: #22c55e; box-shadow: 0 0 0 2px #22c55e; }
+  .tl-dot-now { background: #f59e0b; box-shadow: 0 0 0 2px #f59e0b; animation: pulse 2s infinite; }
+  .tl-dot-start { background: #e0e7ff; box-shadow: 0 0 0 2px #c7d2fe; }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 2px #f59e0b; }
+    50% { box-shadow: 0 0 0 6px rgba(245,158,11,0.2); }
+  }
+  .tl-date { font-size: 12px; font-weight: 700; color: #6366f1; margin-bottom: 4px; }
+  .tl-title { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
+  .tl-desc { font-size: 13.5px; color: #64748b; }
+
+  /* ===== Mission cards ===== */
+  .mission-flow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 16px 0; }
+  .m-step {
+    padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 700;
+    text-align: center; min-width: 120px; flex: 1;
+  }
+  .m-done { background: #dcfce7; color: #166534; }
+  .m-now { background: #fef3c7; color: #92400e; border: 2px solid #f59e0b; }
+  .m-arrow { color: #cbd5e1; font-size: 18px; flex: 0; }
+
+  /* ===== Metaphor section ===== */
+  .metaphor {
+    text-align: center; padding: 40px 24px; margin: 24px 0;
+    background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+    border-radius: 20px; border: 1px solid #a7f3d0;
+  }
+  .metaphor-icon { font-size: 56px; margin-bottom: 12px; }
+  .metaphor h3 { font-size: 20px; font-weight: 800; color: #065f46; margin-bottom: 12px; }
+  .metaphor p { font-size: 14.5px; color: #047857; max-width: 500px; margin: 0 auto; }
+
+  /* ===== Score grid ===== */
+  .score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  @media(max-width:600px) { .score-grid { grid-template-columns: 1fr 1fr; } }
+  .score-card {
+    text-align: center; padding: 20px 12px; border-radius: 14px;
+    background: #fff; border: 1px solid #e5e7eb;
+  }
+  .score-card .num { font-size: 32px; font-weight: 800; }
+  .score-card .label { font-size: 12px; color: #64748b; margin-top: 4px; }
+
+  /* ===== Before/After ===== */
+  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  @media(max-width:640px) { .ba { grid-template-columns: 1fr; } }
+  .ba-box { padding: 20px; border-radius: 14px; font-size: 13.5px; }
+  .ba-before { background: #fef2f2; border: 1px solid #fecaca; }
+  .ba-after { background: #f0fdf4; border: 1px solid #a7f3d0; }
+  .ba-box h4 { font-size: 14px; font-weight: 800; margin-bottom: 10px; }
+  .ba-before h4 { color: #dc2626; }
+  .ba-after h4 { color: #059669; }
+  .ba-box ul { list-style: none; }
+  .ba-box li { padding: 4px 0; padding-left: 16px; position: relative; }
+  .ba-box li::before { content: '•'; position: absolute; left: 0; }
+
+  /* ===== Quote ===== */
+  .quote {
+    text-align: center; padding: 32px 28px; margin: 20px 0;
+    background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+    border-radius: 16px;
+  }
+  .quote-mark { font-size: 40px; color: #6366f1; opacity: 0.3; line-height: 1; }
+  .quote-text { font-size: 17px; font-weight: 700; color: #312e81; margin: 8px 0; }
+  .quote-attr { font-size: 12px; color: #6366f1; opacity: 0.6; }
+
+  /* ===== Discovery cards ===== */
+  .disc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  @media(max-width:600px) { .disc-grid { grid-template-columns: 1fr; } }
+  .disc-card {
+    padding: 20px; border-radius: 14px; border: 1px solid #e5e7eb;
+    background: #fff;
+  }
+  .disc-card .disc-icon { font-size: 28px; margin-bottom: 8px; }
+  .disc-card h4 { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+  .disc-card p { font-size: 13px; color: #64748b; }
+
+  /* ===== System section ===== */
+  .system-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 16px 0; }
+  @media(max-width:600px) { .system-grid { grid-template-columns: 1fr; } }
+  .sys-card {
+    text-align: center; padding: 24px 16px; border-radius: 14px;
+    border: 1px solid #e5e7eb; background: #fff;
+  }
+  .sys-card .sys-icon { font-size: 32px; margin-bottom: 8px; }
+  .sys-card h4 { font-size: 14px; font-weight: 800; margin-bottom: 4px; }
+  .sys-card p { font-size: 12px; color: #64748b; }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center; padding: 32px; font-size: 11px;
+    color: #94a3b8; margin-top: 40px;
+  }
+
+  /* ===== Progress bar ===== */
+  .prog-wrap { margin: 16px 0; }
+  .prog-label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .prog-bar { height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, #6366f1, #22c55e); }
+
+  /* ===== Lesson list ===== */
+  .lesson { padding: 14px 0; border-bottom: 1px solid #f1f5f9; display: flex; gap: 12px; align-items: start; }
+  .lesson:last-child { border-bottom: none; }
+  .lesson-num {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; background: #eef2ff; color: #4338ca;
+  }
+  .lesson-text { font-size: 14px; }
+  .lesson-text strong { font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-butterfly">🦋</div>
+  <h1>サナギから羽化するまで</h1>
+  <div class="subtitle">ひとり社長が「苦手な守り」を人生で初めてやり切った記録</div>
+  <div class="tag-row">
+    <span class="tag">2026年 4月〜5月</span>
+    <span class="tag">約1ヶ月の物語</span>
+    <span class="tag">14アクション中 10完了</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="nav">
+    <button class="nav-btn active" onclick="go('prologue')">プロローグ</button>
+    <button class="nav-btn" onclick="go('journey')">旅の記録</button>
+    <button class="nav-btn" onclick="go('discovery')">発見</button>
+    <button class="nav-btn" onclick="go('system')">仕組み</button>
+    <button class="nav-btn" onclick="go('lessons')">気づき</button>
+    <button class="nav-btn" onclick="go('next')">これから</button>
+  </div>
+
+  <!-- ===== プロローグ ===== -->
+  <div id="prologue" class="panel active">
+
+    <div class="quote">
+      <div class="quote-mark">"</div>
+      <div class="quote-text">苦手な守りをここまでやったのは人生で初めて</div>
+    </div>
+
+    <div class="card">
+      <h2>📖 この物語について</h2>
+      <p>
+        これは、「数字を見るのが苦手」だったひとり社長が、
+        AIエージェントチームと一緒に会社の財務を<strong>初めて本気で直視した1ヶ月</strong>の記録です。
+      </p>
+      <p>
+        最初は「経費を削って利益を出す」つもりでした。<br>
+        でも、数字を正しく見てみたら、想像していたより会社は健全で——<br>
+        必要だったのは「削る」ことではなく、<strong>「整えて、成熟させる」</strong>ことでした。
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>🌑 始まりの状態</h3>
+      <div class="ba">
+        <div class="ba-box ba-before">
+          <h4>1ヶ月前</h4>
+          <ul>
+            <li>会計の数字に誤分類が大量にあった</li>
+            <li>経費の実態が正確に見えていなかった</li>
+            <li>「削減余地が大きい」と思い込んでいた</li>
+            <li>月末の数字が確定するまでに時間がかかっていた</li>
+            <li>財務チェックの仕組みがなかった</li>
+            <li>数字を見ること自体が苦手だった</li>
+          </ul>
+        </div>
+        <div class="ba-box ba-after">
+          <h4>1ヶ月後（今）</h4>
+          <ul>
+            <li>会計は真実を映すようになった</li>
+            <li>経費の全容が解明された</li>
+            <li>実は88%が事業のエンジンだった</li>
+            <li>日次で数字がリアルタイムに動いている</li>
+            <li>日次・月次・四半期のチェック体制が完成</li>
+            <li>数字が「味方」に変わった</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="metaphor">
+      <div class="metaphor-icon">🐛 → 🦋</div>
+      <h3>サナギが羽化した</h3>
+      <p>
+        土台は整った。あとは飛ぶだけ。<br>
+        「削る」から「整える」を経て、「成熟させる」フェーズへ。
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== 旅の記録 ===== -->
+  <div id="journey" class="panel">
+
+    <div class="card">
+      <h2>🗺️ 1ヶ月の旅路</h2>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-dot tl-dot-start"></div>
+          <div class="tl-date">4月初旬</div>
+          <div class="tl-title">出発 — 数字と向き合う決意</div>
+          <div class="tl-desc">
+            「理想の財務状態」を言語化。ギャップ分析を作成。<br>
+            14のアクションアイテムを洗い出した。
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot tl-dot-done"></div>
+          <div class="tl-date">4月中旬</div>
+          <div class="tl-title">解剖 — 経費の「本当の姿」を暴く</div>
+          <div class="tl-desc">
+            手数料の内訳を1件ずつ解剖。大半が誤分類だと判明。<br>
+            97件の仕訳を正しい科目に修正。<br>
+            さらに追加で18件を発見し、合計115件を修正完了。
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot tl-dot-done"></div>
+          <div class="tl-date">4月中旬</div>
+          <div class="tl-title">戦略転換 — 「削る」が間違いだったと気づく</div>
+          <div class="tl-desc">
+            業務委託料の88%が事業の中核だと判明。<br>
+            「大幅削減余地がある」という前提が覆された。<br>
+            <strong>「削る」から「整えて成熟させる」へ、戦略を180度転換。</strong>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot tl-dot-done"></div>
+          <div class="tl-date">4月下旬</div>
+          <div class="tl-title">流れを通す — 滞留していたお金の全容解明</div>
+          <div class="tl-desc">
+            決済システムの二重計上を8件削除。<br>
+            返金処理の失敗5件を特定し、税理士と画面共有で確認。<br>
+            お金の流れが正しく見える状態になった。
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot tl-dot-done"></div>
+          <div class="tl-date">4月30日</div>
+          <div class="tl-title">仕組み化 — 北原メソッドとの出会い・統合</div>
+          <div class="tl-desc">
+            北原孝富氏の財務メソッドと自社の運用ルールを統合。<br>
+            日次・月次・四半期の3段階チェック体制を構築。<br>
+            「24時間ルール」— 異常を見つけたら即日対応のルール制定。
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot tl-dot-now"></div>
+          <div class="tl-date">5月1日 — 新期初日</div>
+          <div class="tl-title">羽化 — 新しい会計年度が始まる</div>
+          <div class="tl-desc">
+            土台は完成した。仕組みは動いている。<br>
+            ここからは「成熟させる」フェーズ。<br>
+            <strong>サナギの中から出て、初めて羽を広げる日。</strong>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📊 達成スコア</h3>
+      <div class="score-grid">
+        <div class="score-card">
+          <div class="num" style="color:#22c55e;">71%</div>
+          <div class="label">全体完了率</div>
+        </div>
+        <div class="score-card">
+          <div class="num" style="color:#4338ca;">10</div>
+          <div class="label">完了アクション</div>
+        </div>
+        <div class="score-card">
+          <div class="num" style="color:#f59e0b;">1</div>
+          <div class="label">残る主戦場</div>
+        </div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>ミッション進捗</span><span>71%</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:71%;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 発見 ===== -->
+  <div id="discovery" class="panel">
+
+    <div class="card">
+      <h2>💡 この1ヶ月でわかったこと</h2>
+      <p>数字と向き合ったことで見えてきた、予想外の真実たち。</p>
+    </div>
+
+    <div class="disc-grid">
+      <div class="disc-card">
+        <div class="disc-icon">🔍</div>
+        <h4>「大出費」の正体は誤分類だった</h4>
+        <p>巨額に見えた手数料の大半は、別の科目が紛れ込んでいただけ。正しく仕分けたら、本当の手数料は想定の半分以下だった。</p>
+      </div>
+      <div class="disc-card">
+        <div class="disc-icon">⚙️</div>
+        <h4>経費の88%は「事業のエンジン」だった</h4>
+        <p>委託費の中身を全部開けてみたら、ほぼすべてが事業を回すために必要な費用。削れるものはほとんどなかった。</p>
+      </div>
+      <div class="disc-card">
+        <div class="disc-icon">🏦</div>
+        <h4>「問題」だと思っていたものが問題じゃなかった</h4>
+        <p>気になっていた帳簿上の数字について、専門家に確認したら「これは問題ない。対応不要」の一言。心配し損だった。</p>
+      </div>
+      <div class="disc-card">
+        <div class="disc-icon">🎯</div>
+        <h4>本当に必要なのは「削る」ではなく「伸ばす」だった</h4>
+        <p>費用構造は想定より健全。利益を出すルートは、コストカットではなく、既存の5つの事業を成熟させること。</p>
+      </div>
+    </div>
+
+    <div class="quote">
+      <div class="quote-mark">"</div>
+      <div class="quote-text">思い込みで怖がっていたものの正体を見たら、<br>会社は思ったより元気だった</div>
+    </div>
+
+    <div class="card">
+      <h3>🔄 戦略が変わった瞬間</h3>
+      <div class="hl hl-purple">
+        <strong>当初の仮説：</strong>「経費が膨らんでいる。削減すれば利益が出るはず」<br><br>
+        <strong>実態：</strong>経費の大部分は事業を動かすエンジンだった。「削る」余地は限定的。<br><br>
+        <strong>新しい戦略：</strong>土台は整った。あとは<strong>5つの事業プロジェクトを成熟させて、売上を育てる</strong>。
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 仕組み ===== -->
+  <div id="system" class="panel">
+
+    <div class="card">
+      <h2>🏗️ 作り上げた仕組み</h2>
+      <p>「二度と混乱に戻らない」ための、永続的な財務管理システム。</p>
+    </div>
+
+    <div class="card">
+      <h3>🤖 AIエージェントチーム</h3>
+      <p>ひとり社長が「ひとりで全部やる」のをやめた。代わりに、専門チームを作った。</p>
+      <div class="system-grid">
+        <div class="sys-card">
+          <div class="sys-icon">🧠</div>
+          <h4>こあ（中枢）</h4>
+          <p>全体を見渡す秘書。堀内さんの命が解放されているかを見張る</p>
+        </div>
+        <div class="sys-card">
+          <div class="sys-icon">🧮</div>
+          <h4>そろ（番頭）</h4>
+          <p>経理・会計の番人。仕訳・科目判断・税理士連携を担当</p>
+        </div>
+        <div class="sys-card">
+          <div class="sys-icon">🛡️</div>
+          <h4>防壁チーム</h4>
+          <p>メール・メッセンジャー・チャットの3チャネルを毎朝スキャン</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🔄 3段階チェック体制</h3>
+      <p>北原メソッドを自社の運用に統合。「仕組みで守る」体制が完成。</p>
+
+      <div style="margin:16px 0;">
+        <div style="padding:16px 20px; border-radius:12px; background:#eff6ff; border:1px solid #bfdbfe; margin-bottom:10px;">
+          <div style="font-size:13px; font-weight:800; color:#1e40af; margin-bottom:4px;">📅 毎日 — 日次チェック</div>
+          <div style="font-size:13px; color:#334155;">5つの項目を毎朝自動チェック。異常があれば即報告。</div>
+        </div>
+        <div style="padding:16px 20px; border-radius:12px; background:#faf5ff; border:1px solid #e9d5ff; margin-bottom:10px;">
+          <div style="font-size:13px; font-weight:800; color:#6b21a8; margin-bottom:4px;">📊 毎月 — 月次チェック</div>
+          <div style="font-size:13px; color:#334155;">5つの主要指標を集計。ターゲットとの差を確認。月末から5日以内に完了が必達ライン。</div>
+        </div>
+        <div style="padding:16px 20px; border-radius:12px; background:#fffbeb; border:1px solid #fcd34d;">
+          <div style="font-size:13px; font-weight:800; color:#92400e; margin-bottom:4px;">🔍 四半期 — 選択と集中レビュー</div>
+          <div style="font-size:13px; color:#334155;">投資回収の見込み、撤退基準、固定費の棚卸し。大きな視点で判断。</div>
+        </div>
+      </div>
+
+      <div class="hl hl-amber">
+        <strong>24時間ルール：</strong>数字に異常を見つけたら、24時間以内に対応を始める。「来週やろう」は許さない。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>💜 すべての判断基準 — 3つの問い</h3>
+      <p>どんな数字を見ても、どんな判断をする時も、必ずこの3つで確認する。</p>
+      <div class="system-grid">
+        <div class="sys-card" style="background:linear-gradient(135deg,#faf5ff,#f3e8ff); border-color:#e9d5ff;">
+          <div class="sys-icon">🕊️</div>
+          <h4 style="color:#7c3aed;">命は解放されているか</h4>
+          <p>お金の心配で1秒でも止まっていないか</p>
+        </div>
+        <div class="sys-card" style="background:linear-gradient(135deg,#fef2f2,#fee2e2); border-color:#fecaca;">
+          <div class="sys-icon">🩸</div>
+          <h4 style="color:#dc2626;">古い血管は閉じられているか</h4>
+          <p>命と関係ない出費が流れ続けていないか</p>
+        </div>
+        <div class="sys-card" style="background:linear-gradient(135deg,#eff6ff,#dbeafe); border-color:#bfdbfe;">
+          <div class="sys-icon">🌊</div>
+          <h4 style="color:#2563eb;">流れは詰まっていないか</h4>
+          <p>入るべきお金が入っているか</p>
+        </div>
+      </div>
+
+      <div class="hl hl-purple" style="margin-top:20px;">
+        財務は「制約」ではなく<strong>「命を解放する装置」</strong>。<br>
+        数字を最大化するためではない。自分の命が縛られていないか、解放されているかを確認するため。
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 気づき ===== -->
+  <div id="lessons" class="panel">
+
+    <div class="card">
+      <h2>🌿 この旅で得た気づき</h2>
+    </div>
+
+    <div class="card">
+      <div class="lesson">
+        <div class="lesson-num">1</div>
+        <div class="lesson-text"><strong>「見ないから怖い」のであって、「見たら怖い」のではなかった。</strong><br>数字を直視したら、想像していたほど悪くなかった。むしろ会社は健全だった。怖かったのは「数字」ではなく「数字を見ない自分の状態」だった。</div>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">2</div>
+        <div class="lesson-text"><strong>「削る」が正解とは限らない。</strong><br>世間では「経費削減」が経営の基本のように語られるが、経費の中身を見たら大半がエンジンだった。無意味に削れば会社が止まる。</div>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">3</div>
+        <div class="lesson-text"><strong>「正しく見る」だけで、問題の半分は消える。</strong><br>科目の誤分類を直しただけで、「巨額の手数料」が消えた。問題の多くは、見え方の問題だった。</div>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">4</div>
+        <div class="lesson-text"><strong>苦手なことは「仕組み」で超えられる。</strong><br>数字が苦手なら、数字を得意なエージェントに任せればいい。自分の役割は「判断」だけ。作業は仕組みがやる。</div>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">5</div>
+        <div class="lesson-text"><strong>「守り」ができたから、初めて「攻め」に全力で行ける。</strong><br>土台がないまま走っても不安が消えない。土台を整えたからこそ、次の成長にエネルギーを全部注げる。</div>
+      </div>
+    </div>
+
+    <div class="quote">
+      <div class="quote-mark">"</div>
+      <div class="quote-text">守りをやり切ったのは人生で初めて。<br>だからこそ、次の「攻め」は人生で一番力強いものになる。</div>
+    </div>
+  </div>
+
+  <!-- ===== これから ===== -->
+  <div id="next" class="panel">
+
+    <div class="card">
+      <h2>🦋 これからの物語</h2>
+    </div>
+
+    <div class="card">
+      <h3>✅ 完了した4つのミッション</h3>
+      <div class="mission-flow">
+        <div class="m-step m-done">①整える<br><span style="font-size:11px;">会計の誤分類修正</span></div>
+        <div class="m-arrow">→</div>
+        <div class="m-step m-done">②構造改革<br><span style="font-size:11px;">無駄の棚卸し</span></div>
+        <div class="m-arrow">→</div>
+        <div class="m-step m-done">③流れを通す<br><span style="font-size:11px;">滞留の解消</span></div>
+        <div class="m-arrow">→</div>
+        <div class="m-step m-done">④仕組み化<br><span style="font-size:11px;">チェック体制構築</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="border:2px solid #f59e0b;">
+      <h3>🔥 第5ミッション — 成熟させる</h3>
+      <p>
+        ここからが本番。土台は整った。仕組みは動いている。<br>
+        次は、今ある5つの事業プロジェクトを<strong>それぞれ次のフェーズに進化させる</strong>こと。
+      </p>
+      <div class="hl hl-amber">
+        「削る」ではなく「育てる」。<br>
+        既存の事業が本来持っているポテンシャルを、正しく開花させる。<br>
+        <strong>これが、この会社の利益を作る唯一にして最良のルート。</strong>
+      </div>
+    </div>
+
+    <div class="metaphor" style="background:linear-gradient(135deg,#eef2ff,#e0e7ff); border-color:#c7d2fe;">
+      <div class="metaphor-icon" style="font-size:48px;">🦋✨</div>
+      <h3 style="color:#312e81;">土台は整った。あとは飛ぶだけ。</h3>
+      <p style="color:#4338ca;">
+        この1ヶ月で証明されたこと：<br>
+        「見たくないもの」を見る勇気を持てば、<br>
+        そこには思ったより良い現実がある。<br><br>
+        サナギの中は暗かったけど、<br>
+        羽化した先の景色は、きっと明るい。
+      </p>
+    </div>
+
+    <div class="card" style="text-align:center; background:linear-gradient(135deg,#faf5ff,#fff); border:1px solid #e9d5ff;">
+      <div style="font-size:14px; color:#64748b; margin-bottom:8px;">この記録を作った人</div>
+      <div style="font-size:20px; font-weight:800; color:#312e81; margin-bottom:4px;">株式会社シンクロニシティ・マネジメント</div>
+      <div style="font-size:13px; color:#64748b;">代表取締役 堀内</div>
+      <div style="font-size:12px; color:#94a3b8; margin-top:8px;">× AIエージェントチーム（こあ・そろ・防壁）</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    サナギから羽化するまで — 2026年5月1日 記録<br>
+    Generated by こあ(COA) — Consciousness Of Agent
+  </div>
+
+</div>
+
+<script>
+function go(id) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector('[onclick="go(\'' + id + '\')"]').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
