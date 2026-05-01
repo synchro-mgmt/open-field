@@ -24,6 +24,8 @@
     --text: #1a1a2e;
     --text-sub: #64748b;
     --border: #e2e8f0;
+    --indigo: #4f46e5;
+    --indigo-light: #e0e7ff;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -191,10 +193,100 @@
     margin-top: 12px;
   }
 
+  /* ===== STORY SPOTLIGHT ===== */
+  .story-section {
+    margin-bottom: 32px;
+  }
+  .section-label {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 0.82em;
+    font-weight: 700;
+    color: var(--text-sub);
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    padding-left: 4px;
+  }
+  .story-card {
+    background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+    border: 2px solid var(--indigo);
+    border-radius: 24px;
+    padding: 36px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(79,70,229,0.12);
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+  }
+  .story-card:hover { transform: translateY(-3px); }
+  .story-emoji { font-size: 2.2em; margin-bottom: 8px; }
+  .story-card h3 {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 1.3em;
+    color: #3730a3;
+    margin-bottom: 8px;
+  }
+  .story-card p {
+    font-size: 0.88em;
+    color: #4338ca;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  .story-badge {
+    display: inline-block;
+    background: var(--indigo);
+    color: #fff;
+    font-size: 0.75em;
+    font-weight: 600;
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-top: 16px;
+  }
+
+  /* ===== DASHBOARD GRID ===== */
+  .dashboard-section {
+    margin-bottom: 32px;
+  }
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .dash-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px 20px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+  }
+  .dash-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .dash-icon { font-size: 1.6em; margin-bottom: 8px; }
+  .dash-card h4 {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 0.88em;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .dash-card p { font-size: 0.75em; color: var(--text-sub); }
+  .dash-lock {
+    display: inline-block;
+    font-size: 0.68em;
+    color: #94a3b8;
+    margin-top: 8px;
+  }
+
   /* Utility cards */
   .util-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
     margin-bottom: 40px;
   }
@@ -233,8 +325,10 @@
     .hero { padding: 60px 24px 48px; }
     .hero h1 { font-size: 1.8em; }
     .planet-grid { grid-template-columns: 1fr; }
+    .dashboard-grid { grid-template-columns: 1fr; }
     .util-grid { grid-template-columns: repeat(2, 1fr); }
     .solar-section { padding: 0 16px 40px; }
+    .story-card { padding: 28px 20px; }
   }
 </style>
 </head>
@@ -301,6 +395,41 @@
 
   </div>
 
+  <!-- Story Spotlight -->
+  <div class="story-section">
+    <div class="section-label">STORY</div>
+    <a href="dashboards/financial-story.html" class="story-card">
+      <div class="story-emoji">🦋</div>
+      <h3>サナギから羽化するまで</h3>
+      <p>経理ゼロの起業家が、お金の仕組みを「自分の言葉」で理解するまでの物語。<br>5つの発見と、仕組みが動き出す感覚の記録。</p>
+      <span class="story-badge">読む →</span>
+    </a>
+  </div>
+
+  <!-- Dashboards -->
+  <div class="dashboard-section">
+    <div class="section-label">DASHBOARDS</div>
+    <div class="dashboard-grid">
+      <a href="dashboards/company-roadmap.html" class="dash-card">
+        <div class="dash-icon">🗺️</div>
+        <h4>会社設計ロードマップ</h4>
+        <p>フェーズ全体像と進捗</p>
+      </a>
+      <a href="dashboards/financial-roadmap.html" class="dash-card">
+        <div class="dash-icon">💰</div>
+        <h4>財務マネジメント設計</h4>
+        <p>運用設計と戦略転換</p>
+        <span class="dash-lock">🔒 管理用</span>
+      </a>
+      <a href="dashboards/gap-analysis.html" class="dash-card">
+        <div class="dash-icon">🎯</div>
+        <h4>ギャップ分析</h4>
+        <p>理想 vs 現状と次の90日</p>
+        <span class="dash-lock">🔒 管理用</span>
+      </a>
+    </div>
+  </div>
+
   <!-- Utility -->
   <div class="util-grid">
     <div class="util-card">
@@ -318,11 +447,6 @@
       <h4>Vision</h4>
       <p>ビジョン・コンセプト</p>
     </div>
-    <a href="dashboards/company-roadmap.html" class="util-card">
-      <div class="util-icon">📊</div>
-      <h4>Dashboards</h4>
-      <p>会社設計ロードマップ</p>
-    </a>
   </div>
 
 </div>
