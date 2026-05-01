@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>財務マネジメント運用設計書 — ビジュアル版 2026-05-01</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', sans-serif;
+    color: #1a1a2e;
+    background: #f0f4f8;
+    line-height: 1.7;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  /* Hero */
+  .hero {
+    text-align: center; padding: 44px 24px; margin-bottom: 28px;
+    background: linear-gradient(135deg, #1e3a5f, #2d6a4f);
+    border-radius: 20px; color: #fff; position: relative; overflow: hidden;
+  }
+  .hero::before { content:''; position:absolute; top:-80px; right:-80px; width:250px; height:250px; background:rgba(255,255,255,0.06); border-radius:50%; }
+  .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+  .hero .sub { font-size: 14px; opacity: 0.8; }
+  .hero .badges { display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+  .hero .badge { padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+  .badge-green { background: rgba(52,211,153,0.25); color: #6ee7b7; }
+  .badge-yellow { background: rgba(251,191,36,0.25); color: #fcd34d; }
+  .badge-blue { background: rgba(96,165,250,0.25); color: #93c5fd; }
+
+  /* Nav */
+  .nav { display: flex; gap: 4px; margin-bottom: 24px; background: #fff; border-radius: 14px; padding: 5px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow-x: auto; }
+  .nav-btn { flex-shrink: 0; padding: 10px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer; border: none; background: none; color: #888; border-radius: 10px; transition: all 0.2s; white-space: nowrap; }
+  .nav-btn:hover { color: #1e3a5f; background: #f0f4f8; }
+  .nav-btn.active { color: #fff; background: #1e3a5f; }
+  .panel { display: none; animation: fadeIn 0.3s; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+  /* Card */
+  .card { background:#fff; border-radius:14px; padding:22px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.04); }
+  .card h3 { font-size:16px; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+
+  /* 3つの問い */
+  .toi-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  @media(max-width:640px){ .toi-grid{grid-template-columns:1fr;} }
+  .toi { text-align: center; padding: 24px 14px; border-radius: 14px; border: 1px solid #e5e7eb; }
+  .toi-icon { font-size: 36px; margin-bottom: 8px; }
+  .toi h4 { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .toi p { font-size: 12.5px; opacity: 0.65; }
+  .toi-1 { background: linear-gradient(135deg,#faf5ff,#f3e8ff); border-color:#e9d5ff; }
+  .toi-1 h4 { color:#7c3aed; }
+  .toi-2 { background: linear-gradient(135deg,#fef2f2,#fee2e2); border-color:#fecaca; }
+  .toi-2 h4 { color:#dc2626; }
+  .toi-3 { background: linear-gradient(135deg,#eff6ff,#dbeafe); border-color:#bfdbfe; }
+  .toi-3 h4 { color:#2563eb; }
+
+  /* Progress table */
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; padding:10px 8px; background:#f8fafc; font-weight:700; border-bottom:2px solid #e2e8f0; font-size:12px; color:#64748b; }
+  td { padding:10px 8px; border-bottom:1px solid #f1f5f9; vertical-align:top; }
+  .st { display:inline-block; padding:2px 10px; border-radius:6px; font-size:11px; font-weight:700; white-space:nowrap; }
+  .st-done { background:#dcfce7; color:#166534; }
+  .st-prog { background:#fef9c3; color:#854d0e; }
+  .st-todo { background:#fee2e2; color:#991b1b; }
+  .st-hold { background:#f1f5f9; color:#64748b; }
+  .st-ok { background:#dbeafe; color:#1e40af; }
+
+  /* Mission cards */
+  .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .mission-grid{grid-template-columns:1fr;} }
+  .mission-card { padding:18px; border-radius:12px; border:1px solid #e5e7eb; position:relative; padding-left:20px; }
+  .mission-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:4px 0 0 4px; }
+  .mc-done::before { background:#22c55e; }
+  .mc-prog::before { background:#f59e0b; }
+  .mc-fire::before { background:#ef4444; }
+  .mc-new::before { background:#8b5cf6; }
+  .mission-card h4 { font-size:14px; font-weight:700; margin-bottom:4px; }
+  .mission-card p { font-size:12.5px; opacity:0.7; }
+  .mc-badge { display:inline-block; padding:2px 8px; border-radius:5px; font-size:10px; font-weight:700; margin-bottom:6px; }
+  .mcb-done { background:#dcfce7; color:#166534; }
+  .mcb-prog { background:#fef9c3; color:#854d0e; }
+  .mcb-fire { background:#fee2e2; color:#991b1b; }
+  .mcb-new { background:#f3e8ff; color:#6b21a8; }
+
+  /* Flow map */
+  .flow-layer { padding: 14px 18px; border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+  .flow-layer .fl-icon { font-size: 24px; flex-shrink: 0; }
+  .flow-layer h4 { font-size: 13px; font-weight: 700; }
+  .flow-layer p { font-size: 12px; opacity: 0.7; }
+  .fl-1 { background:#faf5ff; border:1px solid #e9d5ff; }
+  .fl-2 { background:#fef3c7; border:1px solid #fcd34d; }
+  .fl-3 { background:#dbeafe; border:1px solid #93c5fd; }
+  .fl-4 { background:#d1fae5; border:1px solid #6ee7b7; }
+  .fl-5 { background:#f8fafc; border:1px solid #e2e8f0; }
+  .fl-arrow { text-align:center; font-size:16px; color:#94a3b8; padding:2px 0; }
+
+  /* Rhythm */
+  .rhythm-row { display: grid; grid-template-columns: 100px 1fr; gap: 12px; align-items: start; padding: 14px 0; border-bottom: 1px solid #f1f5f9; }
+  .rhythm-row:last-child { border-bottom: none; }
+  .rr-label { font-size:13px; font-weight:800; padding:4px 12px; border-radius:8px; text-align:center; }
+  .rr-daily .rr-label { background:#dbeafe; color:#1e40af; }
+  .rr-monthly .rr-label { background:#f3e8ff; color:#6b21a8; }
+  .rr-quarterly .rr-label { background:#fef3c7; color:#92400e; }
+  .rr-yearly .rr-label { background:#d1fae5; color:#065f46; }
+  .rr-content { font-size:13px; }
+  .rr-content strong { font-weight: 700; }
+
+  /* Highlight */
+  .hl { padding:14px 18px; border-radius:10px; font-size:13.5px; margin:16px 0; line-height:1.7; }
+  .hl-green { background:#f0fdf4; border-left:4px solid #22c55e; }
+  .hl-yellow { background:#fefce8; border-left:4px solid #f59e0b; }
+  .hl-blue { background:#eff6ff; border-left:4px solid #3b82f6; }
+  .hl-purple { background:#faf5ff; border-left:4px solid #a855f7; }
+
+  /* Strategy BA */
+  .strat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .strat-grid{grid-template-columns:1fr;} }
+  .strat-box { padding:16px; border-radius:12px; }
+  .strat-old { background:#fef2f2; border:1px solid #fecaca; }
+  .strat-new { background:#f0fdf4; border:1px solid #a7f3d0; }
+  .strat-box h4 { font-size:13px; font-weight:800; margin-bottom:8px; }
+  .strat-old h4 { color:#dc2626; }
+  .strat-new h4 { color:#059669; }
+  .strat-box ul { list-style:none; font-size:12.5px; }
+  .strat-box li { padding:3px 0; }
+
+  /* Numbers */
+  .num-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+  @media(max-width:500px){ .num-grid{grid-template-columns:1fr 1fr;} }
+  .num-card { text-align:center; padding:16px 10px; border-radius:12px; background:#f8fafc; border:1px solid #e2e8f0; }
+  .num-val { font-size:22px; font-weight:800; }
+  .num-label { font-size:11px; opacity:0.6; margin-top:2px; }
+
+  .footer { text-align:center; padding:24px; font-size:11px; opacity:0.35; margin-top:32px; }
+
+  /* File tree */
+  .file-tree { font-family:'SF Mono','Fira Code',monospace; font-size:12.5px; background:#0f172a; color:#94a3b8; padding:20px; border-radius:12px; line-height:2; overflow-x:auto; }
+  .ft-new { color:#34d399; font-weight:700; }
+  .ft-hub { color:#fbbf24; font-weight:700; }
+  .ft-dim { opacity:0.35; }
+  .ft-tag { display:inline-block; padding:1px 6px; border-radius:3px; font-size:9px; font-weight:700; margin-left:6px; }
+  .ftt-new { background:#065f46; color:#6ee7b7; }
+  .ftt-hub { background:#78350f; color:#fcd34d; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <h1>財務マネジメント運用設計書</h1>
+    <div class="sub">そろ(算)/番頭チームの中枢ドキュメント</div>
+    <div class="badges">
+      <span class="badge badge-green">北原式チェック統合完了</span>
+      <span class="badge badge-yellow">5/1 新期初日から運用開始</span>
+      <span class="badge badge-blue">最終更新 2026-05-01</span>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="nav-btn active" onclick="go('philosophy')">哲学</button>
+    <button class="nav-btn" onclick="go('map')">全体マップ</button>
+    <button class="nav-btn" onclick="go('rhythm')">運用リズム</button>
+    <button class="nav-btn" onclick="go('actions')">アクション進捗</button>
+    <button class="nav-btn" onclick="go('strategy')">戦略転換</button>
+    <button class="nav-btn" onclick="go('files')">ファイル構成</button>
+  </div>
+
+  <!-- ===== 哲学 ===== -->
+  <div id="philosophy" class="panel active">
+    <div class="card">
+      <h3>🎯 なぜ財務を見るのか</h3>
+      <div class="hl hl-purple">
+        財務は「制約」ではなく<strong>「命を解放する装置」</strong>。<br>
+        数字を最大化するためではない。<strong>堀内さんの命が縛られていないか、解放されているかを確認するため。</strong>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>💜 3つの問い — 全ての判断基準</h3>
+      <p style="font-size:13px;opacity:0.6;margin-bottom:14px;">どんな数字を見ても、どんな作業をしても、常にこの3つで判定する。</p>
+      <div class="toi-grid">
+        <div class="toi toi-1">
+          <div class="toi-icon">🕊️</div>
+          <h4>命は解放されているか</h4>
+          <p>お金の心配で1秒でも止まっていないか。現預金は月商3ヶ月分以上か。やりたいことにブレーキがかかっていないか。</p>
+        </div>
+        <div class="toi toi-2">
+          <div class="toi-icon">🩸</div>
+          <h4>古い血管は閉じられているか</h4>
+          <p>命が燃える方向と関係ない出費が流れ続けていないか。1円も生んでない固定費が放置されていないか。</p>
+        </div>
+        <div class="toi toi-3">
+          <div class="toi-icon">🌊</div>
+          <h4>流れは詰まっていないか</h4>
+          <p>入るべきお金が入っているか。MF仕訳が遅れていないか。月末→集計は5日以内か。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🔭 同心円の中での位置づけ</h3>
+      <div class="flow-layer fl-1">
+        <div class="fl-icon">✨</div>
+        <div><h4>Layer 0〜2（命・閃き）</h4><p>ここがお金の心配で縮んでいないか？</p></div>
+      </div>
+      <div class="fl-arrow">▼</div>
+      <div class="flow-layer fl-2">
+        <div class="fl-icon">🎨</div>
+        <div><h4>Layer 3（表現）</h4><p>やりたいことに「お金が理由で」ブレーキがかかっていないか？</p></div>
+      </div>
+      <div class="fl-arrow">▼</div>
+      <div class="flow-layer fl-3">
+        <div class="fl-icon">🏛️</div>
+        <div><h4>Layer 4（こあ/そろ）← ここで見張る</h4><p>数字を読み、流れを整え、堀内さんには「今こうなってます」だけ伝える</p></div>
+      </div>
+      <div class="fl-arrow">▼</div>
+      <div class="flow-layer fl-5">
+        <div class="fl-icon">⚙️</div>
+        <div><h4>Layer 5-6（展開・世界）</h4><p>仕訳修正、手数料交渉、経理処理。手を動かすが意識はLayer 4に置いたまま</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 全体マップ ===== -->
+  <div id="map" class="panel">
+    <div class="card">
+      <h3>🗺️ 資料の全体マップ</h3>
+      <p style="font-size:13px;opacity:0.6;margin-bottom:14px;">上から下へ、抽象→具体。こあの意識は常に上4層にある。</p>
+
+      <div class="flow-layer fl-1">
+        <div class="fl-icon">🙏</div>
+        <div><h4>哲学 — なぜ財務を見るのか</h4><p>理想の財務状態_v2.md / 命の設計図</p></div>
+      </div>
+      <div class="fl-arrow">▼</div>
+      <div class="flow-layer fl-2">
+        <div class="fl-icon">⚖️</div>
+        <div><h4>判断基準 — 何をどう判断するか</h4><p>北原メソッド/financial-judgment.md / selection-and-focus.md</p></div>
+      </div>
+      <div class="fl-arrow">▼</div>
+      <div class="flow-layer fl-3">
+        <div class="fl-icon">📊</div>
+        <div><h4>数値ターゲット — どの数字が理想か</h4><p>理想の財務状態_v2.md / 危険信号チェックリスト</p></div>
+      </div>
+      <div class="fl-arrow">▼</div>
+      <div class="flow-layer fl-4">
+        <div class="fl-icon">📍</div>
+        <div><h4>現在地 — 今どこにいるか</h4><p>ギャップ分析 / 支払手数料解剖レポート / 業務委託料再分類</p></div>
+      </div>
+      <div class="fl-arrow">▼</div>
+      <div class="flow-layer" style="background:#fef3c7;border:1px solid #fcd34d;">
+        <div class="fl-icon">🔄</div>
+        <div><h4>運用リズム — いつ何を見るか 🆕北原式統合済</h4><p>本設計書 / 財務日次チェック運用ルール.md / defense-check.md</p></div>
+      </div>
+      <div class="fl-arrow">▼</div>
+      <div class="flow-layer fl-5">
+        <div class="fl-icon">🔧</div>
+        <div><h4>個別作業 — 手を動かす</h4><p>勘定科目振り分けリスト / mf-journal-processorスキル</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📈 主要数値（支払手数料解剖の結果）</h3>
+      <div class="num-grid">
+        <div class="num-card">
+          <div class="num-val" style="color:#dc2626;">498万</div>
+          <div class="num-label">支払手数料（解剖対象）</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val" style="color:#f59e0b;">150-250万</div>
+          <div class="num-label">→うち誤分類だった</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val" style="color:#22c55e;">97件修正済</div>
+          <div class="num-label">Phase 1 誤分類修正</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val" style="color:#22c55e;">1,864万</div>
+          <div class="num-label">業務委託料（88%健全）</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val" style="color:#22c55e;">4.1万/年</div>
+          <div class="num-label">振込手数料（想定の1/50）</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val" style="color:#2563eb;">10.3万/年</div>
+          <div class="num-label">SaaS解約で削減</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 運用リズム ===== -->
+  <div id="rhythm" class="panel">
+    <div class="card">
+      <h3>🔄 運用リズム — 北原式統合版</h3>
+      <div class="hl hl-yellow">
+        ⚠️ 2026-04-30 北原式チェック統合済み。具体手順は <code>財務日次チェック運用ルール.md</code> 参照。
+      </div>
+
+      <div class="rhythm-row rr-daily">
+        <div><div class="rr-label">毎日</div></div>
+        <div class="rr-content">
+          <strong>朝レポート統合 — 日次チェック5項目</strong><br>
+          ① MF未処理仕訳の即日処理<br>
+          ② 現預金の異常変動チェック<br>
+          ③ 売掛金滞留（30日超）チェック<br>
+          ④ 今日の支払・振込予定確認<br>
+          ⑤ 設計書「3つの問い」で数字を俯瞰<br>
+          <span style="font-size:11px;opacity:0.5;">危険信号が灯っている場合、朝レポートの冒頭で報告</span>
+        </div>
+      </div>
+
+      <div class="rhythm-row rr-monthly">
+        <div><div class="rr-label">毎月</div></div>
+        <div class="rr-content">
+          <strong>月初チェック — 北原式月次チェックシート</strong><br>
+          • 5指標集計（売上・粗利・販管費・営業利益・現預金残高）→ <strong>月末→5日以内必達</strong><br>
+          • 数値ターゲットとの照合<br>
+          • 危険信号4項目チェック<br>
+          • 源泉税処理（毎月10日）/ シンクロ月次報告（毎月2日）<br>
+          • 堀内さんへ報告：「先月はこう。ターゲットとの差はこう。気になる点はこれ。」
+        </div>
+      </div>
+
+      <div class="rhythm-row rr-quarterly">
+        <div><div class="rr-label">四半期</div></div>
+        <div class="rr-content">
+          <strong>選択と集中レビュー — 北原式フレーム</strong><br>
+          • #3 売上とコストのバランス<br>
+          • #7 先行投資の回収見込み<br>
+          • #4 固定費の見直し<br>
+          • #10 撤退基準の確認<br>
+          • ギャップ分析の更新 / 売上構成比の見直し / 費用構造の理想配分比較
+        </div>
+      </div>
+
+      <div class="rhythm-row rr-yearly">
+        <div><div class="rr-label">年次</div></div>
+        <div class="rr-content">
+          <strong>年度締め</strong><br>
+          • 決算対応 / 支払調書作成<br>
+          • 中期・長期目標の見直し<br>
+          • 全ドキュメントの棚卸しと更新
+        </div>
+      </div>
+    </div>
+
+    <div class="hl hl-blue">
+      ⏰ <strong>北原式「24時間ルール」</strong> — 数字に異常を見つけたら、24時間以内に対応を始める。「来週やろう」は許さない。
+    </div>
+  </div>
+
+  <!-- ===== アクション進捗 ===== -->
+  <div id="actions" class="panel">
+    <div class="card">
+      <h3>📋 優先アクション進捗（全14項目）</h3>
+      <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th>#</th><th>アクション</th><th>状態</th><th>メモ</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>売掛金1,405万の回収（仕訳整理）</td><td><span class="st st-done">✅完了</span></td><td>Stripe補助科目修正済</td></tr>
+          <tr><td>2</td><td>支払手数料498万の解剖</td><td><span class="st st-done">✅完了</span></td><td>誤分類150〜250万発見/実質削減70〜120万</td></tr>
+          <tr><td>3</td><td>業務委託料1,864万の再分類</td><td><span class="st st-done">✅完了</span></td><td>88%健全。削減余地ほぼなし</td></tr>
+          <tr><td>4</td><td>MF仕訳の日次化</td><td><span class="st st-done">✅完了</span></td><td>朝レポート統合済</td></tr>
+          <tr><td>5</td><td>支払手数料Phase 1: 誤分類修正</td><td><span class="st st-done">✅完了</span></td><td>79件 + 追加18件 = 計97件修正</td></tr>
+          <tr><td>6</td><td>支払手数料Phase 2: 振込構造改革</td><td><span class="st st-done">✅完了</span></td><td>振込手数料は年4.1万（想定の1/50）</td></tr>
+          <tr><td>7</td><td>売掛金/Stripe マイナス残高</td><td><span class="st st-done">✅ほぼ完了</span></td><td>二重計上8件削除済。返金失敗5件は中野先生にMTGで画面共有済(4/27)。修正仕訳は決算時に中野先生側で処理予定</td></tr>
+          <tr><td>8</td><td>5プロジェクトのPhase 2/3移行</td><td><span class="st st-todo">🔴これから</span></td><td>売上成熟化。月+50万の設計 ← 主戦場</td></tr>
+          <tr><td>9</td><td>月別クレカ支払い82万の分解</td><td><span class="st st-hold">🟡保留</span></td><td>業務委託料の中身不明分</td></tr>
+          <tr><td>10</td><td>個人口座残高の可視化</td><td><span class="st st-hold">🟡保留</span></td><td>ダッシュボードに第2タブ追加</td></tr>
+          <tr><td>11</td><td>役員借入金 -933万の正常化</td><td><span class="st st-ok">✅問題なし</span></td><td>中野先生「出資と同義。対応不要」</td></tr>
+          <tr><td>12</td><td>月初自動チェック</td><td><span class="st st-done">🟢バックログ</span></td><td>朝レポート統合</td></tr>
+          <tr><td>13</td><td>支払手数料Phase 3: SaaS棚卸し</td><td><span class="st st-done">✅完了</span></td><td>4件解約(年10.3万削減)</td></tr>
+          <tr><td>14</td><td>北原式日次/月次/四半期チェック統合</td><td><span class="st st-done">✅完了</span></td><td>4/30完了。5/1から運用開始</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🎯 次の手（5/1更新）</h3>
+      <div style="font-size:13.5px;">
+        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">✅ <strong>北原式チェック統合</strong> — 運用ルール制定完了。agent.md刷新済み。<strong>本日5/1から運用開始！</strong></div>
+        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">✅ <strong>返金失敗5件の中野先生共有</strong> — 4/27 MTGで画面共有済み。修正仕訳は決算時に中野先生側で処理予定</div>
+        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">🟢 <strong>本日5/1は新期初日</strong> — 新会計年度開始。月初チェックシートの初回実行</div>
+        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">🟡 <strong>MF顧問先承認</strong> — 中野先生側から依頼→確認するだけ</div>
+        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">🟡 <strong>LDAM協会 均等割り納付</strong> — 帰国後(5/1頃)に納付</div>
+        <div style="padding:8px 0;">🔴 <strong>#8 5プロジェクトのPhase 2/3移行</strong> ← 中期の主戦場</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 戦略転換 ===== -->
+  <div id="strategy" class="panel">
+    <div class="card">
+      <h3>🔄 戦略転換 — 「削る」から「整える」へ</h3>
+      <p style="font-size:13px;opacity:0.6;margin-bottom:14px;">業務委託料と支払手数料の実態が判明し、販管費削減だけでは営業利益500万を作れないことが確定。</p>
+      <div class="strat-grid">
+        <div class="strat-box strat-old">
+          <h4>旧戦略（削減ドリブン）</h4>
+          <ul>
+            <li>• 支払手数料690万削減余地あり？</li>
+            <li>• 業務委託料に大幅削減余地あり？</li>
+            <li>• 販管費カットで利益を出す</li>
+          </ul>
+        </div>
+        <div class="strat-box strat-new">
+          <h4>新戦略（整え＆成熟ドリブン）</h4>
+          <ul>
+            <li>• 会計の誤分類を正す（済）</li>
+            <li>• 流れを通す（✅完了）</li>
+            <li>• <strong>売上成熟化（月+50万）が主戦場</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🏔️ ミッション再定義（5段階）</h3>
+      <div class="mission-grid">
+        <div class="mission-card mc-done">
+          <div class="mc-badge mcb-done">✅ DONE</div>
+          <h4>①整える</h4>
+          <p>会計の誤分類修正。支払手数料97件+追加18件修正済</p>
+        </div>
+        <div class="mission-card mc-done">
+          <div class="mc-badge mcb-done">✅ DONE</div>
+          <h4>②構造改革</h4>
+          <p>振込手数料年4万判明。SaaS棚卸し4件解約(年10.3万削減)</p>
+        </div>
+        <div class="mission-card mc-done">
+          <div class="mc-badge mcb-done">✅ DONE</div>
+          <h4>③流れを通す</h4>
+          <p>売掛金の正常化完了。返金失敗5件は中野先生に共有済(4/27 MTG)。修正仕訳は決算時処理</p>
+        </div>
+        <div class="mission-card mc-new">
+          <div class="mc-badge mcb-new">✅ NEW</div>
+          <h4>④北原式チェック統合</h4>
+          <p>日次・月次・四半期の運用ルール制定完了。5/1から運用開始</p>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <div class="mission-card mc-fire" style="max-width:100%;">
+          <div class="mc-badge mcb-fire">🔴 今ここ</div>
+          <h4>⑤成熟させる</h4>
+          <p>5プロジェクトのPhase 2/3移行で売上を増やす。「整える」が終わった今、ここが主戦場。月+50万の設計。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hl hl-green">
+      🦋 <strong>精神的な意味：</strong>「削る」局面は実質終了。堀内さんの会社は想定より健全だった。これからは「今あるものを整え、成熟させる」フェーズ。<strong>サナギが羽化する段階に入っている。</strong>
+    </div>
+  </div>
+
+  <!-- ===== ファイル構成 ===== -->
+  <div id="files" class="panel">
+    <div class="card">
+      <h3>📁 ファイル階層マップ</h3>
+      <div class="file-tree">
+        <span class="ft-dim">company-core/</span><br>
+        <span class="ft-dim">├── </span>理想の財務状態_v2.md <span style="opacity:0.5;font-size:11px;">← 北極星</span><br>
+        <span class="ft-dim">├── </span>理想vs現状_ギャップ分析.md <span style="opacity:0.5;font-size:11px;">← 現在地</span><br>
+        <span class="ft-dim">├── </span><span class="ft-hub">財務マネジメント運用設計書.md</span> <span class="ft-tag ftt-hub">中枢</span><br>
+        <span class="ft-dim">├── </span>MF会計_判断メモ_2025年度.md<br>
+        <span class="ft-dim">└── </span>北原メソッド/<br>
+        <span class="ft-dim">    ├── </span>financial-judgment.md<br>
+        <span class="ft-dim">    ├── </span>defense-check.md<br>
+        <span class="ft-dim">    ├── </span>selection-and-focus.md<br>
+        <span class="ft-dim">    └── </span><span class="ft-new">財務日次チェック運用ルール.md</span> <span class="ft-tag ftt-new">NEW</span><br>
+        <br>
+        <span class="ft-dim">agents/bantou/</span><br>
+        <span class="ft-dim">├── </span><span class="ft-hub">agent.md</span> <span class="ft-tag ftt-hub">そろの脳</span><br>
+        <span class="ft-dim">├── </span>judgment-memo.md<br>
+        <span class="ft-dim">└── </span>reports/<br>
+        <span class="ft-dim">    ├── </span>支払手数料_解剖レポート.md<br>
+        <span class="ft-dim">    ├── </span>振込手数料_分析レポート.md<br>
+        <span class="ft-dim">    ├── </span>業務委託料_再分類一覧.md<br>
+        <span class="ft-dim">    ├── </span>SaaS棚卸しレポート.html<br>
+        <span class="ft-dim">    └── </span>Stripe二重計上_詳細.xlsx
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🔗 外部リソース</h3>
+      <div style="font-size:13px;">
+        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">📊 <strong>勘定科目振り分けリスト + 判断メモタブ</strong> — Google Sheets</div>
+        <div style="padding:8px 0;">📋 <strong>週間タスク管理表</strong> — Google Sheets</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    財務マネジメント運用設計書 ビジュアル版 — Generated by こあ(COA) on 2026-05-01
+  </div>
+</div>
+
+<script>
+function go(id) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector('[onclick="go(\'' + id + '\')"]').classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
