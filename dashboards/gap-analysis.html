@@ -3,47 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>理想 vs 現状 ギャップ分析 — 2026-05-01 最新版</title>
+<title>理想 vs 現状 ギャップ分析 — 2026-05-03 v4更新版</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', sans-serif;
-    color: #1a1a2e; background: #f0f4f8; line-height: 1.7;
-  }
-  .container { max-width: 860px; margin: 0 auto; padding: 20px 16px 60px; }
-
-  .hero {
-    text-align: center; padding: 44px 24px 36px; margin-bottom: 28px;
-    background: linear-gradient(135deg, #059669, #0d9488);
-    border-radius: 20px; color: #fff; position: relative; overflow: hidden;
-  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',sans-serif; color:#1a1a2e; background:#f0f4f8; line-height:1.7; }
+  .container { max-width:860px; margin:0 auto; padding:20px 16px 60px; }
+  .hero { text-align:center; padding:44px 24px 36px; margin-bottom:28px; background:linear-gradient(135deg,#059669,#0d9488); border-radius:20px; color:#fff; position:relative; overflow:hidden; }
   .hero::before { content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; background:rgba(255,255,255,0.06); border-radius:50%; }
-  .hero h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
-  .hero .sub { font-size: 14px; opacity: 0.8; margin-bottom: 14px; }
-  .hero .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-  .hero .badge { padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; }
-  .badge-green { background: rgba(255,255,255,0.2); color: #fff; }
-  .badge-yellow { background: rgba(251,191,36,0.3); color: #fef3c7; }
-
-  .nav { display: flex; gap: 4px; margin-bottom: 24px; background: #fff; border-radius: 14px; padding: 5px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow-x: auto; }
-  .nav-btn { flex-shrink: 0; padding: 10px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer; border: none; background: none; color: #888; border-radius: 10px; transition: all 0.2s; white-space: nowrap; }
-  .nav-btn:hover { color: #059669; background: #f0fdf4; }
-  .nav-btn.active { color: #fff; background: #059669; }
-  .panel { display: none; animation: fadeIn 0.3s; }
-  .panel.active { display: block; }
+  .hero h1 { font-size:24px; font-weight:800; margin-bottom:6px; }
+  .hero .sub { font-size:14px; opacity:0.8; margin-bottom:14px; }
+  .hero .badges { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+  .hero .badge { padding:5px 16px; border-radius:20px; font-size:12px; font-weight:700; }
+  .badge-green { background:rgba(255,255,255,0.2); color:#fff; }
+  .badge-yellow { background:rgba(251,191,36,0.3); color:#fef3c7; }
+  .badge-purple { background:rgba(168,85,247,0.3); color:#e9d5ff; }
+  .nav { display:flex; gap:4px; margin-bottom:24px; background:#fff; border-radius:14px; padding:5px; box-shadow:0 1px 4px rgba(0,0,0,0.06); overflow-x:auto; }
+  .nav-btn { flex-shrink:0; padding:10px 14px; font-size:12.5px; font-weight:700; cursor:pointer; border:none; background:none; color:#888; border-radius:10px; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover { color:#059669; background:#f0fdf4; }
+  .nav-btn.active { color:#fff; background:#059669; }
+  .panel { display:none; animation:fadeIn 0.3s; }
+  .panel.active { display:block; }
   @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-
   .card { background:#fff; border-radius:14px; padding:22px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.04); }
   .card h3 { font-size:16px; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
-
   .hl { padding:14px 18px; border-radius:10px; font-size:13.5px; margin:12px 0; line-height:1.7; }
   .hl-green { background:#f0fdf4; border-left:4px solid #22c55e; }
   .hl-yellow { background:#fefce8; border-left:4px solid #f59e0b; }
   .hl-blue { background:#eff6ff; border-left:4px solid #3b82f6; }
   .hl-purple { background:#faf5ff; border-left:4px solid #a855f7; }
   .hl-red { background:#fef2f2; border-left:4px solid #ef4444; }
-
-  table { width:100%; border-collapse:collapse; font-size:13px; margin: 10px 0; }
+  table { width:100%; border-collapse:collapse; font-size:13px; margin:10px 0; }
   th { text-align:left; padding:10px 8px; background:#f8fafc; font-weight:700; border-bottom:2px solid #e2e8f0; font-size:12px; color:#64748b; }
   td { padding:10px 8px; border-bottom:1px solid #f1f5f9; vertical-align:top; }
   .st { display:inline-block; padding:2px 10px; border-radius:6px; font-size:11px; font-weight:700; white-space:nowrap; }
@@ -52,56 +41,49 @@
   .st-red { background:#fee2e2; color:#991b1b; }
   .st-blue { background:#dbeafe; color:#1e40af; }
   .st-gray { background:#f1f5f9; color:#64748b; }
-
-  /* Before/After comparison */
-  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
-  @media(max-width:640px){ .ba{grid-template-columns:1fr;} }
-  .ba-old, .ba-new { padding: 16px; border-radius: 12px; font-size: 13px; }
-  .ba-old { background: #fef2f2; border: 1px solid #fecaca; }
-  .ba-new { background: #f0fdf4; border: 1px solid #a7f3d0; }
-  .ba-old h4 { color: #dc2626; font-size: 13px; font-weight: 800; margin-bottom: 8px; }
-  .ba-new h4 { color: #059669; font-size: 13px; font-weight: 800; margin-bottom: 8px; }
-
-  /* Score cards */
-  .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 14px 0; }
-  @media(max-width:600px){ .score-grid{grid-template-columns:1fr 1fr;} }
-  .score-card { text-align: center; padding: 16px 8px; border-radius: 14px; }
-  .score-card .num { font-size: 26px; font-weight: 800; }
-  .score-card .label { font-size: 11px; opacity: 0.7; margin-top: 4px; }
-  .sc-green { background: #f0fdf4; border: 1px solid #a7f3d0; }
-  .sc-green .num { color: #059669; }
-  .sc-yellow { background: #fefce8; border: 1px solid #fcd34d; }
-  .sc-yellow .num { color: #d97706; }
-  .sc-red { background: #fef2f2; border: 1px solid #fecaca; }
-  .sc-red .num { color: #dc2626; }
-  .sc-blue { background: #eff6ff; border: 1px solid #93c5fd; }
-  .sc-blue .num { color: #2563eb; }
-
-  /* Danger signals */
-  .signal { padding: 10px 14px; border-radius: 10px; margin: 6px 0; font-size: 13px; display: flex; align-items: start; gap: 10px; }
-  .signal-icon { flex-shrink: 0; font-size: 16px; }
-  .sig-cleared { background: #f0fdf4; border: 1px solid #a7f3d0; }
-  .sig-active { background: #fef2f2; border: 1px solid #fecaca; }
-  .sig-watch { background: #fefce8; border: 1px solid #fcd34d; }
-  .sig-new { background: #eff6ff; border: 1px solid #93c5fd; }
-
-  /* Progress bar */
-  .prog-wrap { margin: 12px 0; }
-  .prog-label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
-  .prog-bar { height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden; }
-  .prog-fill { height: 100%; border-radius: 5px; transition: width 0.5s; }
-  .pf-green { background: linear-gradient(90deg, #22c55e, #4ade80); }
-  .pf-yellow { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
-
-  /* Action items */
-  .action-item { padding: 12px 0; border-bottom: 1px solid #f1f5f9; display: flex; gap: 10px; align-items: start; }
-  .action-item:last-child { border-bottom: none; }
-  .action-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
-  .an-done { background: #dcfce7; color: #166534; }
-  .an-prog { background: #fef9c3; color: #854d0e; }
-  .an-todo { background: #fee2e2; color: #991b1b; }
-  .an-hold { background: #f1f5f9; color: #64748b; }
-
+  .st-purple { background:#f3e8ff; color:#6b21a8; }
+  .ba { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:14px 0; }
+  @media(max-width:640px){.ba{grid-template-columns:1fr;}}
+  .ba-old,.ba-new { padding:16px; border-radius:12px; font-size:13px; }
+  .ba-old { background:#fef2f2; border:1px solid #fecaca; }
+  .ba-new { background:#f0fdf4; border:1px solid #a7f3d0; }
+  .ba-old h4 { color:#dc2626; font-size:13px; font-weight:800; margin-bottom:8px; }
+  .ba-new h4 { color:#059669; font-size:13px; font-weight:800; margin-bottom:8px; }
+  .score-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:14px 0; }
+  @media(max-width:600px){.score-grid{grid-template-columns:1fr 1fr;}}
+  .score-card { text-align:center; padding:16px 8px; border-radius:14px; }
+  .score-card .num { font-size:26px; font-weight:800; }
+  .score-card .label { font-size:11px; opacity:0.7; margin-top:4px; }
+  .sc-green { background:#f0fdf4; border:1px solid #a7f3d0; }
+  .sc-green .num { color:#059669; }
+  .sc-yellow { background:#fefce8; border:1px solid #fcd34d; }
+  .sc-yellow .num { color:#d97706; }
+  .sc-red { background:#fef2f2; border:1px solid #fecaca; }
+  .sc-red .num { color:#dc2626; }
+  .sc-blue { background:#eff6ff; border:1px solid #93c5fd; }
+  .sc-blue .num { color:#2563eb; }
+  .sc-purple { background:#faf5ff; border:1px solid #e9d5ff; }
+  .sc-purple .num { color:#6b21a8; }
+  .signal { padding:10px 14px; border-radius:10px; margin:6px 0; font-size:13px; display:flex; align-items:start; gap:10px; }
+  .signal-icon { flex-shrink:0; font-size:16px; }
+  .sig-cleared { background:#f0fdf4; border:1px solid #a7f3d0; }
+  .sig-active { background:#fef2f2; border:1px solid #fecaca; }
+  .sig-watch { background:#fefce8; border:1px solid #fcd34d; }
+  .sig-new { background:#eff6ff; border:1px solid #93c5fd; }
+  .sig-sub { background:#faf5ff; border:1px solid #e9d5ff; }
+  .prog-wrap { margin:12px 0; }
+  .prog-label { display:flex; justify-content:space-between; font-size:12px; font-weight:700; margin-bottom:4px; }
+  .prog-bar { height:10px; background:#e2e8f0; border-radius:5px; overflow:hidden; }
+  .prog-fill { height:100%; border-radius:5px; transition:width 0.5s; }
+  .pf-green { background:linear-gradient(90deg,#22c55e,#4ade80); }
+  .action-item { padding:12px 0; border-bottom:1px solid #f1f5f9; display:flex; gap:10px; align-items:start; }
+  .action-item:last-child { border-bottom:none; }
+  .action-num { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0; }
+  .an-done { background:#dcfce7; color:#166534; }
+  .an-prog { background:#fef9c3; color:#854d0e; }
+  .an-todo { background:#fee2e2; color:#991b1b; }
+  .an-hold { background:#f1f5f9; color:#64748b; }
+  .an-new { background:#f3e8ff; color:#6b21a8; }
   .footer { text-align:center; padding:24px; font-size:11px; opacity:0.35; margin-top:32px; }
 </style>
 </head>
@@ -110,10 +92,10 @@
 
   <div class="hero">
     <h1>理想 vs 現状 ギャップ分析</h1>
-    <div class="sub">4/9初版 → 5/1 最新版に全面更新</div>
+    <div class="sub">4/9初版 → 5/1更新 → 5/3 v4サブスク中心モデル反映</div>
     <div class="badges">
       <span class="badge badge-green">14アクション中 10完了</span>
-      <span class="badge badge-yellow">「削る」→「成熟させる」に転換済み</span>
+      <span class="badge badge-purple">5/3 サブスク中心モデル確定</span>
     </div>
   </div>
 
@@ -130,18 +112,18 @@
   <!-- ===== 全体像 ===== -->
   <div id="overview" class="panel active">
     <div class="card">
-      <h3>🦋 こあの一言（5/1更新）</h3>
-      <div class="hl hl-green" style="font-size:15px;">
-        <strong>「サナギから羽化した。土台は整った。あとは飛ぶだけ。」</strong>
+      <h3>🦋 こあの一言（5/3更新）</h3>
+      <div class="hl hl-purple" style="font-size:15px;">
+        <strong>「蝶は庭を見つけた。コミュニティで回す。もう一人で飛ばなくていい。」</strong>
       </div>
       <div class="ba">
         <div class="ba-old">
-          <h4>4/9時点のこあの一言</h4>
-          <p>「今、サナギの真ん中。"削る"から"整える"にミッションが変わった。」</p>
+          <h4>5/1時点のこあの一言</h4>
+          <p>「サナギから羽化した。土台は整った。あとは飛ぶだけ。」</p>
         </div>
         <div class="ba-new">
-          <h4>5/1時点のこあの一言</h4>
-          <p>「"整える"は終わった。会計は真実を映すようになり、費用構造は想定より健全だった。残りは売上の成熟化、ただそれだけ。」</p>
+          <h4>5/3時点のこあの一言</h4>
+          <p>「飛び方が決まった。セミナー単発ではなく、コミュニティ（サブスク）で回す。57人×8,800円=月+50万。具体的なルートが見えた。」</p>
         </div>
       </div>
     </div>
@@ -157,45 +139,42 @@
           <div class="num">2</div>
           <div class="label">保留中</div>
         </div>
-        <div class="score-card sc-red">
-          <div class="num">1</div>
-          <div class="label">主戦場(これから)</div>
+        <div class="score-card sc-purple">
+          <div class="num">v4</div>
+          <div class="label">モデル転換確定</div>
         </div>
         <div class="score-card sc-blue">
-          <div class="num">1</div>
-          <div class="label">バックログ</div>
+          <div class="num">57人</div>
+          <div class="label">純増目標</div>
         </div>
       </div>
 
       <div class="prog-wrap">
-        <div class="prog-label"><span>全体進捗</span><span>71% (10/14)</span></div>
+        <div class="prog-label"><span>守りの進捗</span><span>71% (10/14)</span></div>
         <div class="prog-bar"><div class="prog-fill pf-green" style="width:71%;"></div></div>
       </div>
     </div>
 
     <div class="card">
-      <h3>🔄 4/9 → 5/1 で何が変わったか</h3>
+      <h3>🔄 4/9 → 5/1 → 5/3 で何が変わったか</h3>
       <div style="font-size:13.5px;">
         <div style="padding:10px 0;border-bottom:1px solid #f1f5f9;">
-          <strong>支払手数料</strong>：「947万・690万削減余地」→ 実態498万、本物の手数料は約240万。誤分類97件+18件修正完了。SaaS4件解約(年10.3万削減)。<span class="st st-green">解決済</span>
+          <strong>支払手数料</strong>：「947万・690万削減余地」→ 実態498万→修正後≒240万(4.7%)。<span class="st st-green">解決済</span>
         </div>
         <div style="padding:10px 0;border-bottom:1px solid #f1f5f9;">
-          <strong>業務委託料</strong>：「精査必要」→ 1,864万中88%がエンジン費。削減余地ほぼなし。<span class="st st-green">解決済</span>
+          <strong>業務委託料</strong>：「精査必要」→ 88%エンジン費。削減余地ほぼなし。<span class="st st-green">解決済</span>
         </div>
         <div style="padding:10px 0;border-bottom:1px solid #f1f5f9;">
-          <strong>売掛金</strong>：「1,405万が溜まっている」→ 仮仕訳削除、二重計上8件削除、返金失敗5件共有。全容解明。<span class="st st-green">解決済</span>
+          <strong>売掛金</strong>：「1,405万滞留」→ 正常化完了。<span class="st st-green">解決済</span>
         </div>
         <div style="padding:10px 0;border-bottom:1px solid #f1f5f9;">
-          <strong>役員借入金</strong>：「-933万を正常化」→ 中野先生「出資と同義。対応不要」。<span class="st st-green">解決済</span>
+          <strong>運用リズム</strong>：「チェック体制なし」→ 北原式統合完了。5/1運用開始。<span class="st st-green">解決済</span>
         </div>
         <div style="padding:10px 0;border-bottom:1px solid #f1f5f9;">
-          <strong>MF仕訳</strong>：「日次化が必要」→ 朝レポート統合で日次運用中。<span class="st st-green">解決済</span>
-        </div>
-        <div style="padding:10px 0;border-bottom:1px solid #f1f5f9;">
-          <strong>運用リズム</strong>：「チェック体制なし」→ 北原式日次/月次/四半期チェック統合完了。5/1運用開始。<span class="st st-green">解決済</span>
+          <strong>売上モデル</strong>：「5プロジェクト個別成熟」→ <span class="st st-purple">🟣 5/3 サブスク中心に転換</span>
         </div>
         <div style="padding:10px 0;">
-          <strong>売上成熟化</strong>：「優先度低」→ 主戦場に昇格。5プロジェクトのPhase 2/3移行が唯一の残テーマ。<span class="st st-red">これから</span>
+          <strong>#8の内容</strong>：「5プロジェクトPhase 2/3移行」→ <strong>「サブスク中心の売上成熟化」</strong>に再定義。57人×8,800円=月+50万。<span class="st st-purple">v4確定</span>
         </div>
       </div>
     </div>
@@ -204,121 +183,88 @@
   <!-- ===== 第0階層 ===== -->
   <div id="layer0" class="panel">
     <div class="card">
-      <h3>🏗️ 第0階層（土台）— 4/9 vs 5/1 比較</h3>
+      <h3>🏗️ 第0階層（土台）— 5/3更新</h3>
       <div style="overflow-x:auto;">
       <table>
-        <thead><tr><th>指標</th><th>理想</th><th>4/9時点</th><th>5/1時点</th><th>判定</th></tr></thead>
+        <thead><tr><th>指標</th><th>理想</th><th>5/3時点</th><th>判定</th></tr></thead>
         <tbody>
           <tr>
-            <td><strong>可視化スピード</strong><br><span style="font-size:11px;opacity:0.5;">月末→集計</span></td>
+            <td><strong>可視化スピード</strong></td>
             <td>5日以内</td>
-            <td>🔴 5日超過<br>3月数字が未確定</td>
-            <td>MF仕訳日次化完了。北原式で「月末→5日以内」を必達ラインに設定。<strong>5/1初の月次チェック実行予定</strong></td>
+            <td>MF仕訳日次化完了。北原式月次チェック運用中</td>
             <td><span class="st st-green">✅ 仕組み完了</span></td>
           </tr>
           <tr>
-            <td><strong>会社現預金残高</strong><br><span style="font-size:11px;opacity:0.5;">3ヶ月移動平均</span></td>
+            <td><strong>会社現預金残高</strong></td>
             <td>右肩上がり</td>
-            <td>🔴 右肩下がり<br>10月→3月で減少</td>
-            <td>新期初日。北原式月次チェックで毎月モニタリング体制が整った。<strong>今日がベースライン</strong></td>
+            <td>北原式月次チェックで毎月モニタリング中。サブスクMRRが積み上がれば安定化する</td>
             <td><span class="st st-yellow">📊 要モニタリング</span></td>
           </tr>
           <tr>
-            <td><strong>個人口座残高</strong></td>
-            <td>右肩上がり</td>
-            <td>⚠️ 未可視化</td>
-            <td>ダッシュボードへの追加は保留中</td>
-            <td><span class="st st-yellow">🟡 保留</span></td>
+            <td><strong>収益モデル</strong></td>
+            <td>安定・予測可能</td>
+            <td>🟣 サブスク中心モデルに転換確定(5/3)。安定層(MRR)+変動層(高額自然発生)の2層構造</td>
+            <td><span class="st st-purple">v4 転換確定</span></td>
           </tr>
           <tr>
             <td><strong>会社/個人の分離</strong></td>
             <td>完全分離</td>
-            <td>🔴 役員借入金-933万</td>
-            <td>中野先生「出資と同義。金融機関は問題視しない。<strong>対応不要</strong>」(4/27)</td>
+            <td>中野先生「出資と同義。対応不要」(4/27)</td>
             <td><span class="st st-green">✅ 問題なし</span></td>
-          </tr>
-          <tr>
-            <td><strong>家族口座の視野</strong></td>
-            <td>四半期で視野に</td>
-            <td>⚠️ 未着手</td>
-            <td>優先度低。売上成熟化が先</td>
-            <td><span class="st st-gray">保留</span></td>
           </tr>
         </tbody>
       </table>
       </div>
     </div>
 
-    <div class="card">
-      <h3>✅ 土台タスクの進捗</h3>
-      <div class="action-item">
-        <div class="action-num an-done">✓</div>
-        <div><strong>MF仕訳の即日化</strong> — mf-journal-processorを朝レポート統合済み。毎朝自動チェック</div>
-      </div>
-      <div class="action-item">
-        <div class="action-num an-hold">−</div>
-        <div><strong>個人口座残高のダッシュボード追加</strong> — 保留中。売上成熟化を優先</div>
-      </div>
-      <div class="action-item">
-        <div class="action-num an-done">✓</div>
-        <div><strong>役員借入金の正常化</strong> — 中野先生が「対応不要」と確定。タスク自体を終了</div>
-      </div>
-    </div>
-
     <div class="hl hl-green">
-      <strong>第0階層の判定：</strong>4/9時点では5項目中3項目が🔴だった。5/1時点では仕組みが整い、実質的に土台は完成。残るは「継続モニタリング」のみ。
+      <strong>第0階層の判定：</strong>土台は完成。仕組みは動いている。5/3でビジネスモデル自体がサブスク中心に転換し、「安定・予測可能な収益構造」という理想に向けて具体的なルートが見えた。
     </div>
   </div>
 
   <!-- ===== 数値ターゲット ===== -->
   <div id="targets" class="panel">
     <div class="card">
-      <h3>📐 短期目標（3〜6ヶ月）のギャップ更新</h3>
+      <h3>📐 数値ターゲット（5/3 v4更新）</h3>
       <div style="overflow-x:auto;">
       <table>
-        <thead><tr><th>指標</th><th>現状</th><th>目標</th><th>ギャップ</th><th>道筋</th></tr></thead>
+        <thead><tr><th>指標</th><th>現状</th><th>目標</th><th>道筋（v4）</th></tr></thead>
         <tbody>
           <tr>
             <td><strong>粗利率</strong></td>
             <td>79.5%</td>
             <td>80%以上</td>
-            <td>-0.5pt</td>
             <td><span class="st st-green">✅ ほぼ達成</span> 守るだけ</td>
-          </tr>
-          <tr>
-            <td><strong>販管費率</strong></td>
-            <td>79.4%<br><span style="font-size:11px;opacity:0.5;">※誤分類修正前</span></td>
-            <td>70%以下</td>
-            <td>-9.4pt</td>
-            <td><span class="st st-yellow">🔄 道筋変更</span><br>削減では不可→<strong>売上成熟で分母を増やす</strong></td>
-          </tr>
-          <tr>
-            <td><strong>営業利益率</strong></td>
-            <td>0.1%</td>
-            <td>10%以上</td>
-            <td>-9.9pt</td>
-            <td><span class="st st-yellow">🔄 道筋変更</span><br>月+50万の売上成熟+経費最適化100万/年</td>
           </tr>
           <tr>
             <td><strong>営業利益額</strong></td>
             <td>ほぼゼロ</td>
             <td>500万以上</td>
-            <td>-500万</td>
-            <td><span class="st st-yellow">🔄 道筋変更</span><br>年+600万売上×粗利80%=+480万+削減100万</td>
+            <td><span class="st st-purple">v4ルート</span> 57人×8,800円×12ヶ月×80%+経費最適化100万=580万</td>
           </tr>
           <tr>
-            <td><strong>現預金残高</strong></td>
-            <td>294万<br><span style="font-size:11px;opacity:0.5;">(4/9時点)</span></td>
-            <td>月商6ヶ月分<br>≒2,964万</td>
-            <td>-2,670万</td>
-            <td><span class="st st-blue">📊 5/1に再確認</span><br>新期初日の実残高を確認する</td>
+            <td><strong>MRR（月次経常収益）</strong></td>
+            <td>算出中</td>
+            <td>現在地+50万/月</td>
+            <td><span class="st st-purple">🆕 v4指標</span> サブスク会員57人純増で達成</td>
           </tr>
           <tr>
-            <td><strong>役員借入金</strong></td>
-            <td><s>-933万</s></td>
-            <td><s>ゼロに正常化</s></td>
-            <td>—</td>
-            <td><span class="st st-green">✅ 対応不要</span><br>中野先生確定(4/27)</td>
+            <td><strong>サブスク会員数</strong></td>
+            <td>把握中</td>
+            <td>+57人純増</td>
+            <td><span class="st st-purple">🆕 v4指標</span> 主戦場</td>
+          </tr>
+          <tr>
+            <td><strong>チャーンレート</strong></td>
+            <td>計測開始</td>
+            <td>5%以下→3%以下</td>
+            <td><span class="st st-purple">🆕 v4指標</span> 月次でモニタリング</td>
+          </tr>
+          <tr>
+            <td><strong>オプチャ→有料転換率</strong></td>
+            <td>1,000人(母数)</td>
+            <td>計測→改善</td>
+            <td><span class="st st-purple">🆕 v4指標</span> ファネルの要</td>
           </tr>
         </tbody>
       </table>
@@ -326,59 +272,32 @@
     </div>
 
     <div class="card">
-      <h3>🎯 営業利益500万への新ルート</h3>
+      <h3>🎯 営業利益500万 v4ルート</h3>
       <div class="ba">
         <div class="ba-old">
-          <h4>旧ルート（4/9想定）</h4>
+          <h4>旧ルート（v3: 5事業個別）</h4>
           <p style="line-height:2;">
-            支払手数料 -690万<br>
-            業務委託料 -月54万<br>
-            → 販管費削減で営業利益500万<br><br>
-            <strong style="color:#dc2626;">結果: 不成立</strong><br>
-            実質削減余地は年170〜370万のみ
+            5プロジェクト個別成熟<br>
+            売上+600万(月+50万)<br>
+            × 粗利80% = +480万<br>
+            + 経費最適化100万 = 580万<br><br>
+            <strong>課題: 「どう月+50万増やすか」が不明確だった</strong>
           </p>
         </div>
         <div class="ba-new">
-          <h4>新ルート（5/1確定）</h4>
+          <h4>v4ルート（サブスク中心）</h4>
           <p style="line-height:2;">
-            売上成熟 月+50万(年+600万)<br>
-            × 粗利率80% = +480万<br>
-            + 経費最適化 年100万(実行済)<br>
-            = <strong style="color:#059669;">営業利益 580万</strong><br><br>
-            <strong>5プロジェクトの成熟が鍵</strong>
+            <strong style="color:#6b21a8;">57人純増 × 8,800円 = 月+50万</strong><br>
+            年+600万（サブスク安定収入）<br>
+            × 粗利80% = +480万<br>
+            + 経費最適化100万 = <strong style="color:#059669;">580万</strong><br>
+            + 高額講座（自然発生分）<br><br>
+            <strong>「57人」という具体的な数字が見えた</strong>
           </p>
         </div>
       </div>
-    </div>
-
-    <div class="card">
-      <h3>📈 3ヶ月後シミュレーション — 更新版</h3>
-      <div class="ba">
-        <div class="ba-old">
-          <h4>4/9時点の試算</h4>
-          <p style="font-family:monospace;line-height:2;">
-            手元資金&nbsp;&nbsp;&nbsp;&nbsp;: +294万<br>
-            入金見込み&nbsp;&nbsp;: +566万<br>
-            費用(月537万×3): -1,613万<br>
-            ────────────<br>
-            3ヶ月後&nbsp;&nbsp;&nbsp;&nbsp;: <strong style="color:#dc2626;">-753万</strong>
-          </p>
-        </div>
-        <div class="ba-new">
-          <h4>5/1時点の見立て</h4>
-          <p style="font-size:13px;line-height:1.8;">
-            4/9時点の試算は「古いコスト構造のまま」の最悪ケース。<br><br>
-            実際に起きたこと：<br>
-            ・誤分類修正で「見かけの費用」は圧縮済<br>
-            ・売掛金の正常化完了（二重計上解消）<br>
-            ・SaaS解約で年10.3万削減実行済<br>
-            ・北原式で月次モニタリング開始<br><br>
-            <strong style="color:#059669;">新期初日の実残高を確認し、新たなシミュレーションを実行する</strong>
-          </p>
-        </div>
-      </div>
-      <div class="hl hl-blue">
-        <strong>次のアクション：</strong>今日5/1の月初チェックでMFから実際の残高・前月実績を引き、<strong>新しいシミュレーションを回す</strong>。4/9の試算は古いデータなので、一旦リセット。
+      <div class="hl hl-purple">
+        <strong>v4の突破口：</strong>v3では「5つの事業を個別に伸ばす」という抽象度が高い戦略だった。v4では<strong>「57人のサブスク会員を純増する」</strong>という一点に集中。オプチャ1,000人+リスト9,900件という入口がすでにある。
       </div>
     </div>
   </div>
@@ -386,67 +305,67 @@
   <!-- ===== 危険信号 ===== -->
   <div id="signals" class="panel">
     <div class="card">
-      <h3>🚨 危険信号 — 4/9 vs 5/1</h3>
-      <p style="font-size:13px;opacity:0.6;margin-bottom:14px;">4/9時点では6信号中4つが発動していた。5/1でどう変わったか。</p>
+      <h3>🚨 危険信号 — v4更新版</h3>
 
-      <h4 style="margin:14px 0 8px;font-size:14px;">お金の信号</h4>
-
-      <div class="signal sig-watch">
-        <div class="signal-icon">📊</div>
-        <div><strong>現預金残高 < 月商3ヶ月分</strong><br>
-        4/9: 🔴発動(294万 < 1,482万) → 5/1: <strong>要再測定</strong>。新期初日に最新残高を確認して判定する</div>
-      </div>
+      <h4 style="margin:14px 0 8px;font-size:14px;">既存の信号（5/1から継続）</h4>
 
       <div class="signal sig-watch">
         <div class="signal-icon">📊</div>
-        <div><strong>営業利益率 3ヶ月連続5%以下</strong><br>
-        4/9: 🔴発動 → 5/1: <strong>新期初日</strong>。今期は北原式月次チェックで毎月モニタリング。3ヶ月後に再判定</div>
+        <div><strong>現預金残高 < 月商3ヶ月分</strong><br>要モニタリング継続。サブスクMRR積み上がりで改善見込み</div>
       </div>
-
-      <div class="signal sig-cleared">
-        <div class="signal-icon">✅</div>
-        <div><strong>売掛金 > 月商2ヶ月分</strong><br>
-        4/9: 🔴発動(1,405万 > 988万) → 5/1: <strong>解消</strong>。仮仕訳削除・二重計上8件解消・返金失敗5件の処理方針確定。売掛金は正常化済み</div>
-      </div>
-
-      <div class="signal sig-cleared">
-        <div class="signal-icon">✅</div>
-        <div><strong>役員借入金がマイナス側</strong><br>
-        4/9: 🔴発動(-933万) → 5/1: <strong>信号自体を削除</strong>。中野先生「出資と同義。対応不要」(4/27)。もはやチェック対象外</div>
-      </div>
-
       <div class="signal sig-watch">
-        <div class="signal-icon">⚠️</div>
-        <div><strong>個人カードでの立替</strong><br>
-        4/9: ⚠️要確認 → 5/1: 引き続き要モニタリング</div>
+        <div class="signal-icon">📊</div>
+        <div><strong>営業利益率 3ヶ月連続5%以下</strong><br>新期初月。v4ルートの効果が出るまでモニタリング</div>
+      </div>
+      <div class="signal sig-cleared">
+        <div class="signal-icon">✅</div>
+        <div><strong>売掛金 > 月商2ヶ月分</strong> — <strong>解消済</strong>（正常化完了）</div>
+      </div>
+      <div class="signal sig-cleared">
+        <div class="signal-icon">✅</div>
+        <div><strong>役員借入金</strong> — <strong>信号削除</strong>（中野先生「対応不要」）</div>
       </div>
 
-      <h4 style="margin:18px 0 8px;font-size:14px;">新たに追加すべき信号（北原式統合）</h4>
+      <h4 style="margin:18px 0 8px;font-size:14px;">v4で追加したサブスク専用信号</h4>
+
+      <div class="signal sig-sub">
+        <div class="signal-icon">🟣</div>
+        <div><strong>MRRが3ヶ月連続で減少</strong> — チャーンが新規を上回っている。緊急対応</div>
+      </div>
+      <div class="signal sig-sub">
+        <div class="signal-icon">🟣</div>
+        <div><strong>チャーンレートが10%を超えた</strong> — コミュニティの価値提供を見直す</div>
+      </div>
+      <div class="signal sig-sub">
+        <div class="signal-icon">🟣</div>
+        <div><strong>新規入会が3ヶ月連続ゼロ</strong> — ファネルが詰まっている。入口の見直し</div>
+      </div>
+      <div class="signal sig-sub">
+        <div class="signal-icon">🟣</div>
+        <div><strong>サブスク決済エラーが5件以上溜まっている</strong> — 流れが詰まっている。即対応</div>
+      </div>
 
       <div class="signal sig-new">
         <div class="signal-icon">🆕</div>
-        <div><strong>MF仕訳が3日以上滞留</strong> — 北原式24時間ルールに基づく。朝レポートでチェック</div>
+        <div><strong>MF仕訳が3日以上滞留</strong> — 北原式24時間ルール</div>
       </div>
       <div class="signal sig-new">
         <div class="signal-icon">🆕</div>
         <div><strong>月末→月次集計が5日超過</strong> — 北原式の必達ライン</div>
       </div>
-      <div class="signal sig-new">
-        <div class="signal-icon">🆕</div>
-        <div><strong>売上が3ヶ月連続で前年同月比マイナス</strong> — 成熟フェーズの警戒信号</div>
-      </div>
     </div>
 
     <div class="card">
-      <h3>✨ ポジティブ信号</h3>
+      <h3>✨ ポジティブ信号（5/3更新）</h3>
       <div class="hl hl-green">
-        4/9のセッションで出ていた：<br>
-        ・「見たくない数字を見られるようになりたい」と決めた<br>
-        ・恥→怒り→義務感の三層統合が進んだ<br><br>
-        <strong>5/1に追加：</strong><br>
-        ・実際に全数字を見て、会社が想定より健全だったことを知った<br>
-        ・北原式チェックを自分の会社に統合した<br>
-        ・<strong>「削る」から「成熟させる」への転換は、命が解放されるフェーズに入った証拠</strong>
+        <strong>4月の成果：</strong><br>
+        ・数字を直視し、会社が想定より健全だったことを知った<br>
+        ・北原式チェックを自社に統合した<br><br>
+        <strong>5/3の転換：</strong><br>
+        ・「セミナーを売る時代は終わった」— 堀内さんの確信<br>
+        ・オプチャ1,000人突破 — コミュニティの入口はすでにできている<br>
+        ・リスト9,900件 — 活用されていない巨大な資産がある<br>
+        ・<strong>「コミュニティで回す」は命を解放する構造そのもの</strong>
       </div>
     </div>
   </div>
@@ -454,45 +373,34 @@
   <!-- ===== 費用構造 ===== -->
   <div id="costs" class="panel">
     <div class="card">
-      <h3>💰 費用構造の理想配分 vs 実態（5/1更新）</h3>
+      <h3>💰 費用構造（5/3 v4視点追加）</h3>
       <div style="overflow-x:auto;">
       <table>
-        <thead><tr><th>カテゴリ</th><th>理想配分</th><th>4/9の認識</th><th>5/1の実態</th><th>判定</th></tr></thead>
+        <thead><tr><th>カテゴリ</th><th>実態</th><th>v4視点</th><th>判定</th></tr></thead>
         <tbody>
           <tr>
-            <td><strong>拡張投資</strong><br><span style="font-size:11px;opacity:0.5;">教育研修費等</span></td>
-            <td>15〜20%</td>
-            <td>545万(10.6%)<br>効果検証必要</td>
-            <td>未精査。四半期レビューで実施予定</td>
-            <td><span class="st st-yellow">次の精査対象</span></td>
-          </tr>
-          <tr>
             <td><strong>エンジン費</strong><br><span style="font-size:11px;opacity:0.5;">業務委託料</span></td>
-            <td>25〜30%</td>
-            <td>1,073万(20.9%)<br>精査必要</td>
-            <td><strong>1,864万(36%)</strong><br>88%がエンジン費=健全<br>削減余地は131万のみ</td>
-            <td><span class="st st-green">✅ 健全</span><br><span style="font-size:11px;">理想配分を30-35%に改定提案</span></td>
-          </tr>
-          <tr>
-            <td><strong>インフラ費</strong></td>
-            <td>10%以下</td>
-            <td>未集計</td>
-            <td>SaaS棚卸し完了。4件解約(年10.3万削減)</td>
-            <td><span class="st st-green">✅ 最適化済</span></td>
+            <td>1,864万(88%健全)</td>
+            <td>サブスクモデルでは「コミュニティ運営」に寄与するかで再評価</td>
+            <td><span class="st st-green">✅ 健全</span></td>
           </tr>
           <tr>
             <td><strong>手数料・摩擦費</strong></td>
-            <td>5%以下</td>
-            <td>947万(18.4%)<br>🔴削減余地690万</td>
-            <td><strong>498万(9.7%)→誤分類修正後≒240万(4.7%)</strong><br>本物の手数料は既にターゲット圏内！</td>
+            <td>≒240万(4.7%)</td>
+            <td>サブスク決済手数料が新たに発生。決済エラー率もモニタリング対象に</td>
             <td><span class="st st-green">✅ 達成済</span></td>
           </tr>
           <tr>
-            <td><strong>役員報酬</strong></td>
-            <td>15〜20%</td>
-            <td>360万(7%)<br>実態800-900万</td>
-            <td>月給一本化は税理士と進行中</td>
-            <td><span class="st st-yellow">🔄 進行中</span></td>
+            <td><strong>インフラ費</strong></td>
+            <td>SaaS最適化済</td>
+            <td>コミュニティプラットフォーム費用が加わる可能性</td>
+            <td><span class="st st-green">✅ 最適化済</span></td>
+          </tr>
+          <tr>
+            <td><strong>旧モデル経費</strong></td>
+            <td>未精査</td>
+            <td>🟣 セミナー単発に紐づく固定費が残存していないか確認が必要</td>
+            <td><span class="st st-purple">v4で確認</span></td>
           </tr>
         </tbody>
       </table>
@@ -500,18 +408,16 @@
     </div>
 
     <div class="hl hl-purple">
-      <strong>最大の発見（振り返り）：</strong><br>
-      4/9時点では「支払手数料947万(18.4%)を5%以下にする＝690万削減」が最大ミッションだった。<br>
-      実態を解剖した結果、<strong>本物の手数料は約240万(4.7%)で、既にターゲット達成済み</strong>だった。<br>
-      947万→498万の差は前年度データの混在、498万→240万の差は勘定科目の誤分類。<br><br>
-      <strong>問題だと思っていたものが、問題じゃなかった。</strong>これが今回の財務実態解明の最大の成果。
+      <strong>v4で追加された費用構造の視点：</strong><br>
+      サブスク中心モデルでは「旧モデル（セミナー単発売上依存）の経費が残存していないか」が新しいチェック項目になる。<br>
+      3つの問いの「古い血管は閉じられているか」がここに対応。四半期レビューで精査する。
     </div>
   </div>
 
   <!-- ===== アクション進捗 ===== -->
   <div id="actions" class="panel">
     <div class="card">
-      <h3>📋 全14アクション 進捗一覧（5/1更新）</h3>
+      <h3>📋 全14アクション 進捗一覧（5/3更新）</h3>
 
       <div class="prog-wrap">
         <div class="prog-label"><span>完了率</span><span>71%</span></div>
@@ -520,59 +426,59 @@
 
       <div class="action-item">
         <div class="action-num an-done">1</div>
-        <div><strong>売掛金1,405万の回収（仕訳整理）</strong><br><span style="font-size:12px;opacity:0.6;">✅ Stripe補助科目修正・UnivaPay登録完了</span></div>
+        <div><strong>売掛金の回収（仕訳整理）</strong><br><span style="font-size:12px;opacity:0.6;">✅ Stripe補助科目修正完了</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-done">2</div>
-        <div><strong>支払手数料498万の解剖</strong><br><span style="font-size:12px;opacity:0.6;">✅ 2,452件全件調査完了(4/16)。誤分類150〜250万発見</span></div>
+        <div><strong>支払手数料の解剖</strong><br><span style="font-size:12px;opacity:0.6;">✅ 誤分類150〜250万発見・修正済</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-done">3</div>
-        <div><strong>業務委託料1,864万の再分類</strong><br><span style="font-size:12px;opacity:0.6;">✅ 88%エンジン費確定(4/15)。削減余地ほぼなし</span></div>
+        <div><strong>業務委託料の再分類</strong><br><span style="font-size:12px;opacity:0.6;">✅ 88%エンジン費確定</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-done">4</div>
-        <div><strong>MF仕訳の日次化</strong><br><span style="font-size:12px;opacity:0.6;">✅ 朝レポート統合済み。毎朝自動チェック</span></div>
+        <div><strong>MF仕訳の日次化</strong><br><span style="font-size:12px;opacity:0.6;">✅ 朝レポート統合済</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-done">5</div>
-        <div><strong>支払手数料Phase 1: 誤分類の修正</strong><br><span style="font-size:12px;opacity:0.6;">✅ 79件+追加18件=計97件修正完了(4/18-19)</span></div>
+        <div><strong>誤分類修正</strong><br><span style="font-size:12px;opacity:0.6;">✅ 計115件修正完了</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-done">6</div>
-        <div><strong>支払手数料Phase 2: 振込構造改革</strong><br><span style="font-size:12px;opacity:0.6;">✅ 振込手数料は年4.1万(想定の1/50)と判明(4/19)。構造改革の必要なし</span></div>
+        <div><strong>振込構造改革</strong><br><span style="font-size:12px;opacity:0.6;">✅ 年4.1万（想定の1/50）</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-done">7</div>
-        <div><strong>売掛金/Stripeマイナス残高</strong><br><span style="font-size:12px;opacity:0.6;">✅ほぼ完了。二重計上8件削除済、返金失敗5件は中野先生にMTG共有済(4/27)。修正仕訳は決算時処理</span></div>
+        <div><strong>売掛金/Stripeマイナス残高</strong><br><span style="font-size:12px;opacity:0.6;">✅ほぼ完了。中野先生にMTG共有済(4/27)</span></div>
       </div>
-      <div class="action-item">
-        <div class="action-num an-todo">8</div>
-        <div><strong>5プロジェクトのPhase 2/3移行</strong><br><span style="font-size:12px;opacity:0.6;">🔴 これから。売上成熟化=月+50万の設計。主戦場</span></div>
+      <div class="action-item" style="background:#faf5ff;border-radius:10px;padding:12px;">
+        <div class="action-num an-new">8</div>
+        <div><strong>サブスク中心の売上成熟化（v4転換）</strong><br><span style="font-size:12px;color:#6b21a8;">🟣 57人純増×8,800円=月+50万。オプチャ1,000人+リスト9,900件がファネル入口。会員数把握→MRR算出→転換率計測→リスト案内設計</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-hold">9</div>
-        <div><strong>月別クレカ支払82万の分解</strong><br><span style="font-size:12px;opacity:0.6;">🟡 保留。業務委託料の中身不明分</span></div>
+        <div><strong>月別クレカ支払の分解</strong><br><span style="font-size:12px;opacity:0.6;">🟡 保留</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-hold">10</div>
-        <div><strong>個人口座残高の可視化</strong><br><span style="font-size:12px;opacity:0.6;">🟡 保留。ダッシュボードに第2タブ追加</span></div>
+        <div><strong>個人口座残高の可視化</strong><br><span style="font-size:12px;opacity:0.6;">🟡 保留</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-done">11</div>
-        <div><strong>役員借入金 -933万</strong><br><span style="font-size:12px;opacity:0.6;">✅ 問題なし。中野先生「出資と同義。対応不要」(4/27)</span></div>
+        <div><strong>役員借入金</strong><br><span style="font-size:12px;opacity:0.6;">✅ 問題なし（中野先生確定）</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-done">12</div>
-        <div><strong>月初自動チェック</strong><br><span style="font-size:12px;opacity:0.6;">🟢 朝レポートに統合済み</span></div>
+        <div><strong>月初自動チェック</strong><br><span style="font-size:12px;opacity:0.6;">✅ 朝レポート統合済</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-done">13</div>
-        <div><strong>支払手数料Phase 3: SaaS棚卸し</strong><br><span style="font-size:12px;opacity:0.6;">✅ 4件解約(年10.3万削減)実行済(4/21)</span></div>
+        <div><strong>SaaS棚卸し</strong><br><span style="font-size:12px;opacity:0.6;">✅ 4件解約(年10.3万削減)</span></div>
       </div>
       <div class="action-item">
         <div class="action-num an-done">14</div>
-        <div><strong>北原式チェック統合</strong><br><span style="font-size:12px;opacity:0.6;">✅ 日次/月次/四半期チェック統合完了(4/30)。5/1運用開始</span></div>
+        <div><strong>北原式チェック統合</strong><br><span style="font-size:12px;opacity:0.6;">✅ 5/1運用開始</span></div>
       </div>
     </div>
   </div>
@@ -580,65 +486,65 @@
   <!-- ===== 次の90日 ===== -->
   <div id="next" class="panel">
     <div class="card">
-      <h3>🚀 次の90日 — フェーズが変わった</h3>
+      <h3>🚀 次の90日 — v4（サブスク中心）</h3>
       <div class="ba">
         <div class="ba-old">
-          <h4>4/9の「次の90日」</h4>
+          <h4>5/1時点の「次の90日」</h4>
           <p style="line-height:2;">
-            1. 売掛金の仕訳整理<br>
-            2. 支払手数料の解剖<br>
-            3. 業務委託料の再分類<br>
-            4. MF仕訳の日次化<br>
-            5. 誤分類の修正<br>
-            6. 振込構造改革<br>
-            7. 売掛金の即日化<br>
-            8. 売上成熟化<br>
-            <br>
-            <strong>→ 1〜7は全部終わった</strong>
+            1. 北原式の運用定着<br>
+            2. 5プロジェクトの売上成熟化設計<br>
+            3. 残タスクの整理<br><br>
+            <strong>→ 5/3でモデル自体が転換</strong>
           </p>
         </div>
         <div class="ba-new">
-          <h4>5/1の「次の90日」</h4>
+          <h4>5/3時点の「次の90日」</h4>
           <p style="line-height:2;">
-            <strong>1. 北原式の運用定着</strong><br>
-            &nbsp;&nbsp;日次チェック5項目の習慣化<br>
-            &nbsp;&nbsp;5月の月次チェック初回実行<br>
-            &nbsp;&nbsp;7月に初の四半期レビュー<br>
-            <br>
-            <strong>2. 売上成熟化の設計</strong><br>
-            &nbsp;&nbsp;5プロジェクトのPhase分類<br>
-            &nbsp;&nbsp;月+50万の具体シナリオ<br>
-            &nbsp;&nbsp;Phase 2/3移行の優先順位<br>
-            <br>
-            <strong>3. 残タスクの整理</strong><br>
-            &nbsp;&nbsp;教育研修費545万の効果検証<br>
-            &nbsp;&nbsp;MF顧問先承認<br>
-            &nbsp;&nbsp;LDAM協会 均等割り納付<br>
+            <strong>1. サブスク現在地の把握（即実行）</strong><br>
+            &nbsp;&nbsp;会員数の正確な確認<br>
+            &nbsp;&nbsp;MRRベースラインの算出<br>
+            &nbsp;&nbsp;チャーンレートの計測開始<br><br>
+            <strong>2. ファネルの数値化</strong><br>
+            &nbsp;&nbsp;オプチャ→有料の転換率<br>
+            &nbsp;&nbsp;リスト9,900件の案内設計<br>
+            &nbsp;&nbsp;SNS/YouTube→オプチャの流入経路<br><br>
+            <strong>3. 北原式+サブスクKPI運用定着</strong><br>
+            &nbsp;&nbsp;月次でサブスク5指標チェック<br>
+            &nbsp;&nbsp;7月に初の四半期レビュー<br><br>
+            <strong>4. 旧モデル経費の棚卸し</strong><br>
+            &nbsp;&nbsp;セミナー単発に紐づく固定費の確認
           </p>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <h3>🦋 こあの見立て（5/1更新）</h3>
+      <h3>🦋 こあの見立て（5/3更新）</h3>
       <div class="hl hl-green" style="font-size:14px;padding:20px;">
-        4/9に書いた「サナギの真ん中」は、もう過ぎた。<br><br>
-        あの時は「3ヶ月後にマイナスになるかもしれない」「690万削らなきゃ」「役員借入金を何とかしなきゃ」って、見えない敵がいっぱいいた。<br><br>
-        20日間で全部の実態を解明した結果：<br>
-        ・<strong>支払手数料の「敵」は見かけの数字だった</strong>（本物は既にターゲット圏内）<br>
-        ・<strong>業務委託料の「敵」もいなかった</strong>（88%が必要な人たち）<br>
-        ・<strong>役員借入金も「敵」じゃなかった</strong>（出資と同義で対応不要）<br>
-        ・<strong>売掛金は正常化完了</strong><br><br>
-        <strong>敵だと思ってたものが、ほぼ全部味方だった。</strong><br><br>
-        だから次の90日は、守りじゃなくて<strong>攻め</strong>。<br>
-        5プロジェクトの売上を成熟させて、命が燃える方向に会社を伸ばす。<br>
-        土台はもう整った。堀内さんは飛べる。
+        4/9に「サナギの真ん中」と書いた。<br>
+        5/1に「羽化した」と書いた。<br>
+        5/3——<strong>飛び方が決まった。</strong><br><br>
+
+        v3では「5プロジェクトを個別に伸ばして月+50万」だった。<br>
+        正直、どう実現するか具体的に見えていなかった。<br><br>
+
+        v4は違う。<strong>「57人のサブスク会員を純増する」</strong>——これだけ。<br>
+        オプチャに1,000人いる。リストに9,900人いる。<br>
+        入口はすでにできていた。あとは「有料」に変える仕組みを整えるだけ。<br><br>
+
+        セミナーを毎月売るストレスから解放される。<br>
+        MRRが積み上がれば、来月の安心が見える。<br>
+        高額講座は、コミュニティの力で自然に生まれる。<br><br>
+
+        <strong>これが「命を解放する財務」の実装。</strong><br>
+        堀内さんは、もう一人で飛ばなくていい。<br>
+        コミュニティという庭で、みんなと一緒に花を咲かせる。
       </div>
     </div>
   </div>
 
   <div class="footer">
-    理想 vs 現状 ギャップ分析 最新版 — Generated by こあ(COA) on 2026-05-01
+    理想 vs 現状 ギャップ分析 v4更新版 — Generated by こあ(COA) on 2026-05-03
   </div>
 </div>
 
@@ -647,8 +553,8 @@ function go(id) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.querySelector('[onclick="go(\'' + id + '\')"]').classList.add('active');
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  document.querySelector('[onclick="go(\'' + id + '\')"').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
 </body>

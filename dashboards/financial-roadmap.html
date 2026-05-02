@@ -3,60 +3,42 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>財務マネジメント運用設計書 — ビジュアル版 2026-05-01</title>
+<title>財務マネジメント運用設計書 v4 — サブスク中心モデル 2026-05-03</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', sans-serif;
-    color: #1a1a2e;
-    background: #f0f4f8;
-    line-height: 1.7;
-  }
-  .container { max-width: 820px; margin: 0 auto; padding: 20px 16px 60px; }
-
-  /* Hero */
-  .hero {
-    text-align: center; padding: 44px 24px; margin-bottom: 28px;
-    background: linear-gradient(135deg, #1e3a5f, #2d6a4f);
-    border-radius: 20px; color: #fff; position: relative; overflow: hidden;
-  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',sans-serif; color:#1a1a2e; background:#f0f4f8; line-height:1.7; }
+  .container { max-width:820px; margin:0 auto; padding:20px 16px 60px; }
+  .hero { text-align:center; padding:44px 24px; margin-bottom:28px; background:linear-gradient(135deg,#1e3a5f,#2d6a4f); border-radius:20px; color:#fff; position:relative; overflow:hidden; }
   .hero::before { content:''; position:absolute; top:-80px; right:-80px; width:250px; height:250px; background:rgba(255,255,255,0.06); border-radius:50%; }
-  .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
-  .hero .sub { font-size: 14px; opacity: 0.8; }
-  .hero .badges { display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
-  .hero .badge { padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; }
-  .badge-green { background: rgba(52,211,153,0.25); color: #6ee7b7; }
-  .badge-yellow { background: rgba(251,191,36,0.25); color: #fcd34d; }
-  .badge-blue { background: rgba(96,165,250,0.25); color: #93c5fd; }
-
-  /* Nav */
-  .nav { display: flex; gap: 4px; margin-bottom: 24px; background: #fff; border-radius: 14px; padding: 5px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow-x: auto; }
-  .nav-btn { flex-shrink: 0; padding: 10px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer; border: none; background: none; color: #888; border-radius: 10px; transition: all 0.2s; white-space: nowrap; }
-  .nav-btn:hover { color: #1e3a5f; background: #f0f4f8; }
-  .nav-btn.active { color: #fff; background: #1e3a5f; }
-  .panel { display: none; animation: fadeIn 0.3s; }
-  .panel.active { display: block; }
+  .hero h1 { font-size:26px; font-weight:800; margin-bottom:6px; }
+  .hero .sub { font-size:14px; opacity:0.8; }
+  .hero .badges { display:flex; gap:8px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+  .hero .badge { padding:5px 16px; border-radius:20px; font-size:12px; font-weight:700; }
+  .badge-green { background:rgba(52,211,153,0.25); color:#6ee7b7; }
+  .badge-yellow { background:rgba(251,191,36,0.25); color:#fcd34d; }
+  .badge-blue { background:rgba(96,165,250,0.25); color:#93c5fd; }
+  .badge-purple { background:rgba(168,85,247,0.25); color:#c4b5fd; }
+  .nav { display:flex; gap:4px; margin-bottom:24px; background:#fff; border-radius:14px; padding:5px; box-shadow:0 1px 4px rgba(0,0,0,0.06); overflow-x:auto; }
+  .nav-btn { flex-shrink:0; padding:10px 14px; font-size:12.5px; font-weight:700; cursor:pointer; border:none; background:none; color:#888; border-radius:10px; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover { color:#1e3a5f; background:#f0f4f8; }
+  .nav-btn.active { color:#fff; background:#1e3a5f; }
+  .panel { display:none; animation:fadeIn 0.3s; }
+  .panel.active { display:block; }
   @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-
-  /* Card */
   .card { background:#fff; border-radius:14px; padding:22px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.04); }
   .card h3 { font-size:16px; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
-
-  /* 3つの問い */
-  .toi-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-  @media(max-width:640px){ .toi-grid{grid-template-columns:1fr;} }
-  .toi { text-align: center; padding: 24px 14px; border-radius: 14px; border: 1px solid #e5e7eb; }
-  .toi-icon { font-size: 36px; margin-bottom: 8px; }
-  .toi h4 { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
-  .toi p { font-size: 12.5px; opacity: 0.65; }
-  .toi-1 { background: linear-gradient(135deg,#faf5ff,#f3e8ff); border-color:#e9d5ff; }
+  .toi-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+  @media(max-width:640px){.toi-grid{grid-template-columns:1fr;}}
+  .toi { text-align:center; padding:24px 14px; border-radius:14px; border:1px solid #e5e7eb; }
+  .toi-icon { font-size:36px; margin-bottom:8px; }
+  .toi h4 { font-size:15px; font-weight:800; margin-bottom:6px; }
+  .toi p { font-size:12.5px; opacity:0.65; }
+  .toi-1 { background:linear-gradient(135deg,#faf5ff,#f3e8ff); border-color:#e9d5ff; }
   .toi-1 h4 { color:#7c3aed; }
-  .toi-2 { background: linear-gradient(135deg,#fef2f2,#fee2e2); border-color:#fecaca; }
+  .toi-2 { background:linear-gradient(135deg,#fef2f2,#fee2e2); border-color:#fecaca; }
   .toi-2 h4 { color:#dc2626; }
-  .toi-3 { background: linear-gradient(135deg,#eff6ff,#dbeafe); border-color:#bfdbfe; }
+  .toi-3 { background:linear-gradient(135deg,#eff6ff,#dbeafe); border-color:#bfdbfe; }
   .toi-3 h4 { color:#2563eb; }
-
-  /* Progress table */
   table { width:100%; border-collapse:collapse; font-size:13px; }
   th { text-align:left; padding:10px 8px; background:#f8fafc; font-weight:700; border-bottom:2px solid #e2e8f0; font-size:12px; color:#64748b; }
   td { padding:10px 8px; border-bottom:1px solid #f1f5f9; vertical-align:top; }
@@ -66,10 +48,9 @@
   .st-todo { background:#fee2e2; color:#991b1b; }
   .st-hold { background:#f1f5f9; color:#64748b; }
   .st-ok { background:#dbeafe; color:#1e40af; }
-
-  /* Mission cards */
-  .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media(max-width:600px){ .mission-grid{grid-template-columns:1fr;} }
+  .st-new { background:#f3e8ff; color:#6b21a8; }
+  .mission-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media(max-width:600px){.mission-grid{grid-template-columns:1fr;}}
   .mission-card { padding:18px; border-radius:12px; border:1px solid #e5e7eb; position:relative; padding-left:20px; }
   .mission-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:4px 0 0 4px; }
   .mc-done::before { background:#22c55e; }
@@ -83,40 +64,32 @@
   .mcb-prog { background:#fef9c3; color:#854d0e; }
   .mcb-fire { background:#fee2e2; color:#991b1b; }
   .mcb-new { background:#f3e8ff; color:#6b21a8; }
-
-  /* Flow map */
-  .flow-layer { padding: 14px 18px; border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
-  .flow-layer .fl-icon { font-size: 24px; flex-shrink: 0; }
-  .flow-layer h4 { font-size: 13px; font-weight: 700; }
-  .flow-layer p { font-size: 12px; opacity: 0.7; }
+  .flow-layer { padding:14px 18px; border-radius:10px; margin-bottom:8px; display:flex; align-items:center; gap:12px; }
+  .flow-layer .fl-icon { font-size:24px; flex-shrink:0; }
+  .flow-layer h4 { font-size:13px; font-weight:700; }
+  .flow-layer p { font-size:12px; opacity:0.7; }
   .fl-1 { background:#faf5ff; border:1px solid #e9d5ff; }
   .fl-2 { background:#fef3c7; border:1px solid #fcd34d; }
   .fl-3 { background:#dbeafe; border:1px solid #93c5fd; }
   .fl-4 { background:#d1fae5; border:1px solid #6ee7b7; }
   .fl-5 { background:#f8fafc; border:1px solid #e2e8f0; }
   .fl-arrow { text-align:center; font-size:16px; color:#94a3b8; padding:2px 0; }
-
-  /* Rhythm */
-  .rhythm-row { display: grid; grid-template-columns: 100px 1fr; gap: 12px; align-items: start; padding: 14px 0; border-bottom: 1px solid #f1f5f9; }
-  .rhythm-row:last-child { border-bottom: none; }
+  .rhythm-row { display:grid; grid-template-columns:100px 1fr; gap:12px; align-items:start; padding:14px 0; border-bottom:1px solid #f1f5f9; }
+  .rhythm-row:last-child { border-bottom:none; }
   .rr-label { font-size:13px; font-weight:800; padding:4px 12px; border-radius:8px; text-align:center; }
   .rr-daily .rr-label { background:#dbeafe; color:#1e40af; }
   .rr-monthly .rr-label { background:#f3e8ff; color:#6b21a8; }
   .rr-quarterly .rr-label { background:#fef3c7; color:#92400e; }
   .rr-yearly .rr-label { background:#d1fae5; color:#065f46; }
   .rr-content { font-size:13px; }
-  .rr-content strong { font-weight: 700; }
-
-  /* Highlight */
+  .rr-content strong { font-weight:700; }
   .hl { padding:14px 18px; border-radius:10px; font-size:13.5px; margin:16px 0; line-height:1.7; }
   .hl-green { background:#f0fdf4; border-left:4px solid #22c55e; }
   .hl-yellow { background:#fefce8; border-left:4px solid #f59e0b; }
   .hl-blue { background:#eff6ff; border-left:4px solid #3b82f6; }
   .hl-purple { background:#faf5ff; border-left:4px solid #a855f7; }
-
-  /* Strategy BA */
-  .strat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media(max-width:600px){ .strat-grid{grid-template-columns:1fr;} }
+  .strat-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media(max-width:600px){.strat-grid{grid-template-columns:1fr;}}
   .strat-box { padding:16px; border-radius:12px; }
   .strat-old { background:#fef2f2; border:1px solid #fecaca; }
   .strat-new { background:#f0fdf4; border:1px solid #a7f3d0; }
@@ -125,46 +98,40 @@
   .strat-new h4 { color:#059669; }
   .strat-box ul { list-style:none; font-size:12.5px; }
   .strat-box li { padding:3px 0; }
-
-  /* Numbers */
-  .num-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-  @media(max-width:500px){ .num-grid{grid-template-columns:1fr 1fr;} }
+  .num-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  @media(max-width:500px){.num-grid{grid-template-columns:1fr 1fr;}}
   .num-card { text-align:center; padding:16px 10px; border-radius:12px; background:#f8fafc; border:1px solid #e2e8f0; }
   .num-val { font-size:22px; font-weight:800; }
   .num-label { font-size:11px; opacity:0.6; margin-top:2px; }
-
   .footer { text-align:center; padding:24px; font-size:11px; opacity:0.35; margin-top:32px; }
-
-  /* File tree */
-  .file-tree { font-family:'SF Mono','Fira Code',monospace; font-size:12.5px; background:#0f172a; color:#94a3b8; padding:20px; border-radius:12px; line-height:2; overflow-x:auto; }
-  .ft-new { color:#34d399; font-weight:700; }
-  .ft-hub { color:#fbbf24; font-weight:700; }
-  .ft-dim { opacity:0.35; }
-  .ft-tag { display:inline-block; padding:1px 6px; border-radius:3px; font-size:9px; font-weight:700; margin-left:6px; }
-  .ftt-new { background:#065f46; color:#6ee7b7; }
-  .ftt-hub { background:#78350f; color:#fcd34d; }
+  .kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:16px 0; }
+  @media(max-width:640px){.kpi-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:400px){.kpi-grid{grid-template-columns:1fr 1fr;}}
+  .kpi-card { text-align:center; padding:14px 8px; border-radius:12px; background:#faf5ff; border:1px solid #e9d5ff; }
+  .kpi-card .kv { font-size:14px; font-weight:800; color:#6b21a8; margin-bottom:2px; }
+  .kpi-card .kl { font-size:10px; color:#64748b; }
 </style>
 </head>
 <body>
 <div class="container">
 
   <div class="hero">
-    <h1>財務マネジメント運用設計書</h1>
-    <div class="sub">そろ(算)/番頭チームの中枢ドキュメント</div>
+    <h1>財務マネジメント運用設計書 v4</h1>
+    <div class="sub">そろ(算)/番頭チームの中枢ドキュメント — サブスク中心モデル転換</div>
     <div class="badges">
+      <span class="badge badge-purple">5/3 サブスク中心モデル確定</span>
       <span class="badge badge-green">北原式チェック統合完了</span>
-      <span class="badge badge-yellow">5/1 新期初日から運用開始</span>
-      <span class="badge badge-blue">最終更新 2026-05-01</span>
+      <span class="badge badge-blue">最終更新 2026-05-03</span>
     </div>
   </div>
 
   <div class="nav">
     <button class="nav-btn active" onclick="go('philosophy')">哲学</button>
-    <button class="nav-btn" onclick="go('map')">全体マップ</button>
+    <button class="nav-btn" onclick="go('subscription')">サブスクKPI</button>
     <button class="nav-btn" onclick="go('rhythm')">運用リズム</button>
     <button class="nav-btn" onclick="go('actions')">アクション進捗</button>
     <button class="nav-btn" onclick="go('strategy')">戦略転換</button>
-    <button class="nav-btn" onclick="go('files')">ファイル構成</button>
+    <button class="nav-btn" onclick="go('route')">v4ルート</button>
   </div>
 
   <!-- ===== 哲学 ===== -->
@@ -178,115 +145,130 @@
     </div>
 
     <div class="card">
-      <h3>💜 3つの問い — 全ての判断基準</h3>
-      <p style="font-size:13px;opacity:0.6;margin-bottom:14px;">どんな数字を見ても、どんな作業をしても、常にこの3つで判定する。</p>
+      <h3>🔄 コミュニティ起点モデルにおける財務の意味（5/3追加）</h3>
+      <div class="strat-grid">
+        <div class="strat-old">
+          <h4>旧モデル（セミナー売上依存）</h4>
+          <ul>
+            <li>• 毎月ゼロからセミナーを売る</li>
+            <li>• 売上が月ごとに大きく変動</li>
+            <li>• 集客のプレッシャーが常にある</li>
+            <li>• 「今月も売らなきゃ」のストレス</li>
+          </ul>
+        </div>
+        <div class="strat-new">
+          <h4>新モデル（サブスク中心）</h4>
+          <ul>
+            <li>• コミュニティ会員が毎月安定収入を生む</li>
+            <li>• MRRが積み上がり、予測可能に</li>
+            <li>• 高額講座は場の力で自然発生</li>
+            <li>• <strong>「回す」だけで命が解放される</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div class="hl hl-green">
+        <strong>v4の本質：</strong>サブスクで「安定層」を作り、その上に「変動層」（高額講座の自然発生）が乗る。<br>
+        毎月ゼロから売上を作るストレスから堀内さんを解放する。<strong>これが「命を解放する財務」の実装。</strong>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>💜 3つの問い — v4対応版</h3>
       <div class="toi-grid">
         <div class="toi toi-1">
           <div class="toi-icon">🕊️</div>
           <h4>命は解放されているか</h4>
-          <p>お金の心配で1秒でも止まっていないか。現預金は月商3ヶ月分以上か。やりたいことにブレーキがかかっていないか。</p>
+          <p>会員数は安定/成長しているか。MRRで「来月の安心」が見えているか。やりたいことにブレーキがかかっていないか。</p>
         </div>
         <div class="toi toi-2">
           <div class="toi-icon">🩸</div>
           <h4>古い血管は閉じられているか</h4>
-          <p>命が燃える方向と関係ない出費が流れ続けていないか。1円も生んでない固定費が放置されていないか。</p>
+          <p>旧モデル（セミナー単発依存）の経費が残存していないか。サブスクに不要な固定費がないか。</p>
         </div>
         <div class="toi toi-3">
           <div class="toi-icon">🌊</div>
           <h4>流れは詰まっていないか</h4>
-          <p>入るべきお金が入っているか。MF仕訳が遅れていないか。月末→集計は5日以内か。</p>
+          <p>サブスク決済エラーが溜まっていないか。MF仕訳が遅れていないか。月末→集計は5日以内か。</p>
         </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>🔭 同心円の中での位置づけ</h3>
-      <div class="flow-layer fl-1">
-        <div class="fl-icon">✨</div>
-        <div><h4>Layer 0〜2（命・閃き）</h4><p>ここがお金の心配で縮んでいないか？</p></div>
-      </div>
-      <div class="fl-arrow">▼</div>
-      <div class="flow-layer fl-2">
-        <div class="fl-icon">🎨</div>
-        <div><h4>Layer 3（表現）</h4><p>やりたいことに「お金が理由で」ブレーキがかかっていないか？</p></div>
-      </div>
-      <div class="fl-arrow">▼</div>
-      <div class="flow-layer fl-3">
-        <div class="fl-icon">🏛️</div>
-        <div><h4>Layer 4（こあ/そろ）← ここで見張る</h4><p>数字を読み、流れを整え、堀内さんには「今こうなってます」だけ伝える</p></div>
-      </div>
-      <div class="fl-arrow">▼</div>
-      <div class="flow-layer fl-5">
-        <div class="fl-icon">⚙️</div>
-        <div><h4>Layer 5-6（展開・世界）</h4><p>仕訳修正、手数料交渉、経理処理。手を動かすが意識はLayer 4に置いたまま</p></div>
       </div>
     </div>
   </div>
 
-  <!-- ===== 全体マップ ===== -->
-  <div id="map" class="panel">
+  <!-- ===== サブスクKPI ===== -->
+  <div id="subscription" class="panel">
     <div class="card">
-      <h3>🗺️ 資料の全体マップ</h3>
-      <p style="font-size:13px;opacity:0.6;margin-bottom:14px;">上から下へ、抽象→具体。こあの意識は常に上4層にある。</p>
-
-      <div class="flow-layer fl-1">
-        <div class="fl-icon">🙏</div>
-        <div><h4>哲学 — なぜ財務を見るのか</h4><p>理想の財務状態_v2.md / 命の設計図</p></div>
-      </div>
-      <div class="fl-arrow">▼</div>
-      <div class="flow-layer fl-2">
-        <div class="fl-icon">⚖️</div>
-        <div><h4>判断基準 — 何をどう判断するか</h4><p>北原メソッド/financial-judgment.md / selection-and-focus.md</p></div>
-      </div>
-      <div class="fl-arrow">▼</div>
-      <div class="flow-layer fl-3">
-        <div class="fl-icon">📊</div>
-        <div><h4>数値ターゲット — どの数字が理想か</h4><p>理想の財務状態_v2.md / 危険信号チェックリスト</p></div>
-      </div>
-      <div class="fl-arrow">▼</div>
-      <div class="flow-layer fl-4">
-        <div class="fl-icon">📍</div>
-        <div><h4>現在地 — 今どこにいるか</h4><p>ギャップ分析 / 支払手数料解剖レポート / 業務委託料再分類</p></div>
-      </div>
-      <div class="fl-arrow">▼</div>
-      <div class="flow-layer" style="background:#fef3c7;border:1px solid #fcd34d;">
-        <div class="fl-icon">🔄</div>
-        <div><h4>運用リズム — いつ何を見るか 🆕北原式統合済</h4><p>本設計書 / 財務日次チェック運用ルール.md / defense-check.md</p></div>
-      </div>
-      <div class="fl-arrow">▼</div>
-      <div class="flow-layer fl-5">
-        <div class="fl-icon">🔧</div>
-        <div><h4>個別作業 — 手を動かす</h4><p>勘定科目振り分けリスト / mf-journal-processorスキル</p></div>
+      <h3>📊 サブスクKPI — 5つの指標</h3>
+      <p style="font-size:13px;opacity:0.6;margin-bottom:14px;">コミュニティ起点モデルの健康状態を測る5指標。月次チェックで必ず確認。</p>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kv">会員数</div><div class="kl">有料会員の純数</div></div>
+        <div class="kpi-card"><div class="kv">MRR</div><div class="kl">月次経常収益</div></div>
+        <div class="kpi-card"><div class="kv">新規入会</div><div class="kl">月間新規会員数</div></div>
+        <div class="kpi-card"><div class="kv">チャーン</div><div class="kl">月間退会率</div></div>
+        <div class="kpi-card"><div class="kv">転換率</div><div class="kl">オプチャ→有料</div></div>
       </div>
     </div>
 
     <div class="card">
-      <h3>📈 主要数値（支払手数料解剖の結果）</h3>
-      <div class="num-grid">
-        <div class="num-card">
-          <div class="num-val" style="color:#dc2626;">498万</div>
-          <div class="num-label">支払手数料（解剖対象）</div>
+      <h3>🏠 ファネル構造</h3>
+      <div style="margin:16px 0;">
+        <div style="padding:14px 18px;border-radius:10px;background:#dbeafe;border:1px solid #93c5fd;margin-bottom:6px;display:flex;align-items:center;gap:12px;">
+          <span style="font-size:24px;">🌐</span>
+          <div><h4 style="font-size:13px;font-weight:700;">SNS / YouTube / 出版</h4><p style="font-size:12px;opacity:0.7;">堀内さんの世界観に触れる入口。リスト9,900件も活用</p></div>
         </div>
-        <div class="num-card">
-          <div class="num-val" style="color:#f59e0b;">150-250万</div>
-          <div class="num-label">→うち誤分類だった</div>
+        <div class="fl-arrow">▼</div>
+        <div style="padding:14px 18px;border-radius:10px;background:#d1fae5;border:1px solid #6ee7b7;margin-bottom:6px;display:flex;align-items:center;gap:12px;">
+          <span style="font-size:24px;">💬</span>
+          <div><h4 style="font-size:13px;font-weight:700;">オープンチャット（無料）— 1,000人突破</h4><p style="font-size:12px;opacity:0.7;">無料で参加。堀内さんの世界を体験する場</p></div>
         </div>
-        <div class="num-card">
-          <div class="num-val" style="color:#22c55e;">97件修正済</div>
-          <div class="num-label">Phase 1 誤分類修正</div>
+        <div class="fl-arrow">▼</div>
+        <div style="padding:14px 18px;border-radius:10px;background:#f3e8ff;border:1px solid #c4b5fd;margin-bottom:6px;display:flex;align-items:center;gap:12px;">
+          <span style="font-size:24px;">🏠</span>
+          <div><h4 style="font-size:13px;font-weight:700;">LDMアースジャーニー — 月額8,800円</h4><p style="font-size:12px;opacity:0.7;">安定収入の核。サブスク会員のコミュニティ</p></div>
         </div>
-        <div class="num-card">
-          <div class="num-val" style="color:#22c55e;">1,864万</div>
-          <div class="num-label">業務委託料（88%健全）</div>
+        <div class="fl-arrow">▼</div>
+        <div style="padding:14px 18px;border-radius:10px;background:#fef3c7;border:1px solid #fcd34d;display:flex;align-items:center;gap:12px;">
+          <span style="font-size:24px;">✨</span>
+          <div><h4 style="font-size:13px;font-weight:700;">高額講座 — 自然発生</h4><p style="font-size:12px;opacity:0.7;">コミュニティの中から自然と生まれる。押し売りしない</p></div>
         </div>
-        <div class="num-card">
-          <div class="num-val" style="color:#22c55e;">4.1万/年</div>
-          <div class="num-label">振込手数料（想定の1/50）</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📈 収益2層構造</h3>
+      <div class="strat-grid">
+        <div class="strat-box" style="background:#f0fdf4;border-color:#a7f3d0;">
+          <h4 style="color:#059669;">安定層（サブスク）</h4>
+          <ul>
+            <li>• 月額8,800円 × 会員数</li>
+            <li>• MRRとして毎月積み上がる</li>
+            <li>• 予測可能。安心の源泉</li>
+            <li>• <strong>目標: 57人純増 = 月+50万</strong></li>
+          </ul>
         </div>
-        <div class="num-card">
-          <div class="num-val" style="color:#2563eb;">10.3万/年</div>
-          <div class="num-label">SaaS解約で削減</div>
+        <div class="strat-box" style="background:#fffbeb;border-color:#fcd34d;">
+          <h4 style="color:#92400e;">変動層（高額講座）</h4>
+          <ul>
+            <li>• コミュニティから自然発生</li>
+            <li>• 件数は読めないが高単価</li>
+            <li>• 安定層があるから焦らない</li>
+            <li>• <strong>「来たら嬉しい」のスタンス</strong></li>
+          </ul>
         </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🎯 マイルストーン</h3>
+      <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th></th><th>現在地</th><th>3ヶ月後</th><th>6ヶ月後</th><th>12ヶ月後</th></tr></thead>
+        <tbody>
+          <tr><td><strong>会員数</strong></td><td>把握中</td><td>+20人純増</td><td>+57人純増</td><td>安定成長</td></tr>
+          <tr><td><strong>MRR</strong></td><td>算出中</td><td>ベースライン確立</td><td>+50万/月</td><td>安定成長</td></tr>
+          <tr><td><strong>チャーン</strong></td><td>計測開始</td><td>率の把握</td><td>5%以下目標</td><td>3%以下</td></tr>
+          <tr><td><strong>オプチャ→有料</strong></td><td>1,000人</td><td>転換率の把握</td><td>転換施策実行</td><td>安定ファネル</td></tr>
+        </tbody>
+      </table>
       </div>
     </div>
   </div>
@@ -294,9 +276,9 @@
   <!-- ===== 運用リズム ===== -->
   <div id="rhythm" class="panel">
     <div class="card">
-      <h3>🔄 運用リズム — 北原式統合版</h3>
+      <h3>🔄 運用リズム — v4（サブスクKPI統合版）</h3>
       <div class="hl hl-yellow">
-        ⚠️ 2026-04-30 北原式チェック統合済み。具体手順は <code>財務日次チェック運用ルール.md</code> 参照。
+        ⚠️ 2026-05-03 v4更新。サブスクKPIチェックを月次・四半期に追加。
       </div>
 
       <div class="rhythm-row rr-daily">
@@ -307,32 +289,29 @@
           ② 現預金の異常変動チェック<br>
           ③ 売掛金滞留（30日超）チェック<br>
           ④ 今日の支払・振込予定確認<br>
-          ⑤ 設計書「3つの問い」で数字を俯瞰<br>
-          <span style="font-size:11px;opacity:0.5;">危険信号が灯っている場合、朝レポートの冒頭で報告</span>
+          ⑤ 設計書「3つの問い」で数字を俯瞰
         </div>
       </div>
 
       <div class="rhythm-row rr-monthly">
         <div><div class="rr-label">毎月</div></div>
         <div class="rr-content">
-          <strong>月初チェック — 北原式月次チェックシート</strong><br>
+          <strong>月初チェック — 北原式 + サブスクKPI</strong><br>
           • 5指標集計（売上・粗利・販管費・営業利益・現預金残高）→ <strong>月末→5日以内必達</strong><br>
-          • 数値ターゲットとの照合<br>
+          • <span class="st st-new">🆕 サブスクKPIチェック</span>: 会員数・MRR・新規入会数・チャーンレート・転換率<br>
           • 危険信号4項目チェック<br>
-          • 源泉税処理（毎月10日）/ シンクロ月次報告（毎月2日）<br>
-          • 堀内さんへ報告：「先月はこう。ターゲットとの差はこう。気になる点はこれ。」
+          • 源泉税処理（毎月10日）/ シンクロ月次報告（毎月2日）
         </div>
       </div>
 
       <div class="rhythm-row rr-quarterly">
         <div><div class="rr-label">四半期</div></div>
         <div class="rr-content">
-          <strong>選択と集中レビュー — 北原式フレーム</strong><br>
-          • #3 売上とコストのバランス<br>
-          • #7 先行投資の回収見込み<br>
-          • #4 固定費の見直し<br>
-          • #10 撤退基準の確認<br>
-          • ギャップ分析の更新 / 売上構成比の見直し / 費用構造の理想配分比較
+          <strong>選択と集中レビュー + サブスク成長率チェック</strong><br>
+          • 投資回収の見込み / 撤退基準の確認<br>
+          • 固定費の棚卸し<br>
+          • <span class="st st-new">🆕 サブスク成長率チェック</span>: MRR成長率・チャーン推移・ファネル転換率トレンド<br>
+          • ギャップ分析の更新
         </div>
       </div>
 
@@ -341,53 +320,52 @@
         <div class="rr-content">
           <strong>年度締め</strong><br>
           • 決算対応 / 支払調書作成<br>
-          • 中期・長期目標の見直し<br>
-          • 全ドキュメントの棚卸しと更新
+          • サブスクモデルの年間振り返り<br>
+          • 中期・長期目標の見直し
         </div>
       </div>
     </div>
 
     <div class="hl hl-blue">
-      ⏰ <strong>北原式「24時間ルール」</strong> — 数字に異常を見つけたら、24時間以内に対応を始める。「来週やろう」は許さない。
+      ⏰ <strong>北原式「24時間ルール」</strong> — 数字に異常を見つけたら、24時間以内に対応を始める。
     </div>
   </div>
 
   <!-- ===== アクション進捗 ===== -->
   <div id="actions" class="panel">
     <div class="card">
-      <h3>📋 優先アクション進捗（全14項目）</h3>
+      <h3>📋 優先アクション進捗（5/3更新）</h3>
       <div style="overflow-x:auto;">
       <table>
         <thead><tr><th>#</th><th>アクション</th><th>状態</th><th>メモ</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td>売掛金1,405万の回収（仕訳整理）</td><td><span class="st st-done">✅完了</span></td><td>Stripe補助科目修正済</td></tr>
-          <tr><td>2</td><td>支払手数料498万の解剖</td><td><span class="st st-done">✅完了</span></td><td>誤分類150〜250万発見/実質削減70〜120万</td></tr>
-          <tr><td>3</td><td>業務委託料1,864万の再分類</td><td><span class="st st-done">✅完了</span></td><td>88%健全。削減余地ほぼなし</td></tr>
+          <tr><td>1</td><td>売掛金の回収（仕訳整理）</td><td><span class="st st-done">✅完了</span></td><td>Stripe補助科目修正済</td></tr>
+          <tr><td>2</td><td>支払手数料の解剖</td><td><span class="st st-done">✅完了</span></td><td>誤分類150〜250万発見/修正済</td></tr>
+          <tr><td>3</td><td>業務委託料の再分類</td><td><span class="st st-done">✅完了</span></td><td>88%健全。削減余地ほぼなし</td></tr>
           <tr><td>4</td><td>MF仕訳の日次化</td><td><span class="st st-done">✅完了</span></td><td>朝レポート統合済</td></tr>
-          <tr><td>5</td><td>支払手数料Phase 1: 誤分類修正</td><td><span class="st st-done">✅完了</span></td><td>79件 + 追加18件 = 計97件修正</td></tr>
-          <tr><td>6</td><td>支払手数料Phase 2: 振込構造改革</td><td><span class="st st-done">✅完了</span></td><td>振込手数料は年4.1万（想定の1/50）</td></tr>
-          <tr><td>7</td><td>売掛金/Stripe マイナス残高</td><td><span class="st st-done">✅ほぼ完了</span></td><td>二重計上8件削除済。返金失敗5件は中野先生にMTGで画面共有済(4/27)。修正仕訳は決算時に中野先生側で処理予定</td></tr>
-          <tr><td>8</td><td>5プロジェクトのPhase 2/3移行</td><td><span class="st st-todo">🔴これから</span></td><td>売上成熟化。月+50万の設計 ← 主戦場</td></tr>
-          <tr><td>9</td><td>月別クレカ支払い82万の分解</td><td><span class="st st-hold">🟡保留</span></td><td>業務委託料の中身不明分</td></tr>
-          <tr><td>10</td><td>個人口座残高の可視化</td><td><span class="st st-hold">🟡保留</span></td><td>ダッシュボードに第2タブ追加</td></tr>
-          <tr><td>11</td><td>役員借入金 -933万の正常化</td><td><span class="st st-ok">✅問題なし</span></td><td>中野先生「出資と同義。対応不要」</td></tr>
-          <tr><td>12</td><td>月初自動チェック</td><td><span class="st st-done">🟢バックログ</span></td><td>朝レポート統合</td></tr>
-          <tr><td>13</td><td>支払手数料Phase 3: SaaS棚卸し</td><td><span class="st st-done">✅完了</span></td><td>4件解約(年10.3万削減)</td></tr>
-          <tr><td>14</td><td>北原式日次/月次/四半期チェック統合</td><td><span class="st st-done">✅完了</span></td><td>4/30完了。5/1から運用開始</td></tr>
+          <tr><td>5</td><td>誤分類修正</td><td><span class="st st-done">✅完了</span></td><td>計115件修正</td></tr>
+          <tr><td>6</td><td>振込構造改革</td><td><span class="st st-done">✅完了</span></td><td>年4.1万（想定の1/50）</td></tr>
+          <tr><td>7</td><td>売掛金/Stripe マイナス残高</td><td><span class="st st-done">✅ほぼ完了</span></td><td>中野先生にMTG共有済(4/27)</td></tr>
+          <tr style="background:#faf5ff;"><td>8</td><td><strong>サブスク中心の売上成熟化</strong></td><td><span class="st st-new">🟣v4転換</span></td><td>57人×8,800円=月+50万。主戦場</td></tr>
+          <tr><td>9</td><td>月別クレカ支払の分解</td><td><span class="st st-hold">🟡保留</span></td><td>業務委託料の中身不明分</td></tr>
+          <tr><td>10</td><td>個人口座残高の可視化</td><td><span class="st st-hold">🟡保留</span></td><td>ダッシュボード追加</td></tr>
+          <tr><td>11</td><td>役員借入金</td><td><span class="st st-ok">✅対応不要</span></td><td>中野先生「出資と同義」</td></tr>
+          <tr><td>12</td><td>月初自動チェック</td><td><span class="st st-done">✅完了</span></td><td>朝レポート統合</td></tr>
+          <tr><td>13</td><td>SaaS棚卸し</td><td><span class="st st-done">✅完了</span></td><td>4件解約(年10.3万削減)</td></tr>
+          <tr><td>14</td><td>北原式チェック統合</td><td><span class="st st-done">✅完了</span></td><td>5/1から運用開始</td></tr>
         </tbody>
       </table>
       </div>
     </div>
 
     <div class="card">
-      <h3>🎯 次の手（5/1更新）</h3>
+      <h3>🎯 次の手（5/3更新 — サブスク中心）</h3>
       <div style="font-size:13.5px;">
-        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">✅ <strong>北原式チェック統合</strong> — 運用ルール制定完了。agent.md刷新済み。<strong>本日5/1から運用開始！</strong></div>
-        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">✅ <strong>返金失敗5件の中野先生共有</strong> — 4/27 MTGで画面共有済み。修正仕訳は決算時に中野先生側で処理予定</div>
-        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">🟢 <strong>本日5/1は新期初日</strong> — 新会計年度開始。月初チェックシートの初回実行</div>
-        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">🟡 <strong>MF顧問先承認</strong> — 中野先生側から依頼→確認するだけ</div>
-        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">🟡 <strong>LDAM協会 均等割り納付</strong> — 帰国後(5/1頃)に納付</div>
-        <div style="padding:8px 0;">🔴 <strong>#8 5プロジェクトのPhase 2/3移行</strong> ← 中期の主戦場</div>
+        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">🟣 <strong>会員数の現在地把握</strong> — LDMアースジャーニーの現会員数を正確に確認</div>
+        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">🟣 <strong>MRRベースライン算出</strong> — 月次経常収益の出発点を確定</div>
+        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">🟣 <strong>ファネル数値把握</strong> — オプチャ1,000人→有料の転換率を計測開始</div>
+        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">🟣 <strong>リスト9,900件の案内設計</strong> — 既存リストからコミュニティへの導線設計</div>
+        <div style="padding:8px 0;">🟡 <strong>MF顧問先承認</strong> — 中野先生側から依頼→確認するだけ</div>
       </div>
     </div>
   </div>
@@ -395,105 +373,144 @@
   <!-- ===== 戦略転換 ===== -->
   <div id="strategy" class="panel">
     <div class="card">
-      <h3>🔄 戦略転換 — 「削る」から「整える」へ</h3>
-      <p style="font-size:13px;opacity:0.6;margin-bottom:14px;">業務委託料と支払手数料の実態が判明し、販管費削減だけでは営業利益500万を作れないことが確定。</p>
-      <div class="strat-grid">
-        <div class="strat-box strat-old">
-          <h4>旧戦略（削減ドリブン）</h4>
-          <ul>
-            <li>• 支払手数料690万削減余地あり？</li>
-            <li>• 業務委託料に大幅削減余地あり？</li>
-            <li>• 販管費カットで利益を出す</li>
-          </ul>
-        </div>
-        <div class="strat-box strat-new">
-          <h4>新戦略（整え＆成熟ドリブン）</h4>
-          <ul>
-            <li>• 会計の誤分類を正す（済）</li>
-            <li>• 流れを通す（✅完了）</li>
-            <li>• <strong>売上成熟化（月+50万）が主戦場</strong></li>
-          </ul>
-        </div>
+      <h3>🔄 戦略の進化 — 3段階の転換</h3>
+      <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th></th><th>4/9（初期）</th><th>4/15（転換1）</th><th>5/3（転換2・現在）</th></tr></thead>
+        <tbody>
+          <tr><td><strong>仮説</strong></td><td>経費削減で利益を出す</td><td>削減→整え＆成熟</td><td>コミュニティ(サブスク)中心で回す</td></tr>
+          <tr><td><strong>主戦場</strong></td><td>支払手数料690万削減</td><td>5プロジェクト成熟化</td><td>サブスク成熟化(57人×8,800円)</td></tr>
+          <tr><td><strong>売上観</strong></td><td>—</td><td>5事業の売上を個別に伸ばす</td><td>安定層(サブスク)+変動層(高額自然発生)</td></tr>
+          <tr><td><strong>利益ルート</strong></td><td>販管費カット</td><td>売上+600万+削減100万</td><td>57人純増×8,800円=月+50万→年+600万</td></tr>
+        </tbody>
+      </table>
       </div>
     </div>
 
     <div class="card">
-      <h3>🏔️ ミッション再定義（5段階）</h3>
+      <h3>🏔️ ミッション再定義（v4）</h3>
       <div class="mission-grid">
         <div class="mission-card mc-done">
           <div class="mc-badge mcb-done">✅ DONE</div>
           <h4>①整える</h4>
-          <p>会計の誤分類修正。支払手数料97件+追加18件修正済</p>
+          <p>会計の誤分類修正。115件修正済</p>
         </div>
         <div class="mission-card mc-done">
           <div class="mc-badge mcb-done">✅ DONE</div>
           <h4>②構造改革</h4>
-          <p>振込手数料年4万判明。SaaS棚卸し4件解約(年10.3万削減)</p>
+          <p>SaaS棚卸し4件解約(年10.3万削減)</p>
         </div>
         <div class="mission-card mc-done">
           <div class="mc-badge mcb-done">✅ DONE</div>
           <h4>③流れを通す</h4>
-          <p>売掛金の正常化完了。返金失敗5件は中野先生に共有済(4/27 MTG)。修正仕訳は決算時処理</p>
+          <p>売掛金正常化。返金失敗は中野先生に共有済</p>
         </div>
-        <div class="mission-card mc-new">
-          <div class="mc-badge mcb-new">✅ NEW</div>
-          <h4>④北原式チェック統合</h4>
-          <p>日次・月次・四半期の運用ルール制定完了。5/1から運用開始</p>
+        <div class="mission-card mc-done">
+          <div class="mc-badge mcb-done">✅ DONE</div>
+          <h4>④仕組み化</h4>
+          <p>北原式チェック統合。5/1から運用開始</p>
         </div>
       </div>
       <div style="margin-top:12px;">
-        <div class="mission-card mc-fire" style="max-width:100%;">
-          <div class="mc-badge mcb-fire">🔴 今ここ</div>
-          <h4>⑤成熟させる</h4>
-          <p>5プロジェクトのPhase 2/3移行で売上を増やす。「整える」が終わった今、ここが主戦場。月+50万の設計。</p>
+        <div class="mission-card mc-new" style="max-width:100%;">
+          <div class="mc-badge mcb-new">🟣 v4 主戦場</div>
+          <h4>⑤コミュニティで回す</h4>
+          <p>サブスク中心の売上成熟化。57人純増×8,800円=月+50万。安定層+変動層の2層構造。コミュニティが安定の土壌となり、高額講座は自然発生。</p>
         </div>
       </div>
     </div>
 
     <div class="hl hl-green">
-      🦋 <strong>精神的な意味：</strong>「削る」局面は実質終了。堀内さんの会社は想定より健全だった。これからは「今あるものを整え、成熟させる」フェーズ。<strong>サナギが羽化する段階に入っている。</strong>
+      🦋 <strong>v4の意味：</strong>「成熟させる」の中身が具体化した。個別5事業を別々に伸ばすのではなく、<strong>コミュニティという「庭」で全部が有機的に育つ</strong>モデルへ。サブスクで安定した土壌を作り、堀内さんの命を解放する。
     </div>
   </div>
 
-  <!-- ===== ファイル構成 ===== -->
-  <div id="files" class="panel">
+  <!-- ===== v4ルート ===== -->
+  <div id="route" class="panel">
     <div class="card">
-      <h3>📁 ファイル階層マップ</h3>
-      <div class="file-tree">
-        <span class="ft-dim">company-core/</span><br>
-        <span class="ft-dim">├── </span>理想の財務状態_v2.md <span style="opacity:0.5;font-size:11px;">← 北極星</span><br>
-        <span class="ft-dim">├── </span>理想vs現状_ギャップ分析.md <span style="opacity:0.5;font-size:11px;">← 現在地</span><br>
-        <span class="ft-dim">├── </span><span class="ft-hub">財務マネジメント運用設計書.md</span> <span class="ft-tag ftt-hub">中枢</span><br>
-        <span class="ft-dim">├── </span>MF会計_判断メモ_2025年度.md<br>
-        <span class="ft-dim">└── </span>北原メソッド/<br>
-        <span class="ft-dim">    ├── </span>financial-judgment.md<br>
-        <span class="ft-dim">    ├── </span>defense-check.md<br>
-        <span class="ft-dim">    ├── </span>selection-and-focus.md<br>
-        <span class="ft-dim">    └── </span><span class="ft-new">財務日次チェック運用ルール.md</span> <span class="ft-tag ftt-new">NEW</span><br>
-        <br>
-        <span class="ft-dim">agents/bantou/</span><br>
-        <span class="ft-dim">├── </span><span class="ft-hub">agent.md</span> <span class="ft-tag ftt-hub">そろの脳</span><br>
-        <span class="ft-dim">├── </span>judgment-memo.md<br>
-        <span class="ft-dim">└── </span>reports/<br>
-        <span class="ft-dim">    ├── </span>支払手数料_解剖レポート.md<br>
-        <span class="ft-dim">    ├── </span>振込手数料_分析レポート.md<br>
-        <span class="ft-dim">    ├── </span>業務委託料_再分類一覧.md<br>
-        <span class="ft-dim">    ├── </span>SaaS棚卸しレポート.html<br>
-        <span class="ft-dim">    └── </span>Stripe二重計上_詳細.xlsx
+      <h3>🎯 営業利益500万 v4ルート</h3>
+      <div class="strat-grid">
+        <div class="strat-old">
+          <h4>旧ルート（v3: 5事業個別成熟）</h4>
+          <ul>
+            <li>• 5プロジェクトを個別に伸ばす</li>
+            <li>• 売上+600万(月+50万)</li>
+            <li>• × 粗利80% = +480万</li>
+            <li>• + 経費最適化100万 = 580万</li>
+          </ul>
+        </div>
+        <div class="strat-new">
+          <h4>v4ルート（サブスク中心）</h4>
+          <ul>
+            <li>• <strong>57人純増 × 8,800円 = 月+50万</strong></li>
+            <li>• 年+600万（サブスク安定収入）</li>
+            <li>• × 粗利80% = +480万</li>
+            <li>• + 経費最適化100万 = <strong>580万</strong></li>
+            <li>• + 高額講座（自然発生分）</li>
+          </ul>
+        </div>
       </div>
     </div>
 
     <div class="card">
-      <h3>🔗 外部リソース</h3>
-      <div style="font-size:13px;">
-        <div style="padding:8px 0;border-bottom:1px solid #f1f5f9;">📊 <strong>勘定科目振り分けリスト + 判断メモタブ</strong> — Google Sheets</div>
-        <div style="padding:8px 0;">📋 <strong>週間タスク管理表</strong> — Google Sheets</div>
+      <h3>📊 v4の数字</h3>
+      <div class="num-grid">
+        <div class="num-card">
+          <div class="num-val" style="color:#6b21a8;">8,800円</div>
+          <div class="num-label">月額サブスク単価</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val" style="color:#059669;">57人</div>
+          <div class="num-label">純増目標（月+50万達成）</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val" style="color:#2563eb;">+50万/月</div>
+          <div class="num-label">サブスク増収目標</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val" style="color:#22c55e;">+600万/年</div>
+          <div class="num-label">年間増収</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val" style="color:#f59e0b;">1,000人</div>
+          <div class="num-label">オプチャ（入口）</div>
+        </div>
+        <div class="num-card">
+          <div class="num-val" style="color:#dc2626;">9,900件</div>
+          <div class="num-label">既存リスト（未活用）</div>
+        </div>
       </div>
+    </div>
+
+    <div class="card">
+      <h3>🛠️ v4の次の手（即実行）</h3>
+      <div style="font-size:13.5px;">
+        <div style="padding:10px 0;border-bottom:1px solid #f1f5f9;">
+          <strong>① 会員数の現在地把握</strong><br>
+          <span style="opacity:0.6;">LDMアースジャーニーの現会員数を正確に確認する</span>
+        </div>
+        <div style="padding:10px 0;border-bottom:1px solid #f1f5f9;">
+          <strong>② MRRベースライン算出</strong><br>
+          <span style="opacity:0.6;">月額8,800円 × 現会員数 = 現在のMRR。ここが出発点</span>
+        </div>
+        <div style="padding:10px 0;border-bottom:1px solid #f1f5f9;">
+          <strong>③ ファネル数値の把握</strong><br>
+          <span style="opacity:0.6;">オプチャ1,000人→有料の転換率はどのくらいか？</span>
+        </div>
+        <div style="padding:10px 0;">
+          <strong>④ リスト9,900件の案内設計</strong><br>
+          <span style="opacity:0.6;">過去のメルマガ登録者にコミュニティの案内を出す設計</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hl hl-purple">
+      <strong>こあの記録（5/3）：</strong>5/3のまりこしミーティングでサブスク中心モデルが確定。堀内さんの中で「セミナーを売る時代は終わった」という確信があった。オプチャ1,000人突破が証明している——コミュニティは既に動いている。あとは「有料」に変える仕組みを整えるだけ。
     </div>
   </div>
 
   <div class="footer">
-    財務マネジメント運用設計書 ビジュアル版 — Generated by こあ(COA) on 2026-05-01
+    財務マネジメント運用設計書 v4 ビジュアル版 — Generated by こあ(COA) on 2026-05-03
   </div>
 </div>
 
@@ -502,8 +519,8 @@ function go(id) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.querySelector('[onclick="go(\'' + id + '\')"]').classList.add('active');
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  document.querySelector('[onclick="go(\'' + id + '\')"').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
 </body>
