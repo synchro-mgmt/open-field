@@ -39,7 +39,6 @@
     min-height: 100vh;
   }
 
-  /* ===== HERO ===== */
   .hero {
     background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 60%, #1b2d4f 100%);
     color: #fff;
@@ -87,7 +86,6 @@
     letter-spacing: 0.04em;
   }
 
-  /* ===== SOLAR SYSTEM ===== */
   .solar-section {
     max-width: 900px;
     margin: -40px auto 0;
@@ -134,8 +132,13 @@
     transition: all 0.2s ease;
   }
   .sun-links a:hover { background: #e67e22; transform: translateY(-1px); }
+  .sun-links a.secondary {
+    background: transparent;
+    border: 2px solid var(--sun);
+    color: #92400e;
+  }
+  .sun-links a.secondary:hover { background: rgba(243,156,18,0.1); }
 
-  /* Planet grid */
   .planet-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -157,6 +160,10 @@
   .planet-card:hover {
     box-shadow: 0 8px 28px rgba(0,0,0,0.08);
     transform: translateY(-3px);
+  }
+  .planet-card.active {
+    border-color: var(--earth);
+    box-shadow: 0 4px 16px rgba(52,152,219,0.12);
   }
   .planet-header {
     display: flex;
@@ -193,7 +200,6 @@
     margin-top: 12px;
   }
 
-  /* ===== STORY SPOTLIGHT ===== */
   .story-section {
     margin-bottom: 32px;
   }
@@ -244,7 +250,6 @@
     margin-top: 16px;
   }
 
-  /* ===== DASHBOARD GRID ===== */
   .dashboard-section {
     margin-bottom: 32px;
   }
@@ -283,7 +288,6 @@
     margin-top: 8px;
   }
 
-  /* Utility cards */
   .util-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -309,7 +313,20 @@
   .util-card h4 { font-size: 0.85em; font-weight: 700; margin-bottom: 4px; }
   .util-card p { font-size: 0.75em; color: var(--text-sub); }
 
-  /* Footer */
+  .update-banner {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    border: 1px solid #6ee7b7;
+    border-radius: 16px;
+    padding: 20px 28px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .update-banner .update-icon { font-size: 1.6em; flex-shrink: 0; }
+  .update-banner .update-text { font-size: 0.88em; color: #065f46; }
+  .update-banner .update-text strong { color: #047857; }
+
   .portal-footer {
     text-align: center;
     padding: 40px 24px;
@@ -329,6 +346,7 @@
     .util-grid { grid-template-columns: repeat(2, 1fr); }
     .solar-section { padding: 0 16px 40px; }
     .story-card { padding: 28px 20px; }
+    .update-banner { flex-direction: column; text-align: center; }
   }
 </style>
 </head>
@@ -344,26 +362,32 @@
 
 <div class="solar-section">
 
-  <!-- Sun: LDM -->
+  <div class="update-banner">
+    <div class="update-icon">🚀</div>
+    <div>
+      <div class="update-text"><strong>5/1〜5/3 大幅アップデート</strong> — コミュニティ起点モデル確定、財務設計v4完成、メルマガ配信開始、ダッシュボード3ページ追加</div>
+    </div>
+  </div>
+
   <div class="sun-card">
     <div class="sun-icon">☀️</div>
     <h2>LDM — Life Design Method</h2>
     <p>すべての中心にある太陽。命のデザインを通じて、人生を丸ごと創造するメソッド。</p>
     <div class="sun-links">
       <a href="ldm/roadmap/ubm-osaka-20260620.html">UBM大阪ロードマップ</a>
+      <a href="methods/kitahara-method-map.html" class="secondary">北原メソッド実践MAP</a>
     </div>
   </div>
 
-  <!-- Planets -->
   <div class="planet-grid">
 
-    <div class="planet-card">
+    <div class="planet-card active">
       <div class="planet-header">
         <div class="planet-icon" style="background: rgba(52,152,219,0.1);">🌍</div>
         <h3>アースジャーニー</h3>
       </div>
-      <p>LDMの入口であり最深部。地球とつながり、命の本質に触れる旅。</p>
-      <span class="planet-tag" style="background: rgba(52,152,219,0.1); color: #2980b9;">coming soon</span>
+      <p>LDMの入口であり最深部。地球とつながり、命の本質に触れる旅。メルマガ配信を開始し、コミュニティ起点モデルの核として動き出した。</p>
+      <span class="planet-tag" style="background: rgba(52,152,219,0.15); color: #2471a3;">メルマガ配信中</span>
     </div>
 
     <div class="planet-card">
@@ -395,7 +419,6 @@
 
   </div>
 
-  <!-- Story Spotlight -->
   <div class="story-section">
     <div class="section-label">STORY</div>
     <a href="dashboards/financial-story.html" class="story-card">
@@ -406,7 +429,6 @@
     </a>
   </div>
 
-  <!-- Dashboards -->
   <div class="dashboard-section">
     <div class="section-label">DASHBOARDS</div>
     <div class="dashboard-grid">
@@ -418,7 +440,7 @@
       <a href="dashboards/financial-roadmap.html" class="dash-card">
         <div class="dash-icon">💰</div>
         <h4>財務マネジメント設計</h4>
-        <p>運用設計と戦略転換</p>
+        <p>サブスク中心モデルv4</p>
         <span class="dash-lock">🔒 管理用</span>
       </a>
       <a href="dashboards/gap-analysis.html" class="dash-card">
@@ -430,7 +452,6 @@
     </div>
   </div>
 
-  <!-- Utility -->
   <div class="util-grid">
     <div class="util-card">
       <div class="util-icon">🤖</div>

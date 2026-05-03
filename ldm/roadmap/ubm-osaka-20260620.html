@@ -231,6 +231,7 @@
   }
   .tl-item.today::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 4px rgba(233,69,96,0.2); }
   .tl-item.key::before { background: var(--orange); border-color: var(--orange); box-shadow: 0 0 0 4px rgba(243,156,18,0.2); }
+  .tl-item.done::before { background: var(--green); border-color: var(--green); }
   .tl-item.ubm::before { background: var(--navy); border-color: var(--navy); width: 18px; height: 18px; left: -41px; top: 6px; box-shadow: 0 0 0 4px rgba(10,22,40,0.15); }
 
   .tl-date {
@@ -252,8 +253,8 @@
   }
   .tl-item.today .tl-content { background: #fef2f2; border-color: #fecaca; }
   .tl-item.key .tl-content { background: var(--orange-bg); border-color: #fde68a; }
+  .tl-item.done .tl-content { background: var(--green-bg); border-color: #a7f3d0; }
   .tl-item.ubm .tl-content { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid #93c5fd; }
-  .tl-item.cancel .tl-content { background: #f8f8f8; border: 1px dashed #d1d5db; }
 
   .tl-title { font-weight: 700; font-size: 0.92em; margin-bottom: 6px; }
   .tl-desc { font-size: 0.85em; color: var(--text-sub); line-height: 1.8; }
@@ -294,55 +295,6 @@
   .check-badge.blue { background: var(--blue); }
   .check-badge.gray { background: #94a3b8; }
   .check-body { font-size: 0.85em; margin-top: 8px; color: var(--text-sub); }
-  .check-action {
-    margin-top: 10px;
-    background: rgba(255,255,255,0.7);
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 0.85em;
-  }
-
-  .bring-list { list-style: none; padding: 0; }
-  .bring-list li {
-    padding: 14px 0 14px 36px;
-    position: relative;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.9em;
-  }
-  .bring-list li:last-child { border-bottom: none; }
-  .bring-list li::before {
-    content: '\2610';
-    position: absolute;
-    left: 6px;
-    top: 14px;
-    font-size: 1.1em;
-    color: var(--text-sub);
-  }
-
-  .report-box {
-    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-    border-radius: var(--radius-sm);
-    padding: 28px;
-    margin: 20px 0;
-    border: 1px solid #86efac;
-  }
-  .report-box h3 { color: var(--green-dark); margin-top: 0; font-family: 'Zen Maru Gothic', sans-serif; }
-  .report-item {
-    margin: 12px 0;
-    padding: 12px 16px;
-    background: rgba(255,255,255,0.75);
-    border-radius: 10px;
-    font-size: 0.9em;
-    border: 1px solid rgba(134,239,172,0.3);
-  }
-  .report-item .label {
-    font-size: 0.78em;
-    font-weight: 700;
-    color: var(--green-dark);
-    display: block;
-    margin-bottom: 4px;
-    letter-spacing: 0.03em;
-  }
 
   .os-grid {
     display: grid;
@@ -363,22 +315,6 @@
   .os-status { font-weight: 700; }
   .os-status.good { color: var(--green-dark); }
   .os-status.progress { color: var(--blue); }
-  .os-card small { color: var(--text-sub); font-size: 0.9em; }
-
-  .trust-bar { display: flex; gap: 4px; margin: 16px 0; }
-  .trust-seg {
-    flex: 1;
-    text-align: center;
-    padding: 10px 4px;
-    border-radius: 8px;
-    font-size: 0.75em;
-    font-weight: 700;
-    transition: transform 0.2s ease;
-  }
-  .trust-seg:hover { transform: translateY(-1px); }
-  .trust-seg.active { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; }
-  .trust-seg.testing { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; }
-  .trust-seg.future { background: #f1f5f9; color: #94a3b8; border: 1px solid var(--border); }
 
   .prospect-table {
     width: 100%;
@@ -398,6 +334,8 @@
   .prospect-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
   .prospect-table tbody tr:last-child td { border-bottom: none; }
   .prospect-table tbody tr:hover { background: #f8fafc; }
+  .prospect-table .done-row { background: var(--green-bg); }
+  .prospect-table .done-row td { color: var(--green-dark); }
 
   .summary {
     background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 60%, var(--navy-light) 100%);
@@ -427,6 +365,19 @@
   .summary p { opacity: 0.9; margin-bottom: 14px; position: relative; }
   .summary strong { color: var(--gold); }
 
+  .new-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), #c62828);
+    color: #fff;
+    font-size: 0.6em;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 6px;
+    letter-spacing: 0.05em;
+  }
+
   .footer {
     text-align: center;
     padding: 24px;
@@ -444,8 +395,6 @@
     .os-grid { grid-template-columns: 1fr; }
     .container { padding: 24px 16px; }
     .card { padding: 24px 20px; }
-    .trust-bar { flex-wrap: wrap; }
-    .trust-seg { flex: 1 1 30%; }
   }
 </style>
 </head>
@@ -460,35 +409,35 @@
       次回 6/20（土）
       <small>UBM大阪 9:00-21:00</small>
     </div>
-    <div class="meta">作成 4/23 / 更新 4/30 / v2</div>
+    <div class="meta">作成 4/23 / 更新 5/3 / v3</div>
   </div>
 </div>
 
 <div class="container">
 
 <div class="card">
-  <h2><span class="emoji">📍</span> 今の現在地 — 合宿から25日目</h2>
+  <h2><span class="emoji">📍</span> 今の現在地 — 合宿から28日目</h2>
 
-  <p>合宿（4/5）で決めた7つのアクションプラン。25日経って、こうなってる：</p>
+  <p>合宿（4/5）で決めた7つのアクションプラン。28日経って、こうなってる：</p>
 
   <div class="plan-grid">
-    <div class="plan-card evolving">
-      <span class="num">1</span>メソッド<br>言語化<br>素材蓄積中
-    </div>
     <div class="plan-card big">
+      <span class="num">1</span>メソッド<br>言語化<br>基盤構築済
+    </div>
+    <div class="plan-card done">
       <span class="num">2</span>講師<br>1on1<br>完了
     </div>
-    <div class="plan-card not-started">
-      <span class="num">3</span>定義<br>統一<br>未着手
+    <div class="plan-card evolving">
+      <span class="num">3</span>定義<br>統一<br>進行中
     </div>
-    <div class="plan-card not-started">
-      <span class="num">4</span>仲間の<br>時間<br>5月〜
+    <div class="plan-card evolving">
+      <span class="num">4</span>仲間の<br>時間<br>配信開始
     </div>
-    <div class="plan-card not-started">
+    <div class="plan-card evolving">
       <span class="num">5</span>離脱率<br>把握<br>箱あり
     </div>
-    <div class="plan-card big">
-      <span class="num">6</span>コスト<br>構造<br>大幅進行
+    <div class="plan-card done">
+      <span class="num">6</span>コスト<br>構造<br>v4完成
     </div>
     <div class="plan-card done">
       <span class="num">7</span>UBM<br>日程<br>完了
@@ -496,11 +445,13 @@
   </div>
 
   <div class="insight">
-    <h3>合宿では想定していなかった大きな動き</h3>
-    <p>プラン外で起きたことが実は一番大きい：</p>
-    <p><strong>会社の基盤構築</strong> — 財務全体整理、管理体制構築、コンテンツ資産のデータベース化、<br>
-    エージェントチームの構築、メール配信システム移行、業務委託チームのマニュアル設計 —<br>
-    会社の「記憶」と「仕組み」が急速に形になり始めている。</p>
+    <h3>この3日間（5/1〜5/3）で一気に景色が変わった</h3>
+    <p>プラン外で起きたことが、会社の未来を決定づけた：</p>
+    <p><strong>コミュニティ起点モデルへの転換</strong> — まりこしMTGで確定。「新規集客→販売」から「コミュニティ育成→自然な循環」へ。<br>
+    <strong>財務設計v4</strong> — サブスク中心モデル（月額¥8,800）で収益構造を再設計。ダッシュボード3ページを公開サイトに実装。<br>
+    <strong>コンテンツ資産のDB化</strong> — Facebook投稿92件、Notta書き起こし、セミナー素材をGitHubに集約。発信基盤が完成。<br>
+    <strong>メルマガ配信開始</strong> — アースジャーニーDay 1, Day 2+3を配信。「仲間の時間」が実際に動き始めた。<br>
+    <strong>中畑さんが運営チームに参加</strong> — 人が増えた。チームが広がり始めている。</p>
   </div>
 </div>
 
@@ -509,7 +460,7 @@
 
   <div class="timeline">
 
-    <div class="tl-item">
+    <div class="tl-item done">
       <div class="tl-date">4/23（木）</div>
       <div class="tl-content">
         <div class="tl-title">財務整理 完了</div>
@@ -517,7 +468,7 @@
       </div>
     </div>
 
-    <div class="tl-item key">
+    <div class="tl-item done">
       <div class="tl-date">4/25（金）</div>
       <div class="tl-content">
         <div class="tl-title">講師コーチング 1on1 完了 <span class="tl-tag">プラン2</span></div>
@@ -525,7 +476,7 @@
       </div>
     </div>
 
-    <div class="tl-item">
+    <div class="tl-item done">
       <div class="tl-date">4/29（火・祝）</div>
       <div class="tl-content">
         <div class="tl-title">コンテンツ基盤構築 + エンジン再設計</div>
@@ -533,24 +484,48 @@
       </div>
     </div>
 
-    <div class="tl-item today">
-      <div class="tl-date">4/30（木）— 今日</div>
+    <div class="tl-item done">
+      <div class="tl-date">4/30（水）</div>
       <div class="tl-content">
-        <div class="tl-title">仕訳ルール確定 + ロードマップ総更新</div>
-        <div class="tl-desc">会計ルール最終確定、コンテンツ集約進行中、全セッション振り返り統合更新。</div>
+        <div class="tl-title">仕訳ルール確定 + ロードマップv2公開</div>
+        <div class="tl-desc">会計ルール最終確定、コンテンツ集約進行、全セッション振り返り統合更新。</div>
+      </div>
+    </div>
+
+    <div class="tl-item key">
+      <div class="tl-date">5/1（木）<span class="new-badge">NEW</span></div>
+      <div class="tl-content">
+        <div class="tl-title">content-vault本格構築 + メルマガ配信開始</div>
+        <div class="tl-desc">Facebook投稿92件・Notta書き起こしをGitHubに集約。アースジャーニーDay 1メルマガを配信。「仲間の時間」が実際に始まった瞬間。</div>
+      </div>
+    </div>
+
+    <div class="tl-item key">
+      <div class="tl-date">5/2（金）<span class="new-badge">NEW</span></div>
+      <div class="tl-content">
+        <div class="tl-title">財務設計v4完成 + 公開サイト大幅拡張</div>
+        <div class="tl-desc">サブスク中心モデル（月額¥8,800）で収益構造を再設計。会社設計ロードマップ・財務マネジメント設計・ギャップ分析の3ダッシュボードを公開サイトに実装。財務ストーリー「サナギから羽化するまで」も公開。Google Driveフォルダ構造も整備。</div>
+      </div>
+    </div>
+
+    <div class="tl-item today">
+      <div class="tl-date">5/3（土）— 今日 <span class="new-badge">NEW</span></div>
+      <div class="tl-content">
+        <div class="tl-title">コミュニティ起点モデル確定 + チーム拡大</div>
+        <div class="tl-desc">まりこしMTGで「コミュニティ起点モデル」への転換を確定。中畑さんが運営チームに参加。メルマガDay 2+3配信。全エージェント知識共有基盤を整備（CLAUDE.md更新）。open-fieldポータル更新。</div>
       </div>
     </div>
 
     <div class="tl-item">
       <div class="tl-date">5月前半</div>
       <div class="tl-content">
-        <div class="tl-title">仕込み期間 — メソッド言語化 & 仲間の時間</div>
-        <div class="tl-desc">月次集計体制の実証、メソッド言語化の第一歩、配信システム移行完了、マニュアル整備開始。</div>
+        <div class="tl-title">仕込み期間 — メソッド言語化 & コミュニティ育成</div>
+        <div class="tl-desc">月次試算表の実証、メソッド言語化の第一歩、コミュニティ起点モデルの具体設計、マニュアル整備。</div>
       </div>
     </div>
 
     <div class="tl-item key">
-      <div class="tl-date">5/26（火）</div>
+      <div class="tl-date">5/26（月）</div>
       <div class="tl-content">
         <div class="tl-title">第2回コーチング（14:00） <span class="tl-tag">プラン2</span></div>
         <div class="tl-desc">第1回で出した宿題の報告を受ける。次のステップを決める。</div>
@@ -561,7 +536,7 @@
       <div class="tl-date">6/20（土）UBM大阪</div>
       <div class="tl-content">
         <div class="tl-title">UBM大阪 — 9:00〜21:00（次回参加）</div>
-        <div class="tl-desc">合宿から2ヶ月半の成果を報告。フィードバックをもらい、下半期の方向性を決める。</div>
+        <div class="tl-desc">合宿から2ヶ月半の成果を報告。コミュニティ起点モデルの方向性、財務構造の進化、コンテンツ基盤の構築をフィードバックにかける。</div>
       </div>
     </div>
 
@@ -581,12 +556,20 @@
       <div class="check-body" style="color:#166534;">年間スケジュール全登録。次回6/20大阪。</div>
     </div>
 
+    <div class="check-item clear">
+      <div class="check-header">
+        <strong>コスト構造把握</strong>
+        <span class="check-badge green">クリア済み</span>
+      </div>
+      <div class="check-body" style="color:#166534;">財務設計v4完成。サブスク中心モデル（月額¥8,800）で収益構造を再設計。ダッシュボード3ページで可視化済み。</div>
+    </div>
+
     <div class="check-item almost">
       <div class="check-header">
         <strong>月次集計体制</strong>
         <span class="check-badge orange">あと一歩</span>
       </div>
-      <div class="check-body">管理体制構築済み。月次試算表を1回出せばクリア。</div>
+      <div class="check-body">管理体制構築済み、仕訳ルール確定済み。月次試算表を1回出せばクリア。</div>
     </div>
 
     <div class="check-item almost">
@@ -594,15 +577,15 @@
         <strong>見直し体制</strong>
         <span class="check-badge orange">あと一歩</span>
       </div>
-      <div class="check-body">日次・月次・隔月の3層構造で実質できている。可視化すればクリア。</div>
+      <div class="check-body">日次・月次・隔月の3層構造で実質できている。ギャップ分析ダッシュボードで可視化済み。</div>
     </div>
 
     <div class="check-item almost">
       <div class="check-header">
         <strong>括りの人との関係</strong>
-        <span class="check-badge orange">動き始めた</span>
+        <span class="check-badge orange">深化中</span>
       </div>
-      <div class="check-body">1on1コーチング実施。下位5項目中4つクリア。</div>
+      <div class="check-body">1on1コーチング実施済み。5/26に第2回確定。まりこしMTGでコミュニティ起点モデルを共同設計。</div>
     </div>
 
     <div class="check-item info">
@@ -610,7 +593,7 @@
         <strong>積み上げ行動</strong>
         <span class="check-badge blue">ロードマップで説明可能</span>
       </div>
-      <div class="check-body">このロードマップ自体が回答。</div>
+      <div class="check-body">このロードマップ自体が回答。28日間で会社の基盤・財務・コンテンツ・チーム・発信すべてが動いている。</div>
     </div>
   </div>
 </div>
@@ -621,19 +604,19 @@
   <div class="os-grid">
     <div class="os-card">
       <span class="os-label">「勝たせる」→「循環させる」</span>
-      <span class="os-status good">◎ 進行中</span>
+      <span class="os-status good">◎ コミュニティ起点モデルで体現</span>
     </div>
     <div class="os-card">
       <span class="os-label">「お客さん」→「教え子」</span>
-      <span class="os-status good">◎ 体現し始めた</span>
+      <span class="os-status good">◎ メルマガで実践中</span>
     </div>
     <div class="os-card">
       <span class="os-label">属人性→思考統一</span>
-      <span class="os-status good">◎ 急速に進行中</span>
+      <span class="os-status good">◎ エージェントチーム+マニュアル</span>
     </div>
     <div class="os-card">
       <span class="os-label">「孤独」→「共にいる」</span>
-      <span class="os-status progress">▶ 動き始めた</span>
+      <span class="os-status good">◎ 中畑さん参加・チーム拡大</span>
     </div>
     <div class="os-card">
       <span class="os-label">「つい（対）」を見る</span>
@@ -641,7 +624,7 @@
     </div>
     <div class="os-card">
       <span class="os-label">「新規」→「既存」重視</span>
-      <span class="os-status good">◎ 行動で体現</span>
+      <span class="os-status good">◎ サブスクモデルで構造化</span>
     </div>
   </div>
 </div>
@@ -651,39 +634,47 @@
 
   <table class="prospect-table">
     <thead>
-      <tr><th>時期</th><th>アクション</th></tr>
+      <tr><th>時期</th><th>アクション</th><th>状態</th></tr>
     </thead>
     <tbody>
-      <tr><td>5月初</td><td>月次試算表を出す — 月次集計体制の実証</td></tr>
-      <tr><td>5月〜</td><td>コスト削減判断開始</td></tr>
-      <tr><td>5月前半</td><td>配信システム移行完了 + マニュアル整備開始</td></tr>
-      <tr><td>5/10</td><td>月報回参加</td></tr>
-      <tr><td>5月前半</td><td>メソッド言語化の第一歩</td></tr>
-      <tr><td><strong>5/26</strong></td><td><strong>第2回コーチング</strong></td></tr>
-      <tr><td><strong>6/20</strong></td><td><strong>UBM大阪 — 成果報告</strong></td></tr>
+      <tr class="done-row"><td>5/1</td><td>content-vault構築・メルマガ配信開始</td><td>✅ 完了</td></tr>
+      <tr class="done-row"><td>5/2</td><td>財務設計v4完成・ダッシュボード公開</td><td>✅ 完了</td></tr>
+      <tr class="done-row"><td>5/3</td><td>コミュニティ起点モデル確定</td><td>✅ 完了</td></tr>
+      <tr><td>5月前半</td><td>月次試算表を出す — 月次集計体制の実証</td><td>🔜 次</td></tr>
+      <tr><td>5月前半</td><td>コミュニティ起点モデルの具体設計</td><td>🔜 次</td></tr>
+      <tr><td>5月〜</td><td>メソッド言語化の第一歩（content-vault活用）</td><td>—</td></tr>
+      <tr><td>5/10</td><td>月報回参加</td><td>—</td></tr>
+      <tr><td><strong>5/26</strong></td><td><strong>第2回コーチング</strong></td><td>—</td></tr>
+      <tr><td><strong>6/20</strong></td><td><strong>UBM大阪 — 成果報告</strong></td><td>—</td></tr>
     </tbody>
   </table>
 </div>
 
 <div class="summary">
-  <h2>合宿から25日間の意味 — そして5月へ</h2>
+  <h2>合宿から28日間の意味 — 5月、動き始めた</h2>
 
   <p style="margin-top:20px; font-size:1.05em;">
-    この25日間で起きたことは、次のステージへの準備だった。
+    この28日間で、「準備」が「実行」に変わった。
   </p>
 
   <p>
-    足元を整理し、会社の基盤を構築し、人との関係を深め始めた。<br>
-    5月はまるまる「仕込み期間」。6/20には、厚い成果を持っていける。
+    足元を整理し、会社の基盤を構築し、財務を設計し直し、コンテンツを集約し、<br>
+    そして5月に入った瞬間 — メルマガが配信され、コミュニティ起点モデルが確定し、チームが広がった。<br>
+    <strong>もう「仕込み」じゃない。循環が回り始めている。</strong>
+  </p>
+
+  <p>
+    6/20 UBM大阪では、「こんなに動いた」じゃなく<br>
+    「こう循環し始めた」を報告できる。
   </p>
 
   <p style="margin-top:28px; text-align:center; font-size:1.3em; font-weight:900; color:var(--gold); letter-spacing:0.05em;">
-    循環が、回り始める。
+    循環が、回り始めた。
   </p>
 </div>
 
 <div class="footer">
-  作成: 4/23 / 更新: 4/30（v2）<br>
+  作成: 4/23 / 更新: 5/3（v3）<br>
   Synchro Management | open-field
 </div>
 
