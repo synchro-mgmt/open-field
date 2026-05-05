@@ -21,7 +21,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Watercolor blobs */
 body::before {
   content: '';
   position: fixed;
@@ -51,24 +50,10 @@ body::after {
 
 .container { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
 
-.header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-.header h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #4a6741;
-  letter-spacing: 0.05em;
-}
-.header .subtitle {
-  color: #7a7060;
-  font-size: 0.9rem;
-  margin-top: 0.3rem;
-  font-weight: 400;
-}
+.header { text-align: center; margin-bottom: 2rem; }
+.header h1 { font-size: 1.8rem; font-weight: 700; color: #4a6741; letter-spacing: 0.05em; }
+.header .subtitle { color: #7a7060; font-size: 0.9rem; margin-top: 0.3rem; font-weight: 400; }
 
-/* Cards */
 .card {
   background: rgba(255,255,255,0.65);
   backdrop-filter: blur(12px);
@@ -79,101 +64,45 @@ body::after {
   margin-bottom: 1.5rem;
   box-shadow: 0 4px 20px rgba(0,0,0,0.04);
 }
-.card h2 {
-  font-size: 1rem;
-  color: #5a7a50;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
+.card h2 { font-size: 1rem; color: #5a7a50; margin-bottom: 1rem; font-weight: 500; }
 
-/* Form */
-.form-row {
-  display: flex;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-  align-items: center;
-}
-.form-row label {
-  min-width: 110px;
-  font-size: 0.85rem;
-  color: #7a7060;
-  font-weight: 500;
-}
+.form-row { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; align-items: center; }
+.form-row label { min-width: 110px; font-size: 0.85rem; color: #7a7060; font-weight: 500; }
 .form-row input, .form-row select {
-  flex: 1;
-  background: rgba(255,255,255,0.7);
-  border: 1px solid rgba(164,190,148,0.4);
-  border-radius: 8px;
-  padding: 0.5rem 0.75rem;
-  color: #3d3529;
-  font-size: 0.85rem;
-  font-family: inherit;
-  transition: border-color 0.3s;
+  flex: 1; background: rgba(255,255,255,0.7); border: 1px solid rgba(164,190,148,0.4);
+  border-radius: 8px; padding: 0.5rem 0.75rem; color: #3d3529; font-size: 0.85rem;
+  font-family: inherit; transition: border-color 0.3s;
 }
-.form-row input:focus, .form-row select:focus {
-  outline: none;
-  border-color: #5a7a50;
-  box-shadow: 0 0 0 3px rgba(90,122,80,0.1);
-}
+.form-row input:focus, .form-row select:focus { outline: none; border-color: #5a7a50; box-shadow: 0 0 0 3px rgba(90,122,80,0.1); }
 
 .btn {
-  background: linear-gradient(135deg, #6b9a5e, #5a7a50);
-  color: #fff;
-  border: none;
-  padding: 0.45rem 1rem;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.3s;
-  box-shadow: 0 2px 8px rgba(90,122,80,0.2);
+  background: linear-gradient(135deg, #6b9a5e, #5a7a50); color: #fff; border: none;
+  padding: 0.45rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 500;
+  cursor: pointer; font-family: inherit; transition: all 0.3s; box-shadow: 0 2px 8px rgba(90,122,80,0.2);
 }
 .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(90,122,80,0.3); }
 .btn-small { padding: 0.3rem 0.6rem; font-size: 0.75rem; }
-.btn-outline {
-  background: transparent;
-  color: #5a7a50;
-  border: 1px solid rgba(90,122,80,0.4);
-  box-shadow: none;
-}
+.btn-outline { background: transparent; color: #5a7a50; border: 1px solid rgba(90,122,80,0.4); box-shadow: none; }
 .btn-outline:hover { background: rgba(90,122,80,0.08); transform: none; }
-.btn-danger { background: linear-gradient(135deg, #c47058, #a85a42); }
 
 .saved-indicator { color: #5a7a50; font-size: 0.8rem; margin-left: 0.5rem; font-weight: 500; }
 
-/* Repo management */
 .repo-list { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.5rem; }
-.repo-item {
-  display: flex; align-items: center; gap: 0.5rem;
-  background: rgba(255,255,255,0.5);
-  border-radius: 8px;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.8rem;
-}
+.repo-item { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.5); border-radius: 8px; padding: 0.4rem 0.75rem; font-size: 0.8rem; }
 .repo-item .repo-name { flex: 1; color: #3d3529; }
 .repo-item .repo-label { color: #7a7060; font-size: 0.75rem; }
-.repo-item .btn-remove {
-  background: none; border: none; color: #c47058; cursor: pointer; font-size: 1rem; padding: 0 0.3rem;
-}
+.repo-item .btn-remove { background: none; border: none; color: #c47058; cursor: pointer; font-size: 1rem; padding: 0 0.3rem; }
 .add-repo-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
 .add-repo-row input { flex: 1; font-size: 0.8rem; }
 
-/* Resize */
 .resize-options { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
 .resize-options label { min-width: auto; display: flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; }
 .resize-options input[type="checkbox"] { width: auto; flex: none; accent-color: #5a7a50; }
 .resize-options input[type="number"] { width: 70px; flex: none; text-align: center; }
 
-/* Drop zone */
 .drop-zone {
-  border: 2px dashed rgba(164,190,148,0.5);
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  text-align: center;
-  transition: all 0.4s;
-  cursor: pointer;
-  margin-bottom: 1.5rem;
+  border: 2px dashed rgba(164,190,148,0.5); border-radius: 16px; padding: 3rem 2rem;
+  text-align: center; transition: all 0.4s; cursor: pointer; margin-bottom: 1.5rem;
   background: rgba(255,255,255,0.3);
 }
 .drop-zone:hover { border-color: #5a7a50; background: rgba(255,255,255,0.5); }
@@ -184,46 +113,17 @@ body::after {
 .drop-zone strong { color: #3d3529; font-size: 1rem; }
 .drop-zone p { color: #7a7060; margin-top: 0.3rem; font-size: 0.8rem; }
 
-/* Progress */
-.progress-bar {
-  background: rgba(164,190,148,0.2);
-  border-radius: 6px;
-  height: 8px;
-  margin: 1rem 0;
-  overflow: hidden;
-  display: none;
-}
-.progress-bar .fill {
-  height: 100%;
-  background: linear-gradient(90deg, #a4be94, #5a7a50);
-  transition: width 0.3s;
-  border-radius: 6px;
-}
+.progress-bar { background: rgba(164,190,148,0.2); border-radius: 6px; height: 8px; margin: 1rem 0; overflow: hidden; display: none; }
+.progress-bar .fill { height: 100%; background: linear-gradient(90deg, #a4be94, #5a7a50); transition: width 0.3s; border-radius: 6px; }
 
-/* Log */
-.log {
-  background: rgba(45,40,35,0.85);
-  border-radius: 10px;
-  padding: 1rem;
-  max-height: 280px;
-  overflow-y: auto;
-  font-family: 'SF Mono', Monaco, monospace;
-  font-size: 0.75rem;
-  line-height: 1.7;
-}
+.log { background: rgba(45,40,35,0.85); border-radius: 10px; padding: 1rem; max-height: 280px; overflow-y: auto; font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; line-height: 1.7; }
 .log-entry { padding: 1px 0; }
 .log-entry.info { color: #a09888; }
 .log-entry.success { color: #8cb87a; }
 .log-entry.error { color: #d47a6a; }
 .log-entry.progress { color: #d4b86a; }
 
-/* Footer */
-.footer {
-  text-align: center;
-  margin-top: 2rem;
-  color: #a09888;
-  font-size: 0.75rem;
-}
+.footer { text-align: center; margin-top: 2rem; color: #a09888; font-size: 0.75rem; }
 </style>
 </head>
 <body>
@@ -285,11 +185,10 @@ body::after {
 
 <div class="log" id="log"></div>
 
-<div class="footer">Synchro Management Deploy Tool v2</div>
+<div class="footer">Synchro Management Deploy Tool v2.1</div>
 </div>
 
 <script>
-// ===== Repo Management =====
 const DEFAULT_REPOS = [
   { owner: 'synchro-mgmt', name: 'ldm-earth-journey', label: 'LDM アースジャーニー LP' },
   { owner: 'synchro-mgmt', name: 'open-field', label: '公開サイト (open-field)' }
@@ -306,11 +205,9 @@ function renderRepos() {
   const select = document.getElementById('repo-select');
   const list = document.getElementById('repo-list');
   const lastSelected = localStorage.getItem('deploy-last-repo') || `${repos[0].owner}/${repos[0].name}`;
-
   select.innerHTML = repos.map(r =>
     `<option value="${r.owner}/${r.name}" ${lastSelected === `${r.owner}/${r.name}` ? 'selected' : ''}>${r.label || r.name}</option>`
   ).join('');
-
   list.innerHTML = repos.map((r, i) =>
     `<div class="repo-item">
       <span class="repo-name">${r.owner}/${r.name}</span>
@@ -345,7 +242,6 @@ function onRepoChange() {
   localStorage.setItem('deploy-last-repo', document.getElementById('repo-select').value);
 }
 
-// ===== Token =====
 function saveToken() {
   localStorage.setItem('deploy-token', document.getElementById('token').value);
   const msg = document.getElementById('saved-msg');
@@ -359,11 +255,9 @@ function loadToken() {
   if (b) document.getElementById('branch').value = b;
 }
 
-// ===== Init =====
 loadToken();
 renderRepos();
 
-// ===== Logging =====
 function log(msg, type = 'info') {
   const el = document.getElementById('log');
   const entry = document.createElement('div');
@@ -379,7 +273,6 @@ function setProgress(pct) {
   document.getElementById('progress-fill').style.width = pct + '%';
 }
 
-// ===== Drop zone =====
 const dropZone = document.getElementById('drop-zone');
 const fileInput = document.getElementById('file-input');
 
@@ -395,14 +288,12 @@ dropZone.addEventListener('drop', (e) => {
   else log('zip ファイルをドロップしてください', 'error');
 });
 
-// ===== Image resize =====
 async function resizeImage(blob, filename) {
   if (!document.getElementById('resize-enabled').checked) return blob;
   const maxWidth = parseInt(document.getElementById('max-width').value);
   const quality = parseInt(document.getElementById('quality').value) / 100;
   const ext = filename.split('.').pop().toLowerCase();
   if (!['jpg','jpeg','png','webp'].includes(ext)) return blob;
-
   return new Promise((resolve) => {
     const img = new Image();
     img.onload = () => {
@@ -420,7 +311,6 @@ async function resizeImage(blob, filename) {
   });
 }
 
-// ===== GitHub API with retry =====
 async function fetchRetry(url, options, retries = 3) {
   for (let i = 0; i < retries; i++) {
     try {
@@ -437,9 +327,7 @@ async function fetchRetry(url, options, retries = 3) {
       if (i < retries - 1) {
         log(`通信エラー、${i+1}回目リトライ (${retries - i - 1}回残り)...`, 'progress');
         await new Promise(r => setTimeout(r, 3000 * (i + 1)));
-      } else {
-        throw err;
-      }
+      } else { throw err; }
     }
   }
 }
@@ -461,7 +349,6 @@ function arrayBufferToBase64(buffer) {
   return btoa(binary);
 }
 
-// ===== Main process =====
 async function processZip(file) {
   const token = document.getElementById('token').value;
   const repoFull = document.getElementById('repo-select').value;
@@ -475,18 +362,15 @@ async function processZip(file) {
   log(`📦 ${file.name} (${(file.size/1024/1024).toFixed(1)}MB) を処理中...`, 'progress');
 
   try {
-    // 1. Unzip
     log('zip を解凍中...', 'info');
     const zip = await JSZip.loadAsync(file);
     const entries = Object.entries(zip.files).filter(([_, f]) => !f.dir);
     log(`${entries.length} ファイルを検出`, 'info');
 
-    // 2. Check previously uploaded (resume support)
     const cacheKey = `deploy-uploaded-${repoFull}`;
     let uploaded = {};
     try { uploaded = JSON.parse(localStorage.getItem(cacheKey) || '{}'); } catch(e) {}
 
-    // 3. Process files
     const files = [];
     let totalOrig = 0, totalResized = 0;
     const imageExts = ['jpg','jpeg','png','webp','gif'];
@@ -519,11 +403,15 @@ async function processZip(file) {
       log(`📊 合計: ${(totalOrig/1024/1024).toFixed(1)}MB → ${(totalResized/1024/1024).toFixed(1)}MB (${Math.round((1-totalResized/totalOrig)*100)}% 削減)`, 'success');
     }
 
-    // 4. Push to GitHub
     log('GitHub にプッシュ中...', 'progress');
     const ref = await ghAPI('GET', `/repos/${repoFull}/git/ref/heads/${branch}`, token);
-    const currentSha = ref.object.sha;
-    log(`現在のコミット: ${currentSha.substring(0,7)}`, 'info');
+    const currentCommitSha = ref.object.sha;
+    log(`現在のコミット: ${currentCommitSha.substring(0,7)}`, 'info');
+
+    // Get tree SHA from commit (base_tree requires tree SHA, not commit SHA)
+    const commitData = await ghAPI('GET', `/repos/${repoFull}/git/commits/${currentCommitSha}`, token);
+    const baseTreeSha = commitData.tree.sha;
+    log(`ベースツリー: ${baseTreeSha.substring(0,7)}`, 'info');
 
     const treeEntries = [];
     let skipCount = 0;
@@ -531,7 +419,6 @@ async function processZip(file) {
     for (let i = 0; i < files.length; i++) {
       const f = files[i];
 
-      // Resume: skip already uploaded
       if (uploaded[f.path]) {
         treeEntries.push({ path: f.path, mode: '100644', type: 'blob', sha: uploaded[f.path] });
         skipCount++;
@@ -541,7 +428,6 @@ async function processZip(file) {
       const blob = await ghAPI('POST', `/repos/${repoFull}/git/blobs`, token, { content: f.content, encoding: 'base64' });
       treeEntries.push({ path: f.path, mode: '100644', type: 'blob', sha: blob.sha });
 
-      // Save progress for resume
       uploaded[f.path] = blob.sha;
       localStorage.setItem(cacheKey, JSON.stringify(uploaded));
 
@@ -553,16 +439,19 @@ async function processZip(file) {
 
     if (skipCount > 0) log(`⏩ ${skipCount} ファイルは前回アップ済みのためスキップ`, 'info');
 
+    log('ツリーを作成中...', 'info');
+    const tree = await ghAPI('POST', `/repos/${repoFull}/git/trees`, token, { base_tree: baseTreeSha, tree: treeEntries });
+    if (!tree.sha) throw new Error(`ツリー作成失敗: ${tree.message || JSON.stringify(tree)}`);
     log('コミットを作成中...', 'info');
-    const tree = await ghAPI('POST', `/repos/${repoFull}/git/trees`, token, { base_tree: currentSha, tree: treeEntries });
     const commit = await ghAPI('POST', `/repos/${repoFull}/git/commits`, token, {
       message: `Deploy: ${file.name} (${new Date().toLocaleString('ja-JP')})`,
       tree: tree.sha,
-      parents: [currentSha]
+      parents: [currentCommitSha]
     });
+    if (!commit.sha) throw new Error(`コミット作成失敗: ${commit.message || JSON.stringify(commit)}`);
+    log('ref を更新中...', 'info');
     await ghAPI('PATCH', `/repos/${repoFull}/git/ref/heads/${branch}`, token, { sha: commit.sha });
 
-    // Clear resume cache on success
     localStorage.removeItem(cacheKey);
     setProgress(100);
 
