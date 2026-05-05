@@ -1,1 +1,335 @@
-placeholder
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deploy Tool - Synchro Management</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 2rem; }
+.container { max-width: 800px; margin: 0 auto; }
+h1 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #7dd3fc; }
+.subtitle { color: #94a3b8; margin-bottom: 2rem; font-size: 0.9rem; }
+
+.config-section { background: #1e293b; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.config-section h2 { font-size: 1rem; color: #7dd3fc; margin-bottom: 1rem; }
+.form-row { display: flex; gap: 1rem; margin-bottom: 0.75rem; align-items: center; }
+.form-row label { min-width: 120px; font-size: 0.85rem; color: #94a3b8; }
+.form-row input, .form-row select { flex: 1; background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.5rem 0.75rem; color: #e2e8f0; font-size: 0.85rem; }
+.form-row input:focus, .form-row select:focus { outline: none; border-color: #7dd3fc; }
+
+.drop-zone { border: 2px dashed #334155; border-radius: 12px; padding: 3rem; text-align: center; transition: all 0.3s; cursor: pointer; margin-bottom: 1.5rem; }
+.drop-zone.dragover { border-color: #7dd3fc; background: rgba(125, 211, 252, 0.05); }
+.drop-zone.processing { border-color: #fbbf24; background: rgba(251, 191, 36, 0.05); }
+.drop-zone.done { border-color: #4ade80; background: rgba(74, 222, 128, 0.05); }
+.drop-zone p { color: #94a3b8; margin-top: 0.5rem; font-size: 0.85rem; }
+.drop-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+
+.log { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 1rem; max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 0.8rem; line-height: 1.6; }
+.log-entry { padding: 2px 0; }
+.log-entry.info { color: #94a3b8; }
+.log-entry.success { color: #4ade80; }
+.log-entry.error { color: #f87171; }
+.log-entry.progress { color: #fbbf24; }
+
+.progress-bar { background: #334155; border-radius: 4px; height: 6px; margin: 1rem 0; overflow: hidden; }
+.progress-bar .fill { height: 100%; background: linear-gradient(90deg, #7dd3fc, #4ade80); transition: width 0.3s; border-radius: 4px; }
+
+.btn { background: #7dd3fc; color: #0f172a; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+.btn:hover { background: #38bdf8; }
+.btn-small { padding: 0.3rem 0.6rem; font-size: 0.75rem; }
+.saved-indicator { color: #4ade80; font-size: 0.8rem; margin-left: 0.5rem; }
+
+.resize-options { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+.resize-options label { min-width: auto; display: flex; align-items: center; gap: 0.4rem; }
+.resize-options input[type="checkbox"] { width: auto; flex: none; }
+.resize-options input[type="number"] { width: 80px; flex: none; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🚀 Deploy Tool</h1>
+<p class="subtitle">zip をドロップ → 画像リサイズ → GitHub に自動デプロイ</p>
+
+<div class="config-section">
+<h2>⚙️ 設定</h2>
+<div class="form-row">
+<label>GitHub Token</label>
+<input type="password" id="token" placeholder="ghp_xxxx...">
+<button class="btn btn-small" onclick="saveConfig()">保存</button>
+<span id="saved-msg" class="saved-indicator" style="display:none">✓ 保存済</span>
+</div>
+<div class="form-row">
+<label>リポジトリ</label>
+<input type="text" id="repo" placeholder="synchro-mgmt/ldm-earth-journey" value="synchro-mgmt/ldm-earth-journey">
+</div>
+<div class="form-row">
+<label>ブランチ</label>
+<input type="text" id="branch" value="main">
+</div>
+<div class="form-row">
+<label>画像リサイズ</label>
+<div class="resize-options">
+<label><input type="checkbox" id="resize-enabled" checked> 有効</label>
+<label>最大幅 <input type="number" id="max-width" value="1600" min="400" max="4000" step="100">px</label>
+<label>品質 <input type="number" id="quality" value="80" min="10" max="100" step="5">%</label>
+</div>
+</div>
+</div>
+
+<div class="drop-zone" id="drop-zone">
+<div class="drop-icon">📦</div>
+<strong>ここに zip をドロップ</strong>
+<p>または、クリックしてファイルを選択</p>
+</div>
+<input type="file" id="file-input" accept=".zip" style="display:none">
+
+<div class="progress-bar" style="display:none" id="progress-bar"><div class="fill" id="progress-fill"></div></div>
+
+<div class="log" id="log"></div>
+</div>
+
+<script>
+// Config
+function saveConfig() {
+  localStorage.setItem('deploy-token', document.getElementById('token').value);
+  localStorage.setItem('deploy-repo', document.getElementById('repo').value);
+  localStorage.setItem('deploy-branch', document.getElementById('branch').value);
+  document.getElementById('saved-msg').style.display = 'inline';
+  setTimeout(() => document.getElementById('saved-msg').style.display = 'none', 2000);
+}
+function loadConfig() {
+  const t = localStorage.getItem('deploy-token');
+  const r = localStorage.getItem('deploy-repo');
+  const b = localStorage.getItem('deploy-branch');
+  if (t) document.getElementById('token').value = t;
+  if (r) document.getElementById('repo').value = r;
+  if (b) document.getElementById('branch').value = b;
+}
+loadConfig();
+
+// Logging
+function log(msg, type = 'info') {
+  const el = document.getElementById('log');
+  const entry = document.createElement('div');
+  entry.className = `log-entry ${type}`;
+  entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  el.appendChild(entry);
+  el.scrollTop = el.scrollHeight;
+}
+
+function setProgress(pct) {
+  const bar = document.getElementById('progress-bar');
+  bar.style.display = 'block';
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+// Drop zone
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', (e) => { if (e.target.files[0]) processZip(e.target.files[0]); });
+dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.name.endsWith('.zip')) processZip(file);
+  else log('zip ファイルをドロップしてください', 'error');
+});
+
+// Image resize
+async function resizeImage(blob, filename) {
+  const resizeEnabled = document.getElementById('resize-enabled').checked;
+  if (!resizeEnabled) return blob;
+
+  const maxWidth = parseInt(document.getElementById('max-width').value);
+  const quality = parseInt(document.getElementById('quality').value) / 100;
+  const ext = filename.split('.').pop().toLowerCase();
+
+  if (!['jpg', 'jpeg', 'png', 'webp'].includes(ext)) return blob;
+
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      if (img.width <= maxWidth) { resolve(blob); return; }
+      const ratio = maxWidth / img.width;
+      const canvas = document.createElement('canvas');
+      canvas.width = maxWidth;
+      canvas.height = Math.round(img.height * ratio);
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const mimeType = ext === 'png' ? 'image/png' : 'image/jpeg';
+      canvas.toBlob((b) => resolve(b), mimeType, quality);
+    };
+    img.onerror = () => resolve(blob);
+    img.src = URL.createObjectURL(blob);
+  });
+}
+
+// GitHub API
+async function getRef(token, repo, branch) {
+  const res = await fetch(`https://api.github.com/repos/${repo}/git/ref/heads/${branch}`, {
+    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+  });
+  if (!res.ok) throw new Error(`Failed to get ref: ${res.status}`);
+  return await res.json();
+}
+
+async function createBlob(token, repo, content, encoding = 'base64') {
+  const res = await fetch(`https://api.github.com/repos/${repo}/git/blobs`, {
+    method: 'POST',
+    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ content, encoding })
+  });
+  if (!res.ok) throw new Error(`Failed to create blob: ${res.status}`);
+  return await res.json();
+}
+
+async function createTree(token, repo, baseTree, tree) {
+  const res = await fetch(`https://api.github.com/repos/${repo}/git/trees`, {
+    method: 'POST',
+    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ base_tree: baseTree, tree })
+  });
+  if (!res.ok) throw new Error(`Failed to create tree: ${res.status}`);
+  return await res.json();
+}
+
+async function createCommit(token, repo, message, tree, parents) {
+  const res = await fetch(`https://api.github.com/repos/${repo}/git/commits`, {
+    method: 'POST',
+    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, tree, parents })
+  });
+  if (!res.ok) throw new Error(`Failed to create commit: ${res.status}`);
+  return await res.json();
+}
+
+async function updateRef(token, repo, branch, sha) {
+  const res = await fetch(`https://api.github.com/repos/${repo}/git/ref/heads/${branch}`, {
+    method: 'PATCH',
+    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sha })
+  });
+  if (!res.ok) throw new Error(`Failed to update ref: ${res.status}`);
+  return await res.json();
+}
+
+function arrayBufferToBase64(buffer) {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary);
+}
+
+// Main process
+async function processZip(file) {
+  const token = document.getElementById('token').value;
+  const repo = document.getElementById('repo').value;
+  const branch = document.getElementById('branch').value;
+
+  if (!token) { log('GitHub Token を設定してください', 'error'); return; }
+  if (!repo) { log('リポジトリを設定してください', 'error'); return; }
+
+  dropZone.classList.add('processing');
+  log(`📦 ${file.name} (${(file.size / 1024 / 1024).toFixed(1)}MB) を処理中...`, 'progress');
+
+  try {
+    // 1. Unzip
+    log('zip を解凍中...', 'info');
+    const zip = await JSZip.loadAsync(file);
+    const files = [];
+    const entries = Object.entries(zip.files).filter(([_, f]) => !f.dir);
+    log(`${entries.length} ファイルを検出`, 'info');
+
+    // 2. Process files (resize images)
+    let processed = 0;
+    const imageExts = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    let totalOriginal = 0;
+    let totalResized = 0;
+
+    for (const [path, zipEntry] of entries) {
+      const blob = await zipEntry.async('blob');
+      totalOriginal += blob.size;
+      const ext = path.split('.').pop().toLowerCase();
+      let finalBlob = blob;
+
+      if (imageExts.includes(ext)) {
+        finalBlob = await resizeImage(blob, path);
+        if (finalBlob.size < blob.size) {
+          log(`🖼️ ${path.split('/').pop()}: ${(blob.size/1024).toFixed(0)}KB → ${(finalBlob.size/1024).toFixed(0)}KB`, 'info');
+        }
+      }
+      totalResized += finalBlob.size;
+
+      const arrayBuf = await finalBlob.arrayBuffer();
+      const base64 = arrayBufferToBase64(arrayBuf);
+
+      // Remove top-level folder prefix (e.g., "deploy_latest/")
+      let cleanPath = path;
+      const firstSlash = path.indexOf('/');
+      if (firstSlash > 0) cleanPath = path.substring(firstSlash + 1);
+
+      files.push({ path: cleanPath, content: base64 });
+      processed++;
+      setProgress((processed / entries.length) * 50);
+    }
+
+    if (totalOriginal !== totalResized) {
+      log(`📊 合計: ${(totalOriginal/1024/1024).toFixed(1)}MB → ${(totalResized/1024/1024).toFixed(1)}MB (${Math.round((1-totalResized/totalOriginal)*100)}% 削減)`, 'success');
+    }
+
+    // 3. Push to GitHub
+    log('GitHub にプッシュ中...', 'progress');
+
+    // Get current commit
+    const ref = await getRef(token, repo, branch);
+    const currentSha = ref.object.sha;
+    log(`現在のコミット: ${currentSha.substring(0, 7)}`, 'info');
+
+    // Create blobs and tree entries
+    const treeEntries = [];
+    for (let i = 0; i < files.length; i++) {
+      const f = files[i];
+      const blob = await createBlob(token, repo, f.content, 'base64');
+      treeEntries.push({
+        path: f.path,
+        mode: '100644',
+        type: 'blob',
+        sha: blob.sha
+      });
+      setProgress(50 + ((i + 1) / files.length) * 40);
+      if ((i + 1) % 10 === 0) log(`blob 作成中... ${i + 1}/${files.length}`, 'info');
+    }
+
+    // Create tree
+    log('ツリーを作成中...', 'info');
+    const tree = await createTree(token, repo, currentSha, treeEntries);
+
+    // Create commit
+    const commit = await createCommit(token, repo, `Deploy: ${file.name} (${new Date().toLocaleString('ja-JP')})`, tree.sha, [currentSha]);
+    log(`コミット作成: ${commit.sha.substring(0, 7)}`, 'info');
+
+    // Update ref
+    await updateRef(token, repo, branch, commit.sha);
+    setProgress(100);
+
+    log(`✅ デプロイ完了！ ${files.length} ファイルをプッシュしました`, 'success');
+    log(`🔗 https://github.com/${repo}`, 'success');
+    dropZone.classList.remove('processing');
+    dropZone.classList.add('done');
+
+  } catch (err) {
+    log(`❌ エラー: ${err.message}`, 'error');
+    dropZone.classList.remove('processing');
+    console.error(err);
+  }
+}
+</script>
+</body>
+</html>
