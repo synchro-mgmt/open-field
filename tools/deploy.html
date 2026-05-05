@@ -408,7 +408,6 @@ async function processZip(file) {
     const currentCommitSha = ref.object.sha;
     log(`現在のコミット: ${currentCommitSha.substring(0,7)}`, 'info');
 
-    // Get tree SHA from commit (base_tree requires tree SHA, not commit SHA)
     const commitData = await ghAPI('GET', `/repos/${repoFull}/git/commits/${currentCommitSha}`, token);
     const baseTreeSha = commitData.tree.sha;
     log(`ベースツリー: ${baseTreeSha.substring(0,7)}`, 'info');
@@ -450,7 +449,7 @@ async function processZip(file) {
     });
     if (!commit.sha) throw new Error(`コミット作成失敗: ${commit.message || JSON.stringify(commit)}`);
     log('ref を更新中...', 'info');
-    await ghAPI('PATCH', `/repos/${repoFull}/git/ref/heads/${branch}`, token, { sha: commit.sha });
+    await ghAPI('PATCH', `/repos/${repoFull}/git/refs/heads/${branch}`, token, { sha: commit.sha });
 
     localStorage.removeItem(cacheKey);
     setProgress(100);
