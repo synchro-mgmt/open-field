@@ -3,329 +3,427 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deploy Tool - Synchro Management</title>
+<title>🌿 Deploy Tool - Synchro Management</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 2rem; }
-.container { max-width: 800px; margin: 0 auto; }
-h1 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #7dd3fc; }
-.subtitle { color: #94a3b8; margin-bottom: 2rem; font-size: 0.9rem; }
 
-.config-section { background: #1e293b; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
-.config-section h2 { font-size: 1rem; color: #7dd3fc; margin-bottom: 1rem; }
-.form-row { display: flex; gap: 1rem; margin-bottom: 0.75rem; align-items: center; }
-.form-row label { min-width: 120px; font-size: 0.85rem; color: #94a3b8; }
-.form-row input, .form-row select { flex: 1; background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.5rem 0.75rem; color: #e2e8f0; font-size: 0.85rem; }
-.form-row input:focus, .form-row select:focus { outline: none; border-color: #7dd3fc; }
+body {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(170deg, #f7f3ee 0%, #e8e0d4 30%, #d4cfc8 60%, #c9d6c5 100%);
+  color: #3d3529;
+  padding: 2rem;
+  position: relative;
+  overflow-x: hidden;
+}
 
-.drop-zone { border: 2px dashed #334155; border-radius: 12px; padding: 3rem; text-align: center; transition: all 0.3s; cursor: pointer; margin-bottom: 1.5rem; }
-.drop-zone.dragover { border-color: #7dd3fc; background: rgba(125, 211, 252, 0.05); }
-.drop-zone.processing { border-color: #fbbf24; background: rgba(251, 191, 36, 0.05); }
-.drop-zone.done { border-color: #4ade80; background: rgba(74, 222, 128, 0.05); }
-.drop-zone p { color: #94a3b8; margin-top: 0.5rem; font-size: 0.85rem; }
-.drop-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+body::before {
+  content: '';
+  position: fixed;
+  top: -10%;
+  right: -15%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(164,190,148,0.3) 0%, rgba(164,190,148,0.05) 60%, transparent 70%);
+  border-radius: 60% 40% 50% 50%;
+  z-index: 0;
+  animation: float1 20s ease-in-out infinite;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -10%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(200,180,150,0.25) 0%, rgba(200,180,150,0.05) 60%, transparent 70%);
+  border-radius: 40% 60% 50% 50%;
+  z-index: 0;
+  animation: float2 25s ease-in-out infinite;
+}
+@keyframes float1 { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(-30px,20px) rotate(5deg); } }
+@keyframes float2 { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(20px,-30px) rotate(-5deg); } }
 
-.log { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 1rem; max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 0.8rem; line-height: 1.6; }
-.log-entry { padding: 2px 0; }
-.log-entry.info { color: #94a3b8; }
-.log-entry.success { color: #4ade80; }
-.log-entry.error { color: #f87171; }
-.log-entry.progress { color: #fbbf24; }
+.container { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
 
-.progress-bar { background: #334155; border-radius: 4px; height: 6px; margin: 1rem 0; overflow: hidden; }
-.progress-bar .fill { height: 100%; background: linear-gradient(90deg, #7dd3fc, #4ade80); transition: width 0.3s; border-radius: 4px; }
+.header { text-align: center; margin-bottom: 2rem; }
+.header h1 { font-size: 1.8rem; font-weight: 700; color: #4a6741; letter-spacing: 0.05em; }
+.header .subtitle { color: #7a7060; font-size: 0.9rem; margin-top: 0.3rem; font-weight: 400; }
 
-.btn { background: #7dd3fc; color: #0f172a; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
-.btn:hover { background: #38bdf8; }
+.card {
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.card h2 { font-size: 1rem; color: #5a7a50; margin-bottom: 1rem; font-weight: 500; }
+
+.form-row { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; align-items: center; }
+.form-row label { min-width: 110px; font-size: 0.85rem; color: #7a7060; font-weight: 500; }
+.form-row input, .form-row select {
+  flex: 1; background: rgba(255,255,255,0.7); border: 1px solid rgba(164,190,148,0.4);
+  border-radius: 8px; padding: 0.5rem 0.75rem; color: #3d3529; font-size: 0.85rem;
+  font-family: inherit; transition: border-color 0.3s;
+}
+.form-row input:focus, .form-row select:focus { outline: none; border-color: #5a7a50; box-shadow: 0 0 0 3px rgba(90,122,80,0.1); }
+
+.btn {
+  background: linear-gradient(135deg, #6b9a5e, #5a7a50); color: #fff; border: none;
+  padding: 0.45rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 500;
+  cursor: pointer; font-family: inherit; transition: all 0.3s; box-shadow: 0 2px 8px rgba(90,122,80,0.2);
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(90,122,80,0.3); }
 .btn-small { padding: 0.3rem 0.6rem; font-size: 0.75rem; }
-.saved-indicator { color: #4ade80; font-size: 0.8rem; margin-left: 0.5rem; }
+.btn-outline { background: transparent; color: #5a7a50; border: 1px solid rgba(90,122,80,0.4); box-shadow: none; }
+.btn-outline:hover { background: rgba(90,122,80,0.08); transform: none; }
 
-.resize-options { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
-.resize-options label { min-width: auto; display: flex; align-items: center; gap: 0.4rem; }
-.resize-options input[type="checkbox"] { width: auto; flex: none; }
-.resize-options input[type="number"] { width: 80px; flex: none; }
+.saved-indicator { color: #5a7a50; font-size: 0.8rem; margin-left: 0.5rem; font-weight: 500; }
+
+.repo-list { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.5rem; }
+.repo-item { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.5); border-radius: 8px; padding: 0.4rem 0.75rem; font-size: 0.8rem; }
+.repo-item .repo-name { flex: 1; color: #3d3529; }
+.repo-item .repo-label { color: #7a7060; font-size: 0.75rem; }
+.repo-item .btn-remove { background: none; border: none; color: #c47058; cursor: pointer; font-size: 1rem; padding: 0 0.3rem; }
+.add-repo-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+.add-repo-row input { flex: 1; font-size: 0.8rem; }
+
+.resize-options { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+.resize-options label { min-width: auto; display: flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; }
+.resize-options input[type="checkbox"] { width: auto; flex: none; accent-color: #5a7a50; }
+.resize-options input[type="number"] { width: 70px; flex: none; text-align: center; }
+
+.drop-zone {
+  border: 2px dashed rgba(164,190,148,0.5); border-radius: 16px; padding: 3rem 2rem;
+  text-align: center; transition: all 0.4s; cursor: pointer; margin-bottom: 1.5rem;
+  background: rgba(255,255,255,0.3);
+}
+.drop-zone:hover { border-color: #5a7a50; background: rgba(255,255,255,0.5); }
+.drop-zone.dragover { border-color: #5a7a50; background: rgba(164,190,148,0.15); transform: scale(1.01); }
+.drop-zone.processing { border-color: #c4a958; background: rgba(196,169,88,0.08); }
+.drop-zone.done { border-color: #5a7a50; background: rgba(90,122,80,0.08); }
+.drop-zone .drop-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+.drop-zone strong { color: #3d3529; font-size: 1rem; }
+.drop-zone p { color: #7a7060; margin-top: 0.3rem; font-size: 0.8rem; }
+
+.progress-bar { background: rgba(164,190,148,0.2); border-radius: 6px; height: 8px; margin: 1rem 0; overflow: hidden; display: none; }
+.progress-bar .fill { height: 100%; background: linear-gradient(90deg, #a4be94, #5a7a50); transition: width 0.3s; border-radius: 6px; }
+
+.log { background: rgba(45,40,35,0.85); border-radius: 10px; padding: 1rem; max-height: 280px; overflow-y: auto; font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; line-height: 1.7; }
+.log-entry { padding: 1px 0; }
+.log-entry.info { color: #a09888; }
+.log-entry.success { color: #8cb87a; }
+.log-entry.error { color: #d47a6a; }
+.log-entry.progress { color: #d4b86a; }
+
+.footer { text-align: center; margin-top: 2rem; color: #a09888; font-size: 0.75rem; }
 </style>
 </head>
 <body>
 <div class="container">
-<h1>🚀 Deploy Tool</h1>
-<p class="subtitle">zip をドロップ → 画像リサイズ → GitHub に自動デプロイ</p>
-
-<div class="config-section">
-<h2>⚙️ 設定</h2>
-<div class="form-row">
-<label>GitHub Token</label>
-<input type="password" id="token" placeholder="ghp_xxxx...">
-<button class="btn btn-small" onclick="saveConfig()">保存</button>
-<span id="saved-msg" class="saved-indicator" style="display:none">✓ 保存済</span>
+<div class="header">
+<h1>🌿 Deploy Tool</h1>
+<p class="subtitle">zip をドロップ → 画像最適化 → GitHub に自動デプロイ</p>
 </div>
+
+<div class="card">
+<h2>🔑 GitHub Token</h2>
+<div class="form-row">
+<label>Token</label>
+<input type="password" id="token" placeholder="github_pat_xxxx...">
+<button class="btn btn-small" onclick="saveToken()">保存</button>
+<span id="saved-msg" class="saved-indicator" style="display:none">✓</span>
+</div>
+</div>
+
+<div class="card">
+<h2>📂 アップ先</h2>
 <div class="form-row">
 <label>リポジトリ</label>
-<input type="text" id="repo" placeholder="synchro-mgmt/ldm-earth-journey" value="synchro-mgmt/ldm-earth-journey">
+<select id="repo-select" onchange="onRepoChange()"></select>
 </div>
 <div class="form-row">
 <label>ブランチ</label>
 <input type="text" id="branch" value="main">
 </div>
-<div class="form-row">
-<label>画像リサイズ</label>
+<details style="margin-top:0.75rem">
+<summary style="cursor:pointer;color:#5a7a50;font-size:0.85rem;font-weight:500">リポジトリを管理</summary>
+<div class="repo-list" id="repo-list"></div>
+<div class="add-repo-row">
+<input type="text" id="new-repo-owner" placeholder="オーナー (例: synchro-mgmt)" style="flex:0.8">
+<input type="text" id="new-repo-name" placeholder="リポジトリ名" style="flex:1">
+<input type="text" id="new-repo-label" placeholder="表示名" style="flex:0.8">
+<button class="btn btn-small btn-outline" onclick="addRepo()">追加</button>
+</div>
+</details>
+</div>
+
+<div class="card">
+<h2>🖼️ 画像最適化</h2>
 <div class="resize-options">
-<label><input type="checkbox" id="resize-enabled" checked> 有効</label>
+<label><input type="checkbox" id="resize-enabled" checked> リサイズ</label>
 <label>最大幅 <input type="number" id="max-width" value="1600" min="400" max="4000" step="100">px</label>
 <label>品質 <input type="number" id="quality" value="80" min="10" max="100" step="5">%</label>
 </div>
 </div>
-</div>
 
 <div class="drop-zone" id="drop-zone">
-<div class="drop-icon">📦</div>
+<div class="drop-icon">🌏</div>
 <strong>ここに zip をドロップ</strong>
-<p>または、クリックしてファイルを選択</p>
+<p>クリックでファイル選択もOK</p>
 </div>
 <input type="file" id="file-input" accept=".zip" style="display:none">
 
-<div class="progress-bar" style="display:none" id="progress-bar"><div class="fill" id="progress-fill"></div></div>
+<div class="progress-bar" id="progress-bar"><div class="fill" id="progress-fill"></div></div>
 
 <div class="log" id="log"></div>
+
+<div class="footer">Synchro Management Deploy Tool v2</div>
 </div>
 
 <script>
-// Config
-function saveConfig() {
-  localStorage.setItem('deploy-token', document.getElementById('token').value);
-  localStorage.setItem('deploy-repo', document.getElementById('repo').value);
-  localStorage.setItem('deploy-branch', document.getElementById('branch').value);
-  document.getElementById('saved-msg').style.display = 'inline';
-  setTimeout(() => document.getElementById('saved-msg').style.display = 'none', 2000);
+const DEFAULT_REPOS = [
+  { owner: 'synchro-mgmt', name: 'ldm-earth-journey', label: 'LDM アースジャーニー LP' },
+  { owner: 'synchro-mgmt', name: 'open-field', label: '公開サイト (open-field)' }
+];
+
+function getRepos() {
+  const saved = localStorage.getItem('deploy-repos');
+  return saved ? JSON.parse(saved) : DEFAULT_REPOS;
 }
-function loadConfig() {
-  const t = localStorage.getItem('deploy-token');
-  const r = localStorage.getItem('deploy-repo');
-  const b = localStorage.getItem('deploy-branch');
+function saveRepos(repos) { localStorage.setItem('deploy-repos', JSON.stringify(repos)); }
+
+function renderRepos() {
+  const repos = getRepos();
+  const select = document.getElementById('repo-select');
+  const list = document.getElementById('repo-list');
+  const lastSelected = localStorage.getItem('deploy-last-repo') || repos[0].owner+'/'+repos[0].name;
+  select.innerHTML = repos.map(r => '<option value="'+r.owner+'/'+r.name+'" '+(lastSelected===r.owner+'/'+r.name?'selected':'')+'>'+( r.label||r.name)+'</option>').join('');
+  list.innerHTML = repos.map((r,i) => '<div class="repo-item"><span class="repo-name">'+r.owner+'/'+r.name+'</span><span class="repo-label">'+(r.label||'')+'</span><button class="btn-remove" onclick="removeRepo('+i+')" title="削除">×</button></div>').join('');
+}
+
+function addRepo() {
+  const owner = document.getElementById('new-repo-owner').value.trim();
+  const name = document.getElementById('new-repo-name').value.trim();
+  const label = document.getElementById('new-repo-label').value.trim();
+  if (!owner || !name) return;
+  const repos = getRepos();
+  repos.push({ owner, name, label: label || name });
+  saveRepos(repos);
+  renderRepos();
+  document.getElementById('new-repo-owner').value = '';
+  document.getElementById('new-repo-name').value = '';
+  document.getElementById('new-repo-label').value = '';
+}
+
+function removeRepo(idx) {
+  const repos = getRepos();
+  repos.splice(idx, 1);
+  saveRepos(repos);
+  renderRepos();
+}
+
+function onRepoChange() {
+  localStorage.setItem('deploy-last-repo', document.getElementById('repo-select').value);
+}
+
+function saveToken() {
+  localStorage.setItem('deploy-token', document.getElementById('token').value);
+  const msg = document.getElementById('saved-msg');
+  msg.style.display = 'inline';
+  setTimeout(function(){ msg.style.display = 'none'; }, 2000);
+}
+function loadToken() {
+  var t = localStorage.getItem('deploy-token');
   if (t) document.getElementById('token').value = t;
-  if (r) document.getElementById('repo').value = r;
+  var b = localStorage.getItem('deploy-branch');
   if (b) document.getElementById('branch').value = b;
 }
-loadConfig();
 
-// Logging
-function log(msg, type = 'info') {
-  const el = document.getElementById('log');
-  const entry = document.createElement('div');
-  entry.className = `log-entry ${type}`;
-  entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+loadToken();
+renderRepos();
+
+function log(msg, type) {
+  type = type || 'info';
+  var el = document.getElementById('log');
+  var entry = document.createElement('div');
+  entry.className = 'log-entry ' + type;
+  entry.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
   el.appendChild(entry);
   el.scrollTop = el.scrollHeight;
 }
 
 function setProgress(pct) {
-  const bar = document.getElementById('progress-bar');
+  var bar = document.getElementById('progress-bar');
   bar.style.display = 'block';
   document.getElementById('progress-fill').style.width = pct + '%';
 }
 
-// Drop zone
-const dropZone = document.getElementById('drop-zone');
-const fileInput = document.getElementById('file-input');
+var dropZone = document.getElementById('drop-zone');
+var fileInput = document.getElementById('file-input');
 
-dropZone.addEventListener('click', () => fileInput.click());
-fileInput.addEventListener('change', (e) => { if (e.target.files[0]) processZip(e.target.files[0]); });
-dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-dropZone.addEventListener('drop', (e) => {
+dropZone.addEventListener('click', function(){ fileInput.click(); });
+fileInput.addEventListener('change', function(e){ if (e.target.files[0]) processZip(e.target.files[0]); });
+dropZone.addEventListener('dragover', function(e){ e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', function(){ dropZone.classList.remove('dragover'); });
+dropZone.addEventListener('drop', function(e){
   e.preventDefault();
   dropZone.classList.remove('dragover');
-  const file = e.dataTransfer.files[0];
+  var file = e.dataTransfer.files[0];
   if (file && file.name.endsWith('.zip')) processZip(file);
   else log('zip ファイルをドロップしてください', 'error');
 });
 
-// Image resize
 async function resizeImage(blob, filename) {
-  const resizeEnabled = document.getElementById('resize-enabled').checked;
-  if (!resizeEnabled) return blob;
-
-  const maxWidth = parseInt(document.getElementById('max-width').value);
-  const quality = parseInt(document.getElementById('quality').value) / 100;
-  const ext = filename.split('.').pop().toLowerCase();
-
-  if (!['jpg', 'jpeg', 'png', 'webp'].includes(ext)) return blob;
-
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => {
+  if (!document.getElementById('resize-enabled').checked) return blob;
+  var maxWidth = parseInt(document.getElementById('max-width').value);
+  var quality = parseInt(document.getElementById('quality').value) / 100;
+  var ext = filename.split('.').pop().toLowerCase();
+  if (['jpg','jpeg','png','webp'].indexOf(ext) === -1) return blob;
+  return new Promise(function(resolve) {
+    var img = new Image();
+    img.onload = function() {
       if (img.width <= maxWidth) { resolve(blob); return; }
-      const ratio = maxWidth / img.width;
-      const canvas = document.createElement('canvas');
+      var ratio = maxWidth / img.width;
+      var canvas = document.createElement('canvas');
       canvas.width = maxWidth;
       canvas.height = Math.round(img.height * ratio);
-      const ctx = canvas.getContext('2d');
+      var ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      const mimeType = ext === 'png' ? 'image/png' : 'image/jpeg';
-      canvas.toBlob((b) => resolve(b), mimeType, quality);
+      canvas.toBlob(function(b){ resolve(b); }, ext === 'png' ? 'image/png' : 'image/jpeg', quality);
     };
-    img.onerror = () => resolve(blob);
+    img.onerror = function(){ resolve(blob); };
     img.src = URL.createObjectURL(blob);
   });
 }
 
-// GitHub API
-async function getRef(token, repo, branch) {
-  const res = await fetch(`https://api.github.com/repos/${repo}/git/ref/heads/${branch}`, {
-    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
-  });
-  if (!res.ok) throw new Error(`Failed to get ref: ${res.status}`);
-  return await res.json();
+async function fetchRetry(url, options, retries) {
+  retries = retries || 3;
+  for (var i = 0; i < retries; i++) {
+    try {
+      var res = await fetch(url, options);
+      if (res.ok) return res;
+      if (res.status >= 500 && i < retries - 1) {
+        log('サーバーエラー (' + res.status + ')、' + (i+1) + '回目リトライ...', 'progress');
+        await new Promise(function(r){ setTimeout(r, 2000 * (i + 1)); });
+        continue;
+      }
+      var txt = await res.text();
+      throw new Error('HTTP ' + res.status + ': ' + txt);
+    } catch (err) {
+      if (err.message.indexOf('HTTP ') === 0) throw err;
+      if (i < retries - 1) {
+        log('通信エラー、' + (i+1) + '回目リトライ (' + (retries-i-1) + '回残り)...', 'progress');
+        await new Promise(function(r){ setTimeout(r, 3000 * (i + 1)); });
+      } else { throw err; }
+    }
+  }
 }
 
-async function createBlob(token, repo, content, encoding = 'base64') {
-  const res = await fetch(`https://api.github.com/repos/${repo}/git/blobs`, {
-    method: 'POST',
-    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ content, encoding })
-  });
-  if (!res.ok) throw new Error(`Failed to create blob: ${res.status}`);
-  return await res.json();
-}
-
-async function createTree(token, repo, baseTree, tree) {
-  const res = await fetch(`https://api.github.com/repos/${repo}/git/trees`, {
-    method: 'POST',
-    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ base_tree: baseTree, tree })
-  });
-  if (!res.ok) throw new Error(`Failed to create tree: ${res.status}`);
-  return await res.json();
-}
-
-async function createCommit(token, repo, message, tree, parents) {
-  const res = await fetch(`https://api.github.com/repos/${repo}/git/commits`, {
-    method: 'POST',
-    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message, tree, parents })
-  });
-  if (!res.ok) throw new Error(`Failed to create commit: ${res.status}`);
-  return await res.json();
-}
-
-async function updateRef(token, repo, branch, sha) {
-  const res = await fetch(`https://api.github.com/repos/${repo}/git/ref/heads/${branch}`, {
-    method: 'PATCH',
-    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ sha })
-  });
-  if (!res.ok) throw new Error(`Failed to update ref: ${res.status}`);
+async function ghAPI(method, path, token, body) {
+  var opts = { method: method, headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' } };
+  if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+  var res = await fetchRetry('https://api.github.com' + path, opts);
   return await res.json();
 }
 
 function arrayBufferToBase64(buffer) {
-  let binary = '';
-  const bytes = new Uint8Array(buffer);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) binary += String.fromCharCode(bytes[i]);
+  var bytes = new Uint8Array(buffer);
+  var binary = '';
+  for (var i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
   return btoa(binary);
 }
 
-// Main process
 async function processZip(file) {
-  const token = document.getElementById('token').value;
-  const repo = document.getElementById('repo').value;
-  const branch = document.getElementById('branch').value;
-
+  var token = document.getElementById('token').value;
+  var repoFull = document.getElementById('repo-select').value;
+  var branch = document.getElementById('branch').value;
   if (!token) { log('GitHub Token を設定してください', 'error'); return; }
-  if (!repo) { log('リポジトリを設定してください', 'error'); return; }
-
+  if (!repoFull) { log('リポジトリを選択してください', 'error'); return; }
+  localStorage.setItem('deploy-branch', branch);
   dropZone.classList.add('processing');
-  log(`📦 ${file.name} (${(file.size / 1024 / 1024).toFixed(1)}MB) を処理中...`, 'progress');
-
+  log('📦 ' + file.name + ' (' + (file.size/1024/1024).toFixed(1) + 'MB) を処理中...', 'progress');
   try {
-    // 1. Unzip
     log('zip を解凍中...', 'info');
-    const zip = await JSZip.loadAsync(file);
-    const files = [];
-    const entries = Object.entries(zip.files).filter(([_, f]) => !f.dir);
-    log(`${entries.length} ファイルを検出`, 'info');
-
-    // 2. Process files (resize images)
-    let processed = 0;
-    const imageExts = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-    let totalOriginal = 0;
-    let totalResized = 0;
-
-    for (const [path, zipEntry] of entries) {
-      const blob = await zipEntry.async('blob');
-      totalOriginal += blob.size;
-      const ext = path.split('.').pop().toLowerCase();
-      let finalBlob = blob;
-
-      if (imageExts.includes(ext)) {
+    var zip = await JSZip.loadAsync(file);
+    var entries = Object.entries(zip.files).filter(function(e){ return !e[1].dir; });
+    log(entries.length + ' ファイルを検出', 'info');
+    var cacheKey = 'deploy-uploaded-' + repoFull;
+    var uploaded = {};
+    try { uploaded = JSON.parse(localStorage.getItem(cacheKey) || '{}'); } catch(e) {}
+    var files = [];
+    var totalOrig = 0, totalResized = 0;
+    var imageExts = ['jpg','jpeg','png','webp','gif'];
+    for (var idx = 0; idx < entries.length; idx++) {
+      var path = entries[idx][0];
+      var zipEntry = entries[idx][1];
+      var cleanPath = path;
+      var firstSlash = path.indexOf('/');
+      if (firstSlash > 0) cleanPath = path.substring(firstSlash + 1);
+      var blob = await zipEntry.async('blob');
+      totalOrig += blob.size;
+      var finalBlob = blob;
+      var ext = path.split('.').pop().toLowerCase();
+      if (imageExts.indexOf(ext) !== -1) {
         finalBlob = await resizeImage(blob, path);
         if (finalBlob.size < blob.size) {
-          log(`🖼️ ${path.split('/').pop()}: ${(blob.size/1024).toFixed(0)}KB → ${(finalBlob.size/1024).toFixed(0)}KB`, 'info');
+          log('🖼️ ' + cleanPath.split('/').pop() + ': ' + (blob.size/1024).toFixed(0) + 'KB → ' + (finalBlob.size/1024).toFixed(0) + 'KB', 'info');
         }
       }
       totalResized += finalBlob.size;
-
-      const arrayBuf = await finalBlob.arrayBuffer();
-      const base64 = arrayBufferToBase64(arrayBuf);
-
-      // Remove top-level folder prefix (e.g., "deploy_latest/")
-      let cleanPath = path;
-      const firstSlash = path.indexOf('/');
-      if (firstSlash > 0) cleanPath = path.substring(firstSlash + 1);
-
-      files.push({ path: cleanPath, content: base64 });
-      processed++;
-      setProgress((processed / entries.length) * 50);
+      var arrayBuf = await finalBlob.arrayBuffer();
+      files.push({ path: cleanPath, content: arrayBufferToBase64(arrayBuf) });
+      setProgress((idx + 1) / entries.length * 40);
     }
-
-    if (totalOriginal !== totalResized) {
-      log(`📊 合計: ${(totalOriginal/1024/1024).toFixed(1)}MB → ${(totalResized/1024/1024).toFixed(1)}MB (${Math.round((1-totalResized/totalOriginal)*100)}% 削減)`, 'success');
+    if (totalOrig !== totalResized) {
+      log('📊 合計: ' + (totalOrig/1024/1024).toFixed(1) + 'MB → ' + (totalResized/1024/1024).toFixed(1) + 'MB (' + Math.round((1-totalResized/totalOrig)*100) + '% 削減)', 'success');
     }
-
-    // 3. Push to GitHub
     log('GitHub にプッシュ中...', 'progress');
-
-    // Get current commit
-    const ref = await getRef(token, repo, branch);
-    const currentSha = ref.object.sha;
-    log(`現在のコミット: ${currentSha.substring(0, 7)}`, 'info');
-
-    // Create blobs and tree entries
-    const treeEntries = [];
-    for (let i = 0; i < files.length; i++) {
-      const f = files[i];
-      const blob = await createBlob(token, repo, f.content, 'base64');
-      treeEntries.push({
-        path: f.path,
-        mode: '100644',
-        type: 'blob',
-        sha: blob.sha
-      });
-      setProgress(50 + ((i + 1) / files.length) * 40);
-      if ((i + 1) % 10 === 0) log(`blob 作成中... ${i + 1}/${files.length}`, 'info');
+    var ref = await ghAPI('GET', '/repos/' + repoFull + '/git/ref/heads/' + branch, token);
+    var currentSha = ref.object.sha;
+    log('現在のコミット: ' + currentSha.substring(0,7), 'info');
+    var treeEntries = [];
+    var skipCount = 0;
+    for (var i = 0; i < files.length; i++) {
+      var f = files[i];
+      if (uploaded[f.path]) {
+        treeEntries.push({ path: f.path, mode: '100644', type: 'blob', sha: uploaded[f.path] });
+        skipCount++;
+        continue;
+      }
+      var blobRes = await ghAPI('POST', '/repos/' + repoFull + '/git/blobs', token, { content: f.content, encoding: 'base64' });
+      treeEntries.push({ path: f.path, mode: '100644', type: 'blob', sha: blobRes.sha });
+      uploaded[f.path] = blobRes.sha;
+      localStorage.setItem(cacheKey, JSON.stringify(uploaded));
+      setProgress(40 + ((i + 1) / files.length) * 50);
+      if ((i + 1) % 5 === 0 || i === files.length - 1) {
+        log('アップロード中... ' + (i + 1) + '/' + files.length + (skipCount > 0 ? ' (' + skipCount + ' スキップ)' : ''), 'info');
+      }
     }
-
-    // Create tree
-    log('ツリーを作成中...', 'info');
-    const tree = await createTree(token, repo, currentSha, treeEntries);
-
-    // Create commit
-    const commit = await createCommit(token, repo, `Deploy: ${file.name} (${new Date().toLocaleString('ja-JP')})`, tree.sha, [currentSha]);
-    log(`コミット作成: ${commit.sha.substring(0, 7)}`, 'info');
-
-    // Update ref
-    await updateRef(token, repo, branch, commit.sha);
+    if (skipCount > 0) log('⏩ ' + skipCount + ' ファイルは前回アップ済みのためスキップ', 'info');
+    log('コミットを作成中...', 'info');
+    var tree = await ghAPI('POST', '/repos/' + repoFull + '/git/trees', token, { base_tree: currentSha, tree: treeEntries });
+    var commit = await ghAPI('POST', '/repos/' + repoFull + '/git/commits', token, {
+      message: 'Deploy: ' + file.name + ' (' + new Date().toLocaleString('ja-JP') + ')',
+      tree: tree.sha,
+      parents: [currentSha]
+    });
+    await ghAPI('PATCH', '/repos/' + repoFull + '/git/ref/heads/' + branch, token, { sha: commit.sha });
+    localStorage.removeItem(cacheKey);
     setProgress(100);
-
-    log(`✅ デプロイ完了！ ${files.length} ファイルをプッシュしました`, 'success');
-    log(`🔗 https://github.com/${repo}`, 'success');
+    log('✅ デプロイ完了！ ' + files.length + ' ファイルをプッシュしました', 'success');
+    log('🔗 https://github.com/' + repoFull, 'success');
     dropZone.classList.remove('processing');
     dropZone.classList.add('done');
-
   } catch (err) {
-    log(`❌ エラー: ${err.message}`, 'error');
+    log('❌ エラー: ' + err.message, 'error');
+    log('💡 もう一度 zip をドロップすると、アップ済みファイルはスキップして途中から再開します', 'info');
     dropZone.classList.remove('processing');
     console.error(err);
   }
