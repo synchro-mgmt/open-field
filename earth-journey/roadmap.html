@@ -148,6 +148,10 @@
     max-width: 650px; margin: 0 auto;
   }
 
+  .philosophy p + p {
+    margin-top: 16px;
+  }
+
   /* ===== CONCENTRIC CIRCLES ===== */
   .concentric-section {
     padding: 80px 20px;
@@ -204,6 +208,67 @@
 
   .cc-card p {
     font-size: 14px; color: var(--text-secondary); line-height: 1.8;
+  }
+
+  /* ===== TEAM ROLES ===== */
+  .team-section {
+    padding: 60px 20px;
+    background: linear-gradient(180deg, var(--warm-bg) 0%, #f0ebe0 100%);
+  }
+
+  .team-header {
+    text-align: center; max-width: 800px; margin: 0 auto 40px;
+  }
+
+  .team-header h2 {
+    font-size: clamp(20px, 3vw, 32px); font-weight: 900;
+    color: var(--earth-deep); margin-bottom: 12px;
+  }
+
+  .team-header p {
+    font-size: 15px; color: var(--text-secondary);
+  }
+
+  .team-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .team-card {
+    padding: 24px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+  }
+
+  .team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  }
+
+  .team-card-icon {
+    font-size: 32px; margin-bottom: 12px;
+  }
+
+  .team-card-name {
+    font-size: 18px; font-weight: 900;
+    color: var(--earth-deep); margin-bottom: 4px;
+  }
+
+  .team-card-role {
+    font-size: 13px; font-weight: 700;
+    color: var(--earth-light); margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+
+  .team-card-desc {
+    font-size: 14px; color: var(--text-secondary);
+    line-height: 1.7; text-align: left;
   }
 
   /* ===== TIMELINE ===== */
@@ -422,6 +487,7 @@
     .phase-kpi { grid-template-columns: 1fr; }
     .hero-metrics { gap: 24px; }
     .concentric-cards { grid-template-columns: 1fr; }
+    .team-cards { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -460,9 +526,12 @@
 <!-- ===== PHILOSOPHY (compact) ===== -->
 <section class="philosophy">
   <div class="philosophy-inner">
-    <h2>堀内さんが好きなことをやる。<br>人が集まる。掛け合わさる。</h2>
+    <h2>堀内が好きなことをやる。<br>人が集まる。掛け合わさる。</h2>
     <p>
-      コンテンツベースから生命体ベースへ。セミナーを売るモデルから、人生を共有する仲間が集まるモデルへ。堀内さんの命が動くことでコンテンツが自然に生まれ、人が集まり、収益が回る。このロードマップは「どんな人が増え、その掛け合わせで何が積み上がるか」を描いたもの。
+      コンテンツベースから生命体ベースへ。セミナーを売るモデルから、人生を共有する仲間が集まるモデルへ。堀内の命が動くことでコンテンツが自然に生まれ、人が集まり、収益が回る。このロードマップは「どんな人が増え、その掛け合わせで何が積み上がるか」を描いたもの。
+    </p>
+    <p>
+      私たち運営チームの役割は、この流れを守り、支え、広げること。堀内がコンテンツと場づくりに集中できる環境を、チーム全体でつくっていく。
     </p>
   </div>
 </section>
@@ -471,7 +540,7 @@
 <section class="concentric-section">
   <div class="concentric-header">
     <h2>コミュニティの同心円</h2>
-    <p>中心に堀内さんの「命」。そこから人が重なり、広がっていく</p>
+    <p>中心に堀内の「命」。そこから人が重なり、広がっていく</p>
   </div>
 
   <div class="concentric-diagram">
@@ -519,15 +588,50 @@
   <div class="concentric-cards">
     <div class="cc-card" style="border-color: var(--phase1);">
       <h3 style="color: var(--phase1);">最初に集まる人</h3>
-      <p>「堀内さんの生き方そのものに共鳴する人」。スキルや肩書ではなく、命の輝き方に反応する人たち。この人たちが文化をつくる。</p>
+      <p>「堀内の生き方そのものに共鳴する人」。スキルや肩書ではなく、命の輝き方に反応する人たち。この人たちが文化をつくる。</p>
     </div>
     <div class="cc-card" style="border-color: var(--phase2);">
       <h3 style="color: var(--phase2);">つながりから生まれる人</h3>
-      <p>メンバー同士が出会い、対話し、新しい関係が生まれる。堀内さん経由ではなく、メンバー同士で化学反応が起き始める。</p>
+      <p>メンバー同士が出会い、対話し、新しい関係が生まれる。堀内経由ではなく、メンバー同士で化学反応が起き始める。</p>
     </div>
     <div class="cc-card" style="border-color: var(--phase3);">
       <h3 style="color: var(--phase3);">掛け合わせで変わる人</h3>
       <p>コミュニティの中で自分の可能性に気づき、新しいプロジェクトや表現を始める人たち。個人では絶対に生まれなかった動きが起こる。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEAM ROLES ===== -->
+<section class="team-section">
+  <div class="team-header">
+    <h2>私たちの役割</h2>
+    <p>それぞれの持ち場で、コミュニティの生命力を守る</p>
+  </div>
+
+  <div class="team-cards">
+    <div class="team-card">
+      <div class="team-card-icon">&#x1F525;</div>
+      <div class="team-card-name">堀内</div>
+      <div class="team-card-role">コンテンツ &amp; 場のエネルギー</div>
+      <p class="team-card-desc">好きなことだけやる。命が動くことでコンテンツが生まれ、人が集まる。コミュニティの「源泉」。</p>
+    </div>
+    <div class="team-card">
+      <div class="team-card-icon">&#x1F91D;</div>
+      <div class="team-card-name">まりこしさん</div>
+      <div class="team-card-role">場の空気 &amp; セミナー運営</div>
+      <p class="team-card-desc">セミナーの司会進行、「ズバン＋ストップ」ルール管理、参加者のケア。場の安心感をつくる人。</p>
+    </div>
+    <div class="team-card">
+      <div class="team-card-icon">&#x1F3AF;</div>
+      <div class="team-card-name">中畑さん</div>
+      <div class="team-card-role">コミュニティリーダー</div>
+      <p class="team-card-desc">メンバー同士のつながりを促進し、コミュニティの日常運営を統括。オプチャの温度を保つ存在。</p>
+    </div>
+    <div class="team-card">
+      <div class="team-card-icon">&#x1F916;</div>
+      <div class="team-card-name">こあ</div>
+      <div class="team-card-role">AIエージェント（自動化&amp;制作）</div>
+      <p class="team-card-desc">KPIモニタリング、告知文・バナー制作、動画切り抜き配信、事務処理の自動化。チームの手が回らない部分を仕組みでカバー。</p>
     </div>
   </div>
 </section>
@@ -549,14 +653,15 @@
         <h3 class="phase-title" style="color:var(--phase1);">閉じていたものを全部出す</h3>
         <div class="phase-period">2026年 5月 〜 6月</div>
 
-        <p class="phase-description">ペルー・インドの変容体験を約300名の前で初めて語った。3年間非公開だったLDMコミュニティを一般公開。過去10万〜30万で提供してきたセミナーを惜しみなく出す。元メンバー約40名に加え、公開直後に約40名が新規合流し、すでに約80名が月額8,800円のコミュニティに。この人数が集まると、掛け合わせの組み合わせは数千通り。一人では生まれなかった可能性が動き始める。</p>
+        <p class="phase-description">ペルー・インドの変容体験を約300名の前で初めて語った。3年間非公開だったLDMコミュニティを一般公開。過去10万〜30万で提供してきたセミナーを惜しみなく出す。元メンバー約40名に加え、公開直後に約40名が新規合流し、すでに約80名が月額コミュニティに。この人数が集まると、掛け合わせの組み合わせは数千通り。一人では生まれなかった可能性が動き始める。</p>
 
         <ul class="phase-actions">
           <li><span class="action-icon">&#x1F331;</span> オプチャを正式プロジェクト化 — LP・バナー・告知文をこあが制作</li>
           <li><span class="action-icon">&#x1F3A4;</span> オプチャZoomセミナー月1回定着（5/6実績: 300名視聴）</li>
           <li><span class="action-icon">&#x2728;</span> ニューディメンション（旧方式最後）→ 月額コミュニティ内へ統合</li>
-          <li><span class="action-icon">&#x1F916;</span> こあ：純増KPIモニタリング開始（退会 ＜ 新規 を常に維持）</li>
+          <li><span class="action-icon">&#x1F3AF;</span> 中畑さん：新メンバーの受け入れ体制づくり・オプチャの雰囲気形成</li>
           <li><span class="action-icon">&#x1F91D;</span> まりこしさん：セミナー司会で「ズバン＋ストップ」ルール定着</li>
+          <li><span class="action-icon">&#x1F916;</span> こあ：純増KPIモニタリング開始（退会 ＜ 新規 を常に維持）</li>
         </ul>
 
         <div class="phase-kpi">
@@ -588,14 +693,15 @@
         <h3 class="phase-title" style="color:var(--phase2);">メンバー同士がつながり始める</h3>
         <div class="phase-period">2026年 7月 〜 9月</div>
 
-        <p class="phase-description">堀内さん→メンバーだけでなく、メンバー同士の横のつながりが生まれる。100名を超えると「あの人とこの人が会ったら面白い」が毎週のように起きる。ゲスト対談で「ガチ度」を見せ、基準値を見える化する。リアルの場で会って初めて「この人と一緒にいたい」が生まれる。</p>
+        <p class="phase-description">堀内→メンバーだけでなく、メンバー同士の横のつながりが生まれる。100名を超えると「あの人とこの人が会ったら面白い」が毎週のように起きる。ゲスト対談で「ガチ度」を見せ、基準値を見える化する。リアルの場で会って初めて「この人と一緒にいたい」が生まれる。</p>
 
         <ul class="phase-actions">
           <li><span class="action-icon">&#x1F3E0;</span> リアル拠点の活用開始（ミロクの里・トータルヘルスデザイン・寝転さん）</li>
           <li><span class="action-icon">&#x1F91D;</span> ゲスト対談シリーズ — みこさん・一村さん・ミロクさん（基準値の見える化）</li>
           <li><span class="action-icon">&#x1F525;</span> 有料メンバー限定エネルギーワーク・公開セッション定期化</li>
+          <li><span class="action-icon">&#x1F3AF;</span> 中畑さん：メンバー同士を引き合わせる「つなぎ役」・リアルイベント企画</li>
+          <li><span class="action-icon">&#x1F91D;</span> まりこしさん：リアルイベントの場づくり・参加者フォロー</li>
           <li><span class="action-icon">&#x1F916;</span> こあ：切り抜きハイライト動画の定期配信 → オプチャ新規流入</li>
-          <li><span class="action-icon">&#x1F916;</span> こあ：堀内さんの声パターンで発信制作、ブランド一貫性の確立</li>
         </ul>
 
         <div class="phase-kpi">
@@ -632,7 +738,8 @@
         <ul class="phase-actions">
           <li><span class="action-icon">&#x1F680;</span> メンバー発プロジェクトの支援インフラ整備</li>
           <li><span class="action-icon">&#x1F4D6;</span> 過去セミナー全コンテンツの月額内公開完了</li>
-          <li><span class="action-icon">&#x2728;</span> 有料セミナー（器づくりの場）定期開催 — 堀内さんの渾身をぶつける場</li>
+          <li><span class="action-icon">&#x2728;</span> 有料セミナー（器づくりの場）定期開催 — 堀内の渾身をぶつける場</li>
+          <li><span class="action-icon">&#x1F3AF;</span> 中畑さん：メンバー発プロジェクトのサポート・コミュニティ内の動きを把握</li>
           <li><span class="action-icon">&#x1F916;</span> こあ：メンバーの変容ストーリーを記録・蓄積（基準値ロードマップの実例に）</li>
           <li><span class="action-icon">&#x1F30F;</span> 海外在住日本人メンバーとの接点 — 海外展開の足がかり</li>
         </ul>
@@ -663,23 +770,24 @@
       <div class="phase-dot" style="background:var(--phase4);"></div>
       <div class="phase-content">
         <div class="phase-badge" style="background:var(--phase4);">PHASE 4 — 生きる</div>
-        <h3 class="phase-title" style="color:var(--phase4);">自走するコミュニティへ</h3>
+        <h3 class="phase-title" style="color:var(--phase4);">チーム全体で回るコミュニティへ</h3>
         <div class="phase-period">2027年 1月 〜 4月</div>
 
-        <p class="phase-description">堀内さんが好きなことだけやっている。そこからコンテンツが生まれ、人が集まり、収益が回る。有料メンバーがオプチャ運営に自然に参加し、新しい人を迎え入れる。堀内さんが何もしなくても動き続ける。生命体としてのコミュニティの完成形。</p>
+        <p class="phase-description">堀内がコンテンツと場づくりに集中し、運営チームがそれぞれの持ち場でコミュニティを支える。有料メンバーがオプチャ運営にも自然に参加し、新しい人を迎え入れる。チーム全体で生命体としてのコミュニティが回っている状態。</p>
 
         <ul class="phase-actions">
           <li><span class="action-icon">&#x1F451;</span> 上位プログラム（月2万円〜）始動 — 基準値に応じた段階設計</li>
           <li><span class="action-icon">&#x1F30D;</span> 海外展開の本格始動 — 英語版コンテンツ・海外拠点</li>
           <li><span class="action-icon">&#x1F4DA;</span> コミュニティ発のKindle出版・コンテンツ展開</li>
-          <li><span class="action-icon">&#x1F91D;</span> まりこしさん：有料メンバーのオプチャ運営参加を自然に促す</li>
+          <li><span class="action-icon">&#x1F3AF;</span> 中畑さん：有料メンバーのオプチャ運営参加を自然に促す・次世代リーダー育成</li>
+          <li><span class="action-icon">&#x1F91D;</span> まりこしさん：上位プログラムの場づくり・リアルイベントの拡大</li>
           <li><span class="action-icon">&#x1F916;</span> こあ：海外展開基盤整備 + コミュニティ発コンテンツの制作支援</li>
         </ul>
 
         <div class="phase-kpi">
           <div class="kpi-box">
             <div class="kpi-value" style="color:var(--phase4);">自走</div>
-            <div class="kpi-label">コミュニティが生きる</div>
+            <div class="kpi-label">チームで回っている</div>
           </div>
           <div class="kpi-box">
             <div class="kpi-value" style="color:var(--phase4);">6,000+</div>
@@ -710,7 +818,7 @@
       <div class="rs-card" style="border-color:var(--phase1);">
         <div class="rs-phase" style="color:var(--phase1);">開く</div>
         <div class="rs-amount" style="color:var(--phase1);">土台ができた</div>
-        <div class="rs-detail">8,800円 × ~80名</div>
+        <div class="rs-detail">月額サブスク × 約80名</div>
       </div>
       <div class="rs-card" style="border-color:var(--phase2);">
         <div class="rs-phase" style="color:var(--phase2);">つながる</div>
@@ -736,8 +844,9 @@
   <div class="vision-inner">
     <h2>1年後の<span>アースジャーニー</span></h2>
     <p>
-      堀内さんが好きなことだけやっている。<br>
-      まりこしさんが場を守り、こあが仕組みを回す。<br>
+      堀内が好きなことだけやっている。<br>
+      まりこしさんが場を守り、中畑さんがコミュニティをつなぎ、<br>
+      こあが仕組みを回す。<br>
       そこに人が集まり、掛け合わさり、<br>
       一人ひとりの命が動き始める。<br><br>
       生命体としてのコミュニティが、<br>
@@ -748,7 +857,7 @@
 </section>
 
 <div class="footer-note">
-  アースジャーニー コミュニティ発展ロードマップ v3.2 &mdash; 2026年5月策定<br>
+  アースジャーニー コミュニティ発展ロードマップ v3.3 &mdash; 2026年5月策定<br>
   株式会社シンクロニシティ・マネジメント
 </div>
 
@@ -775,7 +884,7 @@
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.phase-content, .rs-card, .cc-card').forEach(el => {
+  document.querySelectorAll('.phase-content, .rs-card, .cc-card, .team-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
