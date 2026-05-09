@@ -22,8 +22,6 @@
     --phase2: #3a7bd5;
     --phase3: #d4a843;
     --phase4: #c75b39;
-    --life-pink: #e8a0bf;
-    --system-gray: #7a8b9a;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -105,8 +103,21 @@
   .hero-subtitle {
     font-size: clamp(16px, 2.5vw, 22px);
     color: rgba(255,255,255,0.85); font-weight: 300;
-    max-width: 600px; margin: 0 auto 40px;
-    line-height: 2;
+    max-width: 600px; margin: 0 auto 40px; line-height: 2;
+  }
+
+  .hero-metrics {
+    display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;
+  }
+
+  .hero-metric { text-align: center; }
+
+  .hero-metric-value {
+    font-size: 36px; font-weight: 900; color: var(--gold-light);
+  }
+
+  .hero-metric-label {
+    font-size: 13px; color: rgba(255,255,255,0.7); letter-spacing: 1px;
   }
 
   .scroll-indicator {
@@ -120,313 +131,184 @@
     50% { transform: translateX(-50%) translateY(10px); }
   }
 
-  /* ===== SECTION COMMON ===== */
-  .section { padding: 80px 20px; }
-  .section-inner { max-width: 900px; margin: 0 auto; }
+  /* ===== PHILOSOPHY (compact) ===== */
+  .philosophy {
+    padding: 80px 20px; text-align: center; background: var(--warm-bg);
+  }
 
-  .section-title {
+  .philosophy-inner { max-width: 800px; margin: 0 auto; }
+
+  .philosophy h2 {
     font-size: clamp(24px, 4vw, 40px); font-weight: 900;
-    color: var(--earth-deep); margin-bottom: 16px; text-align: center;
+    color: var(--earth-deep); margin-bottom: 24px;
   }
 
-  .section-lead {
-    font-size: 16px; color: var(--text-secondary);
-    text-align: center; max-width: 650px;
-    margin: 0 auto 48px; line-height: 2;
+  .philosophy p {
+    font-size: 16px; color: var(--text-secondary); line-height: 2;
+    max-width: 650px; margin: 0 auto;
   }
 
-  /* ===== ORIGIN ===== */
-  .origin { background: var(--warm-bg); }
-
-  .origin-quote {
-    font-size: clamp(20px, 3.5vw, 32px); font-weight: 300;
-    color: var(--earth-green); line-height: 1.8;
-    padding: 40px; border-left: 4px solid var(--gold);
-    text-align: left; background: rgba(212,168,67,0.05);
-    border-radius: 0 16px 16px 0; margin-bottom: 40px;
+  /* ===== TIMELINE ===== */
+  .timeline-section {
+    padding: 80px 20px; background: var(--warm-bg);
   }
 
-  .origin-text {
-    font-size: 16px; color: var(--text-secondary);
-    line-height: 2.2; max-width: 700px; margin: 0 auto;
+  .timeline-header {
+    text-align: center; max-width: 800px; margin: 0 auto 64px;
   }
 
-  /* ===== PRINCIPLE (3 columns) ===== */
-  .principle { background: linear-gradient(180deg, var(--warm-bg) 0%, #f0ebe0 100%); }
-
-  .principle-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
-  }
-
-  .principle-card {
-    background: var(--card-bg); border-radius: 16px;
-    padding: 28px; box-shadow: 0 2px 16px rgba(0,0,0,0.04);
-    border-top: 4px solid; transition: transform 0.3s ease;
-  }
-
-  .principle-card:hover { transform: translateY(-4px); }
-
-  .principle-icon { font-size: 28px; margin-bottom: 12px; }
-
-  .principle-card h4 {
-    font-size: 16px; font-weight: 700; margin-bottom: 8px;
-  }
-
-  .principle-card p {
-    font-size: 14px; color: var(--text-secondary); line-height: 1.8;
-  }
-
-  /* ===== LIFE MAP (concentric) ===== */
-  .lifemap { background: #f0ebe0; }
-
-  .lifemap-visual {
-    display: flex; justify-content: center; align-items: center;
-    position: relative; min-height: 400px; margin-bottom: 48px;
-  }
-
-  .life-ring {
-    position: absolute; border-radius: 50%;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    text-align: center; transition: transform 0.3s ease;
-  }
-
-  .life-ring:hover { transform: scale(1.04); }
-
-  .lr-core {
-    width: 130px; height: 130px;
-    background: radial-gradient(circle, var(--gold) 0%, var(--gold-light) 100%);
-    z-index: 5; box-shadow: 0 0 40px rgba(212,168,67,0.4);
-  }
-
-  .lr-core .lr-label { font-size: 20px; font-weight: 900; color: var(--earth-deep); }
-  .lr-core .lr-sub { font-size: 10px; color: var(--earth-deep); opacity: 0.7; margin-top: 2px; }
-
-  .lr-1 {
-    width: 200px; height: 200px;
-    border: 2px solid rgba(232,160,191,0.5);
-    background: rgba(232,160,191,0.06); z-index: 4;
-  }
-
-  .lr-2 {
-    width: 270px; height: 270px;
-    border: 2px solid rgba(199,91,57,0.3);
-    background: rgba(199,91,57,0.04); z-index: 3;
-  }
-
-  .lr-3 {
-    width: 340px; height: 340px;
-    border: 2px solid rgba(58,123,213,0.3);
-    background: rgba(58,123,213,0.03); z-index: 2;
-  }
-
-  .lr-4 {
-    width: 410px; height: 410px;
-    border: 2px dashed rgba(107,158,94,0.3);
-    background: rgba(107,158,94,0.03); z-index: 1;
-  }
-
-  .lr-tag {
-    position: absolute; font-size: 10px; font-weight: 600;
-    padding: 3px 10px; border-radius: 10px; white-space: nowrap;
-  }
-
-  .lr-1 .lr-tag { bottom: -10px; background: var(--life-pink); color: #fff; }
-  .lr-2 .lr-tag { bottom: -10px; background: var(--phase4); color: #fff; }
-  .lr-3 .lr-tag { bottom: -10px; background: var(--phase2); color: #fff; }
-  .lr-4 .lr-tag { bottom: -10px; background: var(--phase1); color: #fff; }
-
-  .lifemap-explain {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-  }
-
-  .lm-item {
-    padding: 16px; border-radius: 12px;
-    background: var(--card-bg); text-align: center;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.03);
-  }
-
-  .lm-item .lm-who {
-    font-size: 12px; font-weight: 700;
-    letter-spacing: 1px; margin-bottom: 4px;
-  }
-
-  .lm-item p { font-size: 13px; color: var(--text-secondary); }
-
-  /* ===== PHASE SECTION ===== */
-  .phase-section {
-    padding: 80px 20px;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-  }
-
-  .phase-section:last-of-type { border-bottom: none; }
-
-  .phase-inner { max-width: 900px; margin: 0 auto; }
-
-  .phase-header {
-    display: flex; align-items: center; gap: 16px;
-    margin-bottom: 32px; flex-wrap: wrap;
-  }
-
-  .phase-num {
-    width: 48px; height: 48px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 14px; font-weight: 900;
-    flex-shrink: 0;
-  }
-
-  .phase-header-text h2 {
-    font-size: clamp(22px, 3.5vw, 32px); font-weight: 900;
-    line-height: 1.3;
-  }
-
-  .phase-header-text .phase-period {
-    font-size: 14px; color: var(--text-secondary); font-weight: 500;
-  }
-
-  /* 3-column layout per phase */
-  .phase-columns {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .phase-col {
-    background: var(--card-bg); border-radius: 16px;
-    padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-    border-left: 4px solid;
-  }
-
-  .phase-col-label {
-    font-size: 11px; font-weight: 700;
-    letter-spacing: 2px; margin-bottom: 12px;
-    display: flex; align-items: center; gap: 6px;
-  }
-
-  .phase-col h4 {
-    font-size: 18px; font-weight: 700; margin-bottom: 12px;
-  }
-
-  .phase-col p, .phase-col li {
-    font-size: 14px; color: var(--text-secondary); line-height: 1.8;
-  }
-
-  .phase-col ul {
-    list-style: none; padding: 0;
-  }
-
-  .phase-col ul li {
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-    display: flex; align-items: flex-start; gap: 8px;
-  }
-
-  .phase-col ul li:last-child { border-bottom: none; }
-
-  .li-icon { flex-shrink: 0; margin-top: 3px; }
-
-  /* result strip */
-  .phase-result {
-    margin-top: 24px; padding: 20px;
-    border-radius: 12px;
-    background: rgba(0,0,0,0.02);
-    display: flex; gap: 24px; flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .pr-item { text-align: center; min-width: 100px; }
-
-  .pr-value {
-    font-size: 20px; font-weight: 900;
-  }
-
-  .pr-label {
-    font-size: 11px; color: var(--text-secondary);
-  }
-
-  /* ===== KIJUNCHI (special section) ===== */
-  .kijunchi { background: linear-gradient(180deg, var(--warm-bg) 0%, #f0ebe0 100%); }
-
-  .kijunchi-card {
-    background: var(--card-bg); border-radius: 20px;
-    padding: 40px; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-    max-width: 800px; margin: 0 auto;
-  }
-
-  .kijunchi-card h3 {
-    font-size: 22px; font-weight: 900;
+  .timeline-header h2 {
+    font-size: clamp(24px, 4vw, 40px); font-weight: 900;
     color: var(--earth-deep); margin-bottom: 16px;
   }
 
-  .kijunchi-card p {
-    font-size: 15px; color: var(--text-secondary); line-height: 2;
-    margin-bottom: 16px;
+  .timeline-header p {
+    font-size: 16px; color: var(--text-secondary);
   }
 
-  .kijunchi-levels {
-    display: flex; gap: 2px; margin: 24px 0;
-    border-radius: 12px; overflow: hidden;
+  .timeline {
+    max-width: 1100px; margin: 0 auto; position: relative;
   }
 
-  .kl-bar {
-    flex: 1; padding: 16px 8px; text-align: center;
-    color: #fff; font-size: 12px; font-weight: 500;
-    display: flex; flex-direction: column;
-    justify-content: center; min-height: 80px;
+  .timeline::before {
+    content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--phase1) 0%, var(--phase2) 33%, var(--phase3) 66%, var(--phase4) 100%);
+    border-radius: 2px; transform: translateX(-50%);
   }
 
-  .kl-bar strong { display: block; font-size: 14px; margin-bottom: 4px; }
+  .phase {
+    position: relative; margin-bottom: 80px;
+  }
 
-  /* ===== NIHON OS ===== */
-  .nihon-os { background: #f0ebe0; }
+  .phase:last-child { margin-bottom: 0; }
 
-  .nihon-card {
+  .phase-dot {
+    position: absolute; left: 50%; top: 0;
+    width: 24px; height: 24px; border-radius: 50%;
+    transform: translateX(-50%); z-index: 2;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+  }
+
+  .phase-dot::after {
+    content: ''; position: absolute; top: -6px; left: -6px;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid; opacity: 0.3;
+    animation: pulse-ring 2s ease infinite;
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.3); opacity: 0; }
+  }
+
+  .phase-content {
+    width: 44%; padding: 32px;
     background: var(--card-bg); border-radius: 20px;
-    padding: 40px; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-    max-width: 800px; margin: 0 auto;
-    border-left: 4px solid var(--sky-blue);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    position: relative; transition: transform 0.3s ease;
   }
 
-  .nihon-card h3 {
-    font-size: 20px; font-weight: 900;
-    color: var(--earth-deep); margin-bottom: 12px;
+  .phase-content:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
   }
 
-  .nihon-card p {
-    font-size: 15px; color: var(--text-secondary); line-height: 2;
-    margin-bottom: 12px;
+  .phase:nth-child(odd) .phase-content {
+    margin-left: auto; margin-right: 8%;
+  }
+
+  .phase:nth-child(even) .phase-content {
+    margin-left: 8%;
+  }
+
+  .phase-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    padding: 6px 16px; border-radius: 20px; color: #fff; margin-bottom: 16px;
+  }
+
+  .phase-title {
+    font-size: clamp(20px, 3vw, 28px); font-weight: 900;
+    margin-bottom: 8px; line-height: 1.3;
+  }
+
+  .phase-period {
+    font-size: 14px; color: var(--text-secondary);
+    margin-bottom: 20px; font-weight: 500;
+  }
+
+  .phase-description {
+    font-size: 15px; color: var(--text-secondary);
+    margin-bottom: 24px; line-height: 1.8;
+  }
+
+  .phase-actions {
+    list-style: none; padding: 0;
+  }
+
+  .phase-actions li {
+    font-size: 14px; padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+
+  .phase-actions li:last-child { border-bottom: none; }
+
+  .action-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+
+  .phase-kpi {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-top: 20px;
+  }
+
+  .kpi-box {
+    text-align: center; padding: 16px 12px;
+    border-radius: 12px; background: rgba(0,0,0,0.02);
+  }
+
+  .kpi-value { font-size: 24px; font-weight: 900; }
+
+  .kpi-label {
+    font-size: 11px; color: var(--text-secondary); margin-top: 4px;
   }
 
   /* ===== REVENUE (subdued) ===== */
-  .revenue { background: var(--warm-bg); }
+  .revenue-section {
+    padding: 60px 20px;
+    background: linear-gradient(180deg, #f0ebe0 0%, var(--warm-bg) 100%);
+  }
+
+  .revenue-inner {
+    max-width: 800px; margin: 0 auto; text-align: center;
+  }
+
+  .revenue-inner h2 {
+    font-size: clamp(20px, 3vw, 28px); font-weight: 900;
+    color: var(--earth-deep); margin-bottom: 8px;
+  }
 
   .revenue-note {
-    text-align: center; font-size: 14px;
-    color: var(--text-secondary); margin-bottom: 32px;
-    font-style: italic;
+    font-size: 14px; color: var(--text-secondary);
+    margin-bottom: 32px; font-style: italic;
   }
 
   .revenue-simple {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px; max-width: 800px; margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
   }
 
   .rs-card {
-    padding: 24px; border-radius: 12px;
+    padding: 20px; border-radius: 12px;
     background: var(--card-bg); text-align: center;
     box-shadow: 0 1px 8px rgba(0,0,0,0.04);
     border-top: 3px solid;
   }
 
-  .rs-phase { font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
-  .rs-amount { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+  .rs-phase { font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+  .rs-amount { font-size: 20px; font-weight: 900; margin-bottom: 4px; }
   .rs-detail { font-size: 12px; color: var(--text-secondary); }
-  .rs-basis { font-size: 11px; color: var(--text-secondary); margin-top: 8px; font-style: italic; }
 
   /* ===== VISION FOOTER ===== */
   .vision-footer {
@@ -470,18 +352,17 @@
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
-    .lifemap-visual { min-height: 300px; }
-    .lr-core { width: 90px; height: 90px; }
-    .lr-1 { width: 150px; height: 150px; }
-    .lr-2 { width: 210px; height: 210px; }
-    .lr-3 { width: 270px; height: 270px; }
-    .lr-4 { width: 330px; height: 330px; }
-    .lr-core .lr-label { font-size: 16px; }
+    .timeline::before { left: 20px; }
+    .phase-dot { left: 20px; }
 
-    .kijunchi-levels { flex-direction: column; }
-    .kl-bar { min-height: 50px; }
+    .phase:nth-child(odd) .phase-content,
+    .phase:nth-child(even) .phase-content {
+      width: calc(100% - 50px);
+      margin-left: 50px; margin-right: 0;
+    }
 
-    .phase-result { gap: 16px; }
+    .phase-kpi { grid-template-columns: 1fr; }
+    .hero-metrics { gap: 24px; }
   }
 </style>
 </head>
@@ -497,393 +378,230 @@
       <span>発展ロードマップ</span>
     </h1>
     <p class="hero-subtitle">
-      命が動く。人が集まる。<br>
-      掛け合わさって、可能性が開いていく。<br><br>
-      これは成長計画ではない。<br>
-      堀内恭隆の命の設計図から生まれた、<br>
-      生命体としてのコミュニティの1年間。
+      人が集まり、掛け合わさり、<br>可能性が開いていくコミュニティの1年間
     </p>
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <div class="hero-metric-value">1,000+</div>
+        <div class="hero-metric-label">オプチャ メンバー</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-value">~40</div>
+        <div class="hero-metric-label">有料メンバー（現在）</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-value">&#x221E;</div>
+        <div class="hero-metric-label">掛け合わせの可能性</div>
+      </div>
+    </div>
   </div>
   <div class="scroll-indicator">scroll</div>
 </section>
 
-<!-- ===== ORIGIN ===== -->
-<section class="section origin">
-  <div class="section-inner">
-    <h2 class="section-title">始まりは「命」</h2>
-    <div class="origin-quote">
-      ミッションが崩れた。<br>
-      生きる理由すら消えた。<br>
-      そこから再構築して、たどり着いたのが<br>
-      「命を中心に回す」だった。
-    </div>
-    <p class="origin-text">
-      ペルーのシャーマン儀式で、何十年もかけて積み上げたミッションが「概念に過ぎない」と体感レベルで判明した。インドのリンポチェ様との出会いで、カルマの認識が根底から変わった。帰国後の2〜3週間、何もやる気が起きなかった。
-    </p>
-    <p class="origin-text" style="margin-top:20px;">
-      そこから再構築して到達した結論 —— <strong>「命を中心に回す」</strong>。コンテンツを資産として守るモデルから、命・生命体を中心に人との関係値を育むモデルへ。「寄ってくるな」から「つながりたい」へ。20年かけた価値観が根本から変わった。
-    </p>
-    <p class="origin-text" style="margin-top:20px;">
-      このロードマップは、その転換から始まるコミュニティの物語。数字を追う計画ではなく、<strong>堀内さんの命がどう動き、その結果として何が生まれるか</strong>を描いたもの。
+<!-- ===== PHILOSOPHY (compact) ===== -->
+<section class="philosophy">
+  <div class="philosophy-inner">
+    <h2>堀内さんが好きなことをやる。<br>人が集まる。掛け合わさる。</h2>
+    <p>
+      コンテンツベースから生命体ベースへ。セミナーを売るモデルから、人生を共有する仲間が集まるモデルへ。堀内さんの命が動くことでコンテンツが自然に生まれ、人が集まり、収益が回る。このロードマップは「どんな人が増え、その掛け合わせで何が積み上がるか」を描いたもの。
     </p>
   </div>
 </section>
 
-<!-- ===== 3 PRINCIPLES ===== -->
-<section class="section principle">
-  <div class="section-inner">
-    <h2 class="section-title">このロードマップの3つの原則</h2>
-    <p class="section-lead">すべての判断基準は「堀内さんの命が燃えるかどうか」</p>
-
-    <div class="principle-grid">
-      <div class="principle-card" style="border-color:var(--gold);">
-        <div class="principle-icon">&#x1F525;</div>
-        <h4 style="color:var(--gold);">命が先、数字は結果</h4>
-        <p>堀内さんが好きなことをやる。そこからコンテンツが自然に生まれ、人が集まり、収益が回る。会員数や売上は追いかけるものではなく、命が動いた結果として現れるもの。</p>
-      </div>
-      <div class="principle-card" style="border-color:var(--sky-blue);">
-        <div class="principle-icon">&#x1F916;</div>
-        <h4 style="color:var(--sky-blue);">仕組みで守る、命は解放する</h4>
-        <p>KPI管理、LP制作、告知文、コンテンツ品質保証 —— これらは堀内さんがやることじゃない。こあ（AI中枢神経）と仕組みが回す。堀内さんは放出の純度を最大化することだけに集中する。</p>
-      </div>
-      <div class="principle-card" style="border-color:var(--phase1);">
-        <div class="principle-icon">&#x1F331;</div>
-        <h4 style="color:var(--phase1);">売らない、開く</h4>
-        <p>「販売」「集客」「案内」という言葉を使わない。場を開く。全部出す。「ローンチだったのね」と思われた瞬間に人は離れる。セールス臭ゼロ。「一緒にいたい」だけで人が集まる状態をつくる。</p>
-      </div>
-    </div>
+<!-- ===== TIMELINE ===== -->
+<section class="timeline-section">
+  <div class="timeline-header">
+    <h2>1年間の発展ステップ</h2>
+    <p>4つのフェーズで「人が増え、掛け合わさり、開花する」プロセス</p>
   </div>
-</section>
 
-<!-- ===== LIFE MAP ===== -->
-<section class="section lifemap">
-  <div class="section-inner">
-    <h2 class="section-title">命の同心円 —— 誰が何をやるか</h2>
-    <p class="section-lead">堀内さんの命が中心。こあが仕組みを回し、まりこしさんが純度を守る。<br>それぞれの持ち場がある。</p>
+  <div class="timeline">
 
-    <div class="lifemap-visual">
-      <div class="life-ring lr-4">
-        <span class="lr-tag">コミュニティ（結果として育つ）</span>
-      </div>
-      <div class="life-ring lr-3">
-        <span class="lr-tag">こあ＋AIエージェント群（仕組み）</span>
-      </div>
-      <div class="life-ring lr-2">
-        <span class="lr-tag">まりこしさん（放出の純度を守る防壁）</span>
-      </div>
-      <div class="life-ring lr-1">
-        <span class="lr-tag">閃き・感覚・直感</span>
-      </div>
-      <div class="life-ring lr-core">
-        <span class="lr-label">命</span>
-        <span class="lr-sub">堀内恭隆</span>
-      </div>
-    </div>
-
-    <div class="lifemap-explain">
-      <div class="lm-item">
-        <div class="lm-who" style="color:var(--gold);">堀内さん</div>
-        <p>好きなことだけやる。ズバンと放出する。セミナー・対談・エネルギーワーク・書く。</p>
-      </div>
-      <div class="lm-item">
-        <div class="lm-who" style="color:var(--phase4);">まりこしさん</div>
-        <p>放出の純度を守る内側の防壁。ズバン＋ストップ。まとめ・着地・司会を引き取る。</p>
-      </div>
-      <div class="lm-item">
-        <div class="lm-who" style="color:var(--sky-blue);">こあ（AI中枢神経）</div>
-        <p>KPI管理・LP制作・告知文・品質保証・タスク管理。有料と同じクオリティを無料にも。</p>
-      </div>
-      <div class="lm-item">
-        <div class="lm-who" style="color:var(--phase1);">コミュニティ</div>
-        <p>結果として人が集まり、つながり、掛け合わさる。堀内さんのファンクラブではなく、一緒に旅する仲間。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PHASE 1 ===== -->
-<section class="phase-section" style="background:var(--warm-bg);">
-  <div class="phase-inner">
-    <div class="phase-header">
-      <div class="phase-num" style="background:var(--phase1);">01</div>
-      <div class="phase-header-text">
-        <h2 style="color:var(--phase1);">開く</h2>
+    <!-- Phase 1: 開く -->
+    <div class="phase">
+      <div class="phase-dot" style="background:var(--phase1);"></div>
+      <div class="phase-content">
+        <div class="phase-badge" style="background:var(--phase1);">PHASE 1 — 開く</div>
+        <h3 class="phase-title" style="color:var(--phase1);">閉じていたものを全部出す</h3>
         <div class="phase-period">2026年 5月 〜 6月</div>
-      </div>
-    </div>
 
-    <div class="phase-columns">
-      <div class="phase-col" style="border-color:var(--gold);">
-        <div class="phase-col-label" style="color:var(--gold);">&#x1F525; 堀内さんの命</div>
-        <h4>全部を出す。閉じていたものを開く。</h4>
-        <p>ペルー・インドの変容体験を約300名の前で初めて語った（5/6 Zoomセミナー）。3年間非公開だったLDMコミュニティを一般公開すると宣言。過去10万〜30万で提供してきたセミナーを惜しみなく出す。「出し惜しみしてる場合じゃない」。</p>
-        <p style="margin-top:12px;">ニューディメンション（旧方式最後のセミナー・テーマ：オープンコンタクト）をやりきる。以後のセミナーはすべて月額コミュニティの中で展開する。</p>
-      </div>
+        <p class="phase-description">ペルー・インドの変容体験を約300名の前で初めて語った。3年間非公開だったLDMコミュニティを一般公開。過去10万〜30万で提供してきたセミナーを惜しみなく出す。すでに約40名が月額8,800円で合流済み。この人たちが文化をつくる。</p>
 
-      <div class="phase-col" style="border-color:var(--sky-blue);">
-        <div class="phase-col-label" style="color:var(--sky-blue);">&#x2699;&#xFE0F; 会社の仕組み（こあ＋まりこしさん）</div>
-        <h4>場を開く仕組みを整える</h4>
-        <ul>
-          <li><span class="li-icon">&#x1F916;</span> こあ：オプチャを正式プロジェクト化。バナー・LP・告知文を有料と同じクオリティで制作</li>
-          <li><span class="li-icon">&#x1F916;</span> こあ：月次の純増KPIをモニタリング（退会 ＜ 新規 を常に維持）</li>
-          <li><span class="li-icon">&#x1F91D;</span> まりこしさん：セミナー司会の「ズバン＋ストップ」ルール定着。堀内さんがリスクヘッジを始めたらカット</li>
-          <li><span class="li-icon">&#x1F91D;</span> まりこしさん：コミュニティの場を毎回10〜15分で自然に紹介（押し付けない）</li>
+        <ul class="phase-actions">
+          <li><span class="action-icon">&#x1F331;</span> オプチャを正式プロジェクト化 — LP・バナー・告知文をこあが制作</li>
+          <li><span class="action-icon">&#x1F3A4;</span> オプチャZoomセミナー月1回定着（5/6実績: 300名視聴）</li>
+          <li><span class="action-icon">&#x2728;</span> ニューディメンション（旧方式最後）→ 月額コミュニティ内へ統合</li>
+          <li><span class="action-icon">&#x1F916;</span> こあ：純増KPIモニタリング開始（退会 ＜ 新規 を常に維持）</li>
+          <li><span class="action-icon">&#x1F91D;</span> まりこしさん：セミナー司会で「ズバン＋ストップ」ルール定着</li>
         </ul>
-      </div>
 
-      <div class="phase-col" style="border-color:var(--phase1);">
-        <div class="phase-col-label" style="color:var(--phase1);">&#x1F331; 結果として起こること</div>
-        <h4>すでに約40名が「一緒に旅する」と決めている</h4>
-        <p>堀内さんの12年間のストーリーに共鳴し、「今のこの変化を一緒に体験したい」と月額8,800円を払って飛び込んだ約40名がすでにいる。スキルや肩書ではなく、命の輝き方に反応した人たち。この人たちがコミュニティの文化をつくる土壌になる。</p>
+        <div class="phase-kpi">
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase1);">~40名</div>
+            <div class="kpi-label">有料メンバー（合流済み）</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase1);">1,500+</div>
+            <div class="kpi-label">オプチャ目標</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase1);">純増開始</div>
+            <div class="kpi-label">最重要KPI</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase1);">文化形成</div>
+            <div class="kpi-label">最重要テーマ</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="phase-result">
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase1);">純増が始まる</div>
-        <div class="pr-label">オプチャ</div>
-      </div>
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase1);">約40名が合流済み</div>
-        <div class="pr-label">月額8,800円</div>
-      </div>
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase1);">文化の種まき</div>
-        <div class="pr-label">最重要テーマ</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PHASE 2 ===== -->
-<section class="phase-section" style="background:#f8f4ec;">
-  <div class="phase-inner">
-    <div class="phase-header">
-      <div class="phase-num" style="background:var(--phase2);">02</div>
-      <div class="phase-header-text">
-        <h2 style="color:var(--phase2);">つながる</h2>
+    <!-- Phase 2: つながる -->
+    <div class="phase">
+      <div class="phase-dot" style="background:var(--phase2);"></div>
+      <div class="phase-content">
+        <div class="phase-badge" style="background:var(--phase2);">PHASE 2 — つながる</div>
+        <h3 class="phase-title" style="color:var(--phase2);">メンバー同士がつながり始める</h3>
         <div class="phase-period">2026年 7月 〜 9月</div>
-      </div>
-    </div>
 
-    <div class="phase-columns">
-      <div class="phase-col" style="border-color:var(--gold);">
-        <div class="phase-col-label" style="color:var(--gold);">&#x1F525; 堀内さんの命</div>
-        <h4>ガチ度を見せる。基準値を開示する。</h4>
-        <p>ゲスト対談シリーズを始める。みこさん、一村さん、ミロクさんを呼んで、普段の取り組みレベル（プライベートレベル）を可視化する。「ヤッホーって言ってる人が実は化け物だった」を見せる。</p>
-        <p style="margin-top:12px;">リアルの場に出る。ミロクの里、トータルヘルスデザイン、寝転さん。オンラインでは生まれない「場のエネルギー」で、人と人の関係を一段深いところに連れていく。有料メンバー限定のエネルギーワーク・公開セッションを定期化する。</p>
-      </div>
+        <p class="phase-description">堀内さん→メンバーだけでなく、メンバー同士の横のつながりが生まれる。ゲスト対談で「ガチ度」を見せ、基準値を見える化する。リアルの場で会って初めて「この人と一緒にいたい」が生まれる。</p>
 
-      <div class="phase-col" style="border-color:var(--sky-blue);">
-        <div class="phase-col-label" style="color:var(--sky-blue);">&#x2699;&#xFE0F; 会社の仕組み（こあ＋まりこしさん）</div>
-        <h4>コンテンツの循環を回す</h4>
-        <ul>
-          <li><span class="li-icon">&#x1F916;</span> こあ：対談・セミナーの切り抜きハイライト動画を定期制作・配信 → オプチャ新規流入</li>
-          <li><span class="li-icon">&#x1F916;</span> こあ：堀内さんの声パターンで発信を制作（テンプレートではなく堀内さんの言葉で）</li>
-          <li><span class="li-icon">&#x1F91D;</span> まりこしさん：対談でゲストの「本気の話」を引き出す役割。まりこしさんが間に入ることで深さが出る</li>
-          <li><span class="li-icon">&#x1F916;</span> こあ：世界観「アースジャーニー」のビジュアル・ブランドを一貫性を持って展開</li>
+        <ul class="phase-actions">
+          <li><span class="action-icon">&#x1F3E0;</span> リアル拠点の活用開始（ミロクの里・トータルヘルスデザイン・寝転さん）</li>
+          <li><span class="action-icon">&#x1F91D;</span> ゲスト対談シリーズ — みこさん・一村さん・ミロクさん（基準値の見える化）</li>
+          <li><span class="action-icon">&#x1F525;</span> 有料メンバー限定エネルギーワーク・公開セッション定期化</li>
+          <li><span class="action-icon">&#x1F916;</span> こあ：切り抜きハイライト動画の定期配信 → オプチャ新規流入</li>
+          <li><span class="action-icon">&#x1F916;</span> こあ：堀内さんの声パターンで発信制作、ブランド一貫性の確立</li>
         </ul>
-      </div>
 
-      <div class="phase-col" style="border-color:var(--phase2);">
-        <div class="phase-col-label" style="color:var(--phase2);">&#x1F331; 結果として起こること</div>
-        <h4>横のつながりが生まれ始める</h4>
-        <p>堀内さん→メンバーだけでなく、メンバー←→メンバーの横のつながりが生まれ始める。リアルの場で会って初めて「この人と一緒にいたい」が生まれる。「この人面白い」「この人と組んだら何か起きそう」という化学反応の種が蒔かれる。</p>
-      </div>
-    </div>
-
-    <div class="phase-result">
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase2);">純増が安定</div>
-        <div class="pr-label">積み上がり続ける</div>
-      </div>
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase2);">リアルの場</div>
-        <div class="pr-label">3拠点で開催</div>
-      </div>
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase2);">横のつながり</div>
-        <div class="pr-label">最重要テーマ</div>
+        <div class="phase-kpi">
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase2);">純増が安定</div>
+            <div class="kpi-label">有料メンバー</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase2);">2,500+</div>
+            <div class="kpi-label">オプチャ目標</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase2);">3拠点</div>
+            <div class="kpi-label">リアルの場</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase2);">横のつながり</div>
+            <div class="kpi-label">最重要テーマ</div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ===== KIJUNCHI (基準値の見える化) ===== -->
-<section class="section kijunchi">
-  <div class="section-inner">
-    <h2 class="section-title">基準値の見える化</h2>
-    <p class="section-lead">Phase 2の核心。コミュニティが「ただのファンクラブ」にならないための仕組み。</p>
-
-    <div class="kijunchi-card">
-      <h3>大谷翔平の比喩</h3>
-      <p>大谷翔平なら「異常な取り組みをしている」と誰もが分かる。年商50億なら相応の覚悟があると分かる。でもスピリチュアルでは「祈りました」の基準値が人によって全然違う。20年間毎日本気で取り組んだ人と、3ヶ月セミナーで少しやった人が「同じ」に見えてしまう。</p>
-      <p>堀内さんは1日10回のシャーマニックワーク。みこさんは祈りの家で育ち、純度にこだわって瞑想し続けている。ライラさんは「してない」と言いつつガチで練習し続けている。全員、あまりにも当たり前にやりすぎて「やっている」とすら認識していない。</p>
-      <p><strong>このガチ度を、対談で見せる。薄めない。</strong>それがコミュニティの「ロードマップ」になる。「ここまでの取り組みをすればここに到達する」が見える。全員が最高レベルを目指す必要はない。自分の幸せに合った段階で良い。でも基準が見えることが大事。</p>
-
-      <div class="kijunchi-levels">
-        <div class="kl-bar" style="background:rgba(107,158,94,0.7);"><strong>気づき</strong>「何かある」と感じる</div>
-        <div class="kl-bar" style="background:rgba(58,123,213,0.7);"><strong>実践</strong>日常に取り入れる</div>
-        <div class="kl-bar" style="background:rgba(212,168,67,0.85);"><strong>深化</strong>毎日本気で取り組む</div>
-        <div class="kl-bar" style="background:rgba(199,91,57,0.85);"><strong>統合</strong>命そのものになる</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PHASE 3 ===== -->
-<section class="phase-section" style="background:var(--warm-bg);">
-  <div class="phase-inner">
-    <div class="phase-header">
-      <div class="phase-num" style="background:var(--phase3);">03</div>
-      <div class="phase-header-text">
-        <h2 style="color:var(--phase3);">掛け合わさる</h2>
+    <!-- Phase 3: 掛け合わさる -->
+    <div class="phase">
+      <div class="phase-dot" style="background:var(--phase3);"></div>
+      <div class="phase-content">
+        <div class="phase-badge" style="background:var(--phase3);">PHASE 3 — 掛け合わさる</div>
+        <h3 class="phase-title" style="color:var(--phase3);">人 × 人で新しい可能性が生まれる</h3>
         <div class="phase-period">2026年 10月 〜 12月</div>
-      </div>
-    </div>
 
-    <div class="phase-columns">
-      <div class="phase-col" style="border-color:var(--gold);">
-        <div class="phase-col-label" style="color:var(--gold);">&#x1F525; 堀内さんの命</div>
-        <h4>メンバーの変容を受け取る。日本人のOSを探求する。</h4>
-        <p>メンバーの中から「変わった」という人が出てくる。その変容ストーリーを堀内さんが受け取り、共鳴し、一緒にわくわくする。堀内さんが企画しなくても、メンバーが「これやりたい」と動き出す。それを見守り、エネルギーを注ぐ。</p>
-        <p style="margin-top:12px;">「ビジネスは概念に過ぎない」「日本人は異なるOSで動いている」というテーマをさらに深める。欧米式メソッドが日本人にフィットしない根本的理由。自己表現を価値に転換して感謝の循環を生む「営み」の美しさ。この探求が堀内さんの命を燃やす。</p>
-      </div>
+        <p class="phase-description">コミュニティの中から自発的なプロジェクトが生まれ始める。メンバーの変容ストーリーが蓄積され、「ここにいるから変われた」という実感が言わなくても周りに伝わる。堀内さんが企画しなくても動き出す。</p>
 
-      <div class="phase-col" style="border-color:var(--sky-blue);">
-        <div class="phase-col-label" style="color:var(--sky-blue);">&#x2699;&#xFE0F; 会社の仕組み（こあ＋まりこしさん）</div>
-        <h4>器づくりの場と変容の記録</h4>
-        <ul>
-          <li><span class="li-icon">&#x1F916;</span> こあ：過去セミナー全コンテンツを月額内で段階的に公開完了</li>
-          <li><span class="li-icon">&#x1F916;</span> こあ：メンバーの変容ストーリーを記録・蓄積（基準値ロードマップの実例に）</li>
-          <li><span class="li-icon">&#x1F91D;</span> まりこしさん：有料セミナー（器づくりの場）の企画・運営。堀内さんの渾身をぶつける場</li>
-          <li><span class="li-icon">&#x1F916;</span> こあ：メンバー発プロジェクトの支援インフラ整備</li>
+        <ul class="phase-actions">
+          <li><span class="action-icon">&#x1F680;</span> メンバー発プロジェクトの支援インフラ整備</li>
+          <li><span class="action-icon">&#x1F4D6;</span> 過去セミナー全コンテンツの月額内公開完了</li>
+          <li><span class="action-icon">&#x2728;</span> 有料セミナー（器づくりの場）定期開催 — 堀内さんの渾身をぶつける場</li>
+          <li><span class="action-icon">&#x1F916;</span> こあ：メンバーの変容ストーリーを記録・蓄積（基準値ロードマップの実例に）</li>
+          <li><span class="action-icon">&#x1F30F;</span> 海外在住日本人メンバーとの接点 — 海外展開の足がかり</li>
         </ul>
-      </div>
 
-      <div class="phase-col" style="border-color:var(--phase3);">
-        <div class="phase-col-label" style="color:var(--phase3);">&#x1F331; 結果として起こること</div>
-        <h4>人 × 人で新しい可能性が生まれる</h4>
-        <p>コミュニティの中から自発的なプロジェクトが生まれ始める。個人では到達できなかった場所に、掛け合わせによってたどり着く人が出てくる。「ここにいるから変われた」という実感が、言わなくても周りに伝わり始める。口コミではなく「存在そのもの」が発信になる。</p>
-      </div>
-    </div>
-
-    <div class="phase-result">
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase3);">自発的プロジェクト</div>
-        <div class="pr-label">メンバーから生まれる</div>
-      </div>
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase3);">変容ストーリー</div>
-        <div class="pr-label">蓄積が始まる</div>
-      </div>
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase3);">存在が発信になる</div>
-        <div class="pr-label">最重要テーマ</div>
+        <div class="phase-kpi">
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase3);">積み上がり続ける</div>
+            <div class="kpi-label">有料メンバー</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase3);">4,000+</div>
+            <div class="kpi-label">オプチャ目標</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase3);">自発的プロジェクト</div>
+            <div class="kpi-label">メンバーから生まれる</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase3);">変容ストーリー</div>
+            <div class="kpi-label">最重要テーマ</div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ===== NIHON OS ===== -->
-<section class="section nihon-os">
-  <div class="section-inner">
-    <h2 class="section-title">日本人のOS —— ビジネスは「概念」に過ぎない</h2>
-    <p class="section-lead">Phase 3で堀内さんが深めるテーマ。コミュニティの世界観の根底にある思想。</p>
-
-    <div class="nihon-card">
-      <h3>資本主義はキリスト教から生まれたOS</h3>
-      <p>旧石器時代にも農耕時代にもビジネスという概念はなかった。資本主義はプロテスタントの倫理から生まれた一つの「OS」であり、日本人は異なるOS（神道・仏教・自然信仰ベース）で動いている。</p>
-      <p>欧米式ビジネスメソッドが日本人にフィットしない根本的な理由がここにある。「ビジネスに興味がない」という反応は概念への拒否反応であって、営みそのものの否定ではない。</p>
-      <p><strong>自己表現を価値に転換して感謝の循環を生む。</strong>それは本来すごく美しい「営み」。アースジャーニーコミュニティは、ビジネスでも宗教でもない、命の営みとして存在する。</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PHASE 4 ===== -->
-<section class="phase-section" style="background:#f8f4ec;">
-  <div class="phase-inner">
-    <div class="phase-header">
-      <div class="phase-num" style="background:var(--phase4);">04</div>
-      <div class="phase-header-text">
-        <h2 style="color:var(--phase4);">生きる</h2>
+    <!-- Phase 4: 生きる -->
+    <div class="phase">
+      <div class="phase-dot" style="background:var(--phase4);"></div>
+      <div class="phase-content">
+        <div class="phase-badge" style="background:var(--phase4);">PHASE 4 — 生きる</div>
+        <h3 class="phase-title" style="color:var(--phase4);">自走するコミュニティへ</h3>
         <div class="phase-period">2027年 1月 〜 4月</div>
-      </div>
-    </div>
 
-    <div class="phase-columns">
-      <div class="phase-col" style="border-color:var(--gold);">
-        <div class="phase-col-label" style="color:var(--gold);">&#x1F525; 堀内さんの命</div>
-        <h4>好きなことだけやっている。それがすべてになっている。</h4>
-        <p>堀内さんが朝から晩まで好きなことをやっている。セミナーもエネルギーワークも対談も、「やらなきゃ」ではなく「やりたい」からやっている。そこからコンテンツが自然に生まれ、人が集まり、収益が回っている。お金のために動く必要がない状態が完成する。</p>
-        <p style="margin-top:12px;">海外への足がかりとして、海外在住日本人メンバーとの接点が自然に広がり始める。日本村の集合的無意識の縛りを外すための「外に出る」が、物理的にもオンラインでも始まる。</p>
-      </div>
+        <p class="phase-description">堀内さんが好きなことだけやっている。そこからコンテンツが生まれ、人が集まり、収益が回る。有料メンバーがオプチャ運営に自然に参加し、新しい人を迎え入れる。堀内さんが何もしなくても動き続ける。生命体としてのコミュニティの完成形。</p>
 
-      <div class="phase-col" style="border-color:var(--sky-blue);">
-        <div class="phase-col-label" style="color:var(--sky-blue);">&#x2699;&#xFE0F; 会社の仕組み（こあ＋まりこしさん）</div>
-        <h4>生命体として自走する</h4>
-        <ul>
-          <li><span class="li-icon">&#x1F916;</span> こあ：基準値に応じた段階設計で上位プログラム（月2万円〜）を展開。堀内さんは設計に関与、運営はこあ</li>
-          <li><span class="li-icon">&#x1F91D;</span> まりこしさん：有料メンバーのオプチャ運営参加を自然に促す。新しい人を迎え入れる文化を育む</li>
-          <li><span class="li-icon">&#x1F916;</span> こあ：コミュニティ発のKindle出版・コンテンツ展開の制作支援</li>
-          <li><span class="li-icon">&#x1F916;</span> こあ：海外展開の基盤整備（英語版コンテンツの準備開始）</li>
+        <ul class="phase-actions">
+          <li><span class="action-icon">&#x1F451;</span> 上位プログラム（月2万円〜）始動 — 基準値に応じた段階設計</li>
+          <li><span class="action-icon">&#x1F30D;</span> 海外展開の本格始動 — 英語版コンテンツ・海外拠点</li>
+          <li><span class="action-icon">&#x1F4DA;</span> コミュニティ発のKindle出版・コンテンツ展開</li>
+          <li><span class="action-icon">&#x1F91D;</span> まりこしさん：有料メンバーのオプチャ運営参加を自然に促す</li>
+          <li><span class="action-icon">&#x1F916;</span> こあ：海外展開基盤整備 + コミュニティ発コンテンツの制作支援</li>
         </ul>
-      </div>
 
-      <div class="phase-col" style="border-color:var(--phase4);">
-        <div class="phase-col-label" style="color:var(--phase4);">&#x1F331; 結果として起こること</div>
-        <h4>生命体としてのコミュニティが呼吸し始める</h4>
-        <p>コミュニティが「堀内さんのファンクラブ」ではなく、「地球を旅する仲間たちのプロジェクト」として自走し始める。有料メンバーが自然にオプチャの運営に参加し、新しい人を迎え入れる。堀内さんが何もしなくても動き続ける。これが「生命体としてのコミュニティ」の姿。</p>
+        <div class="phase-kpi">
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase4);">自走</div>
+            <div class="kpi-label">コミュニティが生きる</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase4);">6,000+</div>
+            <div class="kpi-label">オプチャ目標</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase4);">海外の足がかり</div>
+            <div class="kpi-label">次のステージ</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-value" style="color:var(--phase4);">命が回っている</div>
+            <div class="kpi-label">最重要テーマ</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="phase-result">
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase4);">自走</div>
-        <div class="pr-label">コミュニティが生きる</div>
-      </div>
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase4);">海外への足がかり</div>
-        <div class="pr-label">日本人メンバーから</div>
-      </div>
-      <div class="pr-item">
-        <div class="pr-value" style="color:var(--phase4);">命が回っている</div>
-        <div class="pr-label">最重要テーマ</div>
-      </div>
-    </div>
   </div>
 </section>
 
-<!-- ===== REVENUE (控えめに) ===== -->
-<section class="section revenue">
-  <div class="section-inner">
-    <h2 class="section-title">財務の安定 —— お金のために動かなくていい状態</h2>
-    <p class="revenue-note">数字は追いかけるものではなく、命が動いた結果として現れるもの。<br>サブスクの純増が続く限り、この数字は自然に積み上がる。</p>
+<!-- ===== REVENUE (subdued) ===== -->
+<section class="revenue-section">
+  <div class="revenue-inner">
+    <h2>財務の安定</h2>
+    <p class="revenue-note">サブスクの純増が続く限り、自然に積み上がる。追いかけるものではなく、結果。</p>
 
     <div class="revenue-simple">
       <div class="rs-card" style="border-color:var(--phase1);">
-        <div class="rs-phase" style="color:var(--phase1);">PHASE 1 — 開く</div>
+        <div class="rs-phase" style="color:var(--phase1);">開く</div>
         <div class="rs-amount" style="color:var(--phase1);">生活費カバー</div>
-        <div class="rs-detail">月額8,800円 × 約40名（すでに合流済み）</div>
-        <div class="rs-basis">すでに種は蒔かれている。場を開くことに集中。</div>
+        <div class="rs-detail">8,800円 × ~40名〜</div>
       </div>
       <div class="rs-card" style="border-color:var(--phase2);">
-        <div class="rs-phase" style="color:var(--phase2);">PHASE 2 — つながる</div>
+        <div class="rs-phase" style="color:var(--phase2);">つながる</div>
         <div class="rs-amount" style="color:var(--phase2);">安定ベース</div>
-        <div class="rs-detail">純増が定着。キャッシュが安定。</div>
-        <div class="rs-basis">集客に意識を割かなくても回る。</div>
+        <div class="rs-detail">純増が定着</div>
       </div>
       <div class="rs-card" style="border-color:var(--phase3);">
-        <div class="rs-phase" style="color:var(--phase3);">PHASE 3 — 掛け合わさる</div>
+        <div class="rs-phase" style="color:var(--phase3);">掛け合わさる</div>
         <div class="rs-amount" style="color:var(--phase3);">余裕</div>
-        <div class="rs-detail">サブスク＋有料セミナー（器づくり）</div>
-        <div class="rs-basis">お金のために動く必要がなくなる。</div>
+        <div class="rs-detail">サブスク + 有料セミナー</div>
       </div>
       <div class="rs-card" style="border-color:var(--phase4);">
-        <div class="rs-phase" style="color:var(--phase4);">PHASE 4 — 生きる</div>
+        <div class="rs-phase" style="color:var(--phase4);">生きる</div>
         <div class="rs-amount" style="color:var(--phase4);">自由</div>
-        <div class="rs-detail">サブスク＋上位＋海外の足がかり</div>
-        <div class="rs-basis">好きなことだけやって、回っている。</div>
+        <div class="rs-detail">サブスク + 上位 + 海外</div>
       </div>
     </div>
   </div>
@@ -895,13 +613,9 @@
     <h2>1年後の<span>アースジャーニー</span></h2>
     <p>
       堀内さんが好きなことだけやっている。<br>
-      まりこしさんが放出の純度を守っている。<br>
-      こあが仕組みを回している。<br><br>
+      まりこしさんが場を守り、こあが仕組みを回す。<br>
       そこに人が集まり、掛け合わさり、<br>
       一人ひとりの命が動き始める。<br><br>
-      「売る」ではなく「一緒にいたい」。<br>
-      コンテンツではなく、命。<br>
-      ビジネスではなく、営み。<br><br>
       生命体としてのコミュニティが、<br>
       地球を旅するように、<br>
       どこまでも広がっていく。
@@ -910,11 +624,12 @@
 </section>
 
 <div class="footer-note">
-  アースジャーニー コミュニティ発展ロードマップ v2 &mdash; 2026年5月策定<br>
+  アースジャーニー コミュニティ発展ロードマップ v3 &mdash; 2026年5月策定<br>
   株式会社シンクロニシティ・マネジメント
 </div>
 
 <script>
+  // Particles
   const container = document.getElementById('particles');
   for (let i = 0; i < 30; i++) {
     const p = document.createElement('div');
@@ -926,6 +641,7 @@
     container.appendChild(p);
   }
 
+  // Scroll animation
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -935,9 +651,9 @@
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.phase-col, .principle-card, .kijunchi-card, .nihon-card, .rs-card, .lm-item').forEach(el => {
+  document.querySelectorAll('.phase-content, .rs-card').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
+    el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
   });
