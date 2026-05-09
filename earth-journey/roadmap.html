@@ -148,6 +148,64 @@
     max-width: 650px; margin: 0 auto;
   }
 
+  /* ===== CONCENTRIC CIRCLES ===== */
+  .concentric-section {
+    padding: 80px 20px;
+    background: var(--warm-bg);
+  }
+
+  .concentric-header {
+    text-align: center; max-width: 800px; margin: 0 auto 48px;
+  }
+
+  .concentric-header h2 {
+    font-size: clamp(24px, 4vw, 40px); font-weight: 900;
+    color: var(--earth-deep); margin-bottom: 16px;
+  }
+
+  .concentric-header p {
+    font-size: 16px; color: var(--text-secondary);
+  }
+
+  .concentric-diagram {
+    max-width: 520px; margin: 0 auto 48px;
+  }
+
+  .concentric-diagram svg {
+    width: 100%; height: auto;
+  }
+
+  .concentric-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .cc-card {
+    padding: 24px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    border-left: 4px solid;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: transform 0.3s ease;
+  }
+
+  .cc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  }
+
+  .cc-card h3 {
+    font-size: 18px; font-weight: 900;
+    margin-bottom: 12px;
+  }
+
+  .cc-card p {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.8;
+  }
+
   /* ===== TIMELINE ===== */
   .timeline-section {
     padding: 80px 20px; background: var(--warm-bg);
@@ -363,6 +421,7 @@
 
     .phase-kpi { grid-template-columns: 1fr; }
     .hero-metrics { gap: 24px; }
+    .concentric-cards { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -405,6 +464,71 @@
     <p>
       コンテンツベースから生命体ベースへ。セミナーを売るモデルから、人生を共有する仲間が集まるモデルへ。堀内さんの命が動くことでコンテンツが自然に生まれ、人が集まり、収益が回る。このロードマップは「どんな人が増え、その掛け合わせで何が積み上がるか」を描いたもの。
     </p>
+  </div>
+</section>
+
+<!-- ===== CONCENTRIC CIRCLES ===== -->
+<section class="concentric-section">
+  <div class="concentric-header">
+    <h2>コミュニティの同心円</h2>
+    <p>中心に堀内さんの「命」。そこから人が重なり、広がっていく</p>
+  </div>
+
+  <div class="concentric-diagram">
+    <svg viewBox="0 0 500 480" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer ring: オプチャ (green) -->
+      <circle cx="250" cy="230" r="210" fill="none" stroke="#4a8c3f" stroke-width="2" stroke-dasharray="8 4" opacity="0.5"/>
+      <circle cx="250" cy="230" r="210" fill="rgba(74,140,63,0.04)"/>
+
+      <!-- Middle ring: 月額8,800円 (blue) -->
+      <circle cx="250" cy="230" r="155" fill="none" stroke="#3a7bd5" stroke-width="2" stroke-dasharray="8 4" opacity="0.5"/>
+      <circle cx="250" cy="230" r="155" fill="rgba(58,123,213,0.05)"/>
+
+      <!-- Inner ring: 上位プログラム (red/orange) -->
+      <circle cx="250" cy="230" r="100" fill="none" stroke="#c75b39" stroke-width="2" stroke-dasharray="8 4" opacity="0.5"/>
+      <circle cx="250" cy="230" r="100" fill="rgba(199,91,57,0.05)"/>
+
+      <!-- Center: 命 (gold gradient) -->
+      <defs>
+        <radialGradient id="goldGlow" cx="50%" cy="45%" r="55%">
+          <stop offset="0%" stop-color="#f0d78c" stop-opacity="0.9"/>
+          <stop offset="60%" stop-color="#d4a843" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#b8922e" stop-opacity="0.4"/>
+        </radialGradient>
+      </defs>
+      <circle cx="250" cy="230" r="60" fill="url(#goldGlow)"/>
+
+      <!-- Center text -->
+      <text x="250" y="222" text-anchor="middle" font-family="'Noto Sans JP', sans-serif" font-size="28" font-weight="900" fill="#1a2f1a">命</text>
+      <text x="250" y="250" text-anchor="middle" font-family="'Noto Sans JP', sans-serif" font-size="13" font-weight="500" fill="#555">堀内恭隆</text>
+
+      <!-- Label: 上位プログラム -->
+      <rect x="175" y="330" width="150" height="30" rx="15" fill="#c75b39"/>
+      <text x="250" y="350" text-anchor="middle" font-family="'Noto Sans JP', sans-serif" font-size="12" font-weight="700" fill="#fff">上位プログラム / リアル拠点</text>
+
+      <!-- Label: 月額8,800円 -->
+      <rect x="160" y="380" width="180" height="30" rx="15" fill="#3a7bd5"/>
+      <text x="250" y="400" text-anchor="middle" font-family="'Noto Sans JP', sans-serif" font-size="12" font-weight="700" fill="#fff">月額 8,800円（→1,000人）</text>
+
+      <!-- Label: オプチャ -->
+      <rect x="150" y="430" width="200" height="30" rx="15" fill="#4a8c3f"/>
+      <text x="250" y="450" text-anchor="middle" font-family="'Noto Sans JP', sans-serif" font-size="12" font-weight="700" fill="#fff">オプチャ 無料（1,000人→数千人）</text>
+    </svg>
+  </div>
+
+  <div class="concentric-cards">
+    <div class="cc-card" style="border-color: var(--phase1);">
+      <h3 style="color: var(--phase1);">最初に集まる人</h3>
+      <p>「堀内さんの生き方そのものに共鳴する人」。スキルや肩書ではなく、命の輝き方に反応する人たち。この人たちが文化をつくる。</p>
+    </div>
+    <div class="cc-card" style="border-color: var(--phase2);">
+      <h3 style="color: var(--phase2);">つながりから生まれる人</h3>
+      <p>メンバー同士が出会い、対話し、新しい関係が生まれる。堀内さん経由ではなく、メンバー同士で化学反応が起き始める。</p>
+    </div>
+    <div class="cc-card" style="border-color: var(--phase3);">
+      <h3 style="color: var(--phase3);">掛け合わせで変わる人</h3>
+      <p>コミュニティの中で自分の可能性に気づき、新しいプロジェクトや表現を始める人たち。個人では絶対に生まれなかった動きが起こる。</p>
+    </div>
   </div>
 </section>
 
@@ -624,7 +748,7 @@
 </section>
 
 <div class="footer-note">
-  アースジャーニー コミュニティ発展ロードマップ v3.1 &mdash; 2026年5月策定<br>
+  アースジャーニー コミュニティ発展ロードマップ v3.2 &mdash; 2026年5月策定<br>
   株式会社シンクロニシティ・マネジメント
 </div>
 
@@ -651,7 +775,7 @@
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.phase-content, .rs-card').forEach(el => {
+  document.querySelectorAll('.phase-content, .rs-card, .cc-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
