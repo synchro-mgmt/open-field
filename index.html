@@ -250,6 +250,58 @@
     margin-top: 16px;
   }
 
+  .research-card {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    border: 2px solid #0ea5e9;
+    border-radius: 24px;
+    padding: 36px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(14,165,233,0.12);
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+  }
+  .research-card:hover { transform: translateY(-3px); }
+  .research-card h3 {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 1.3em;
+    color: #0369a1;
+    margin-bottom: 8px;
+  }
+  .research-card p {
+    font-size: 0.88em;
+    color: #0284c7;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  .research-badge {
+    display: inline-block;
+    background: #0ea5e9;
+    color: #fff;
+    font-size: 0.75em;
+    font-weight: 600;
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-top: 16px;
+  }
+  .research-meta {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .research-meta span {
+    font-size: 0.72em;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    background: rgba(14,165,233,0.12);
+    color: #0369a1;
+  }
+
   .dashboard-section {
     margin-bottom: 32px;
   }
@@ -346,6 +398,7 @@
     .util-grid { grid-template-columns: repeat(2, 1fr); }
     .solar-section { padding: 0 16px 40px; }
     .story-card { padding: 28px 20px; }
+    .research-card { padding: 28px 20px; }
     .update-banner { flex-direction: column; text-align: center; }
   }
 </style>
@@ -426,6 +479,21 @@
       <h3>サナギから羽化するまで</h3>
       <p>経理ゼロの起業家が、お金の仕組みを「自分の言葉」で理解するまでの物語。<br>5つの発見と、仕組みが動き出す感覚の記録。</p>
       <span class="story-badge">読む →</span>
+    </a>
+  </div>
+
+  <div class="story-section">
+    <div class="section-label">📊 STRATEGY & RESEARCH</div>
+    <a href="https://synchro-mgmt.github.io/internal-field/reports/x-global-growth-strategy-2026.html" class="research-card">
+      <div class="story-emoji">𝕏</div>
+      <h3>世界中の人が集まるXアカウント構築戦略 2026</h3>
+      <p>最新アルゴリズム解析・成長戦略・マネタイズ・90日アクションプランを完全網羅。<br>グローバルアカウントを本気で育てるための実践レポート。</p>
+      <div class="research-meta">
+        <span>2026-05-12</span>
+        <span>SNS戦略</span>
+        <span>NEW</span>
+      </div>
+      <span class="research-badge">レポートを読む →</span>
     </a>
   </div>
 
