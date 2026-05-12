@@ -12,6 +12,7 @@
     --gold: #f0d9a8; --indigo: #4f46e5;
     --bg: #faf9f7; --card: #ffffff;
     --text: #1a1a2e; --text-sub: #64748b; --border: #e2e8f0;
+    --x-blue: #1d9bf0;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Noto Sans JP', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; -webkit-font-smoothing: antialiased; min-height: 100vh; }
@@ -25,12 +26,15 @@
   .card-link { display: block; background: var(--card); border-radius: 24px; padding: 40px 36px; border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.06); transition: all 0.3s ease; text-decoration: none; color: var(--text); margin-bottom: 24px; }
   .card-link:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.1); transform: translateY(-4px); }
   .card-link.story { border-left: 5px solid var(--indigo); }
+  .card-link.research { border-left: 5px solid var(--x-blue); }
   .card-emoji { font-size: 2.4em; margin-bottom: 12px; }
   .card-link h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.4em; font-weight: 700; margin-bottom: 10px; }
   .card-link.story h2 { color: #3730a3; }
+  .card-link.research h2 { color: var(--x-blue); }
   .card-link p { font-size: 0.92em; color: var(--text-sub); line-height: 1.8; max-width: 560px; }
   .card-tag { display: inline-block; font-size: 0.78em; font-weight: 600; padding: 5px 18px; border-radius: 20px; margin-top: 16px; }
   .card-link.story .card-tag { background: rgba(79,70,229,0.1); color: var(--indigo); }
+  .card-link.research .card-tag { background: rgba(29,155,240,0.1); color: var(--x-blue); }
   .portal-footer { text-align: center; padding: 48px 24px; font-size: 0.8em; color: var(--text-sub); border-top: 1px solid var(--border); max-width: 800px; margin: 0 auto; }
   .portal-footer strong { color: var(--text); font-weight: 600; }
   @media (max-width: 640px) {
@@ -55,6 +59,12 @@
     <h2>サナギから羽化するまで</h2>
     <p>経理ゼロの起業家が、お金の仕組みを「自分の言葉」で理解するまでの物語。5つの発見と、仕組みが動き出す感覚の記録。</p>
     <span class="card-tag">ストーリーを読む →</span>
+  </a>
+  <a href="reports/x-global-growth-strategy-2026.html" class="card-link research">
+    <div class="card-emoji">𝕏</div>
+    <h2>世界中の人が集まるXアカウント構築戦略 2026</h2>
+    <p>最新アルゴリズム解剖・プロフィール最適化・コンテンツ戦略・グローバル展開・マネタイズまで完全網羅。90日アクションプラン付き。</p>
+    <span class="card-tag">レポートを読む →</span>
   </a>
 </div>
 <div class="portal-footer">
