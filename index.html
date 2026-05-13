@@ -8,35 +8,168 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
   :root {
-    --navy: #0a1628; --navy-mid: #132040;
-    --gold: #f0d9a8; --indigo: #4f46e5;
-    --bg: #faf9f7; --card: #ffffff;
-    --text: #1a1a2e; --text-sub: #64748b; --border: #e2e8f0;
-    --holy-purple: #a855f7; --holy-pink: #ec4899;
+    --bg: #faf9f7;
+    --card: #ffffff;
+    --text: #2d2a3e;
+    --text-sub: #7c7a8a;
+    --border: #e8e5f0;
+    --purple-50: #f5f0ff;
+    --purple-100: #ede5ff;
+    --purple-200: #d4c4fb;
+    --purple-400: #a078e8;
+    --purple-600: #7c4dcc;
+    --purple-800: #4a2d7a;
+    --pink-50: #fff0f6;
+    --pink-100: #ffe0ee;
+    --pink-400: #e8609a;
+    --pink-600: #c44080;
+    --gold-50: #fff9ed;
+    --gold-100: #ffefd0;
+    --gold-400: #e8a840;
+    --gold-600: #b8841a;
+    --teal-50: #edfaf5;
+    --teal-100: #d0f0e4;
+    --teal-400: #3dba8a;
+    --teal-600: #1a8a60;
+    --indigo-50: #eef0ff;
+    --indigo-100: #dde2ff;
+    --indigo-400: #6366e0;
+    --indigo-600: #4338ca;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Noto Sans JP', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; -webkit-font-smoothing: antialiased; min-height: 100vh; }
-  .hero { background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 60%, #1b2d4f 100%); color: #fff; padding: 100px 40px 80px; text-align: center; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; top: -40%; right: -15%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(243,156,18,0.08) 0%, transparent 70%); border-radius: 50%; }
+
+  .hero {
+    background: linear-gradient(160deg, var(--purple-50) 0%, var(--pink-50) 40%, var(--gold-50) 80%, var(--teal-50) 100%);
+    color: var(--text);
+    padding: 100px 40px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(160,120,232,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -15%; left: -5%;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(232,168,64,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
   .hero-inner { position: relative; z-index: 1; }
-  .hero-badge { display: inline-block; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: 6px 20px; border-radius: 30px; font-size: 0.78em; font-weight: 500; letter-spacing: 0.1em; margin-bottom: 20px; color: var(--gold); }
-  .hero h1 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 2.8em; font-weight: 700; margin-bottom: 12px; letter-spacing: 0.06em; }
-  .hero .subtitle { font-size: 1.05em; opacity: 0.6; font-weight: 300; max-width: 480px; margin: 0 auto; letter-spacing: 0.04em; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(124,77,204,0.08);
+    border: 1px solid rgba(124,77,204,0.15);
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-size: 0.78em;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    color: var(--purple-600);
+  }
+  .hero h1 {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 2.8em;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.06em;
+    color: var(--purple-800);
+  }
+  .hero .subtitle {
+    font-size: 1.05em;
+    color: var(--text-sub);
+    font-weight: 300;
+    max-width: 480px;
+    margin: 0 auto;
+    letter-spacing: 0.04em;
+  }
+
   .content { max-width: 800px; margin: -50px auto 0; padding: 0 24px 60px; position: relative; z-index: 2; }
-  .card-link { display: block; background: var(--card); border-radius: 24px; padding: 40px 36px; border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.06); transition: all 0.3s ease; text-decoration: none; color: var(--text); margin-bottom: 24px; }
-  .card-link:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.1); transform: translateY(-4px); }
-  .card-link.story { border-left: 5px solid var(--indigo); }
-  .card-link.holy { border-left: 5px solid var(--holy-purple); background: linear-gradient(135deg, #faf9f7 0%, #f5f0ff 100%); }
+
+  .card-link {
+    display: block;
+    background: var(--card);
+    border-radius: 24px;
+    padding: 40px 36px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(120,100,160,0.06);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .card-link:hover {
+    box-shadow: 0 8px 36px rgba(120,100,160,0.12);
+    transform: translateY(-4px);
+  }
+
+  .card-link.holy {
+    border-left: 5px solid var(--purple-400);
+    background: linear-gradient(135deg, #ffffff 0%, var(--purple-50) 60%, var(--pink-50) 100%);
+  }
+  .card-link.story {
+    border-left: 5px solid var(--indigo-400);
+    background: linear-gradient(135deg, #ffffff 0%, var(--indigo-50) 100%);
+  }
+
   .card-emoji { font-size: 2.4em; margin-bottom: 12px; }
-  .card-link h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.4em; font-weight: 700; margin-bottom: 10px; }
-  .card-link.story h2 { color: #3730a3; }
-  .card-link.holy h2 { background: linear-gradient(135deg, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .card-link p { font-size: 0.92em; color: var(--text-sub); line-height: 1.8; max-width: 560px; }
-  .card-tag { display: inline-block; font-size: 0.78em; font-weight: 600; padding: 5px 18px; border-radius: 20px; margin-top: 16px; }
-  .card-link.story .card-tag { background: rgba(79,70,229,0.1); color: var(--indigo); }
-  .card-link.holy .card-tag { background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(236,72,153,0.1)); color: var(--holy-purple); }
-  .portal-footer { text-align: center; padding: 48px 24px; font-size: 0.8em; color: var(--text-sub); border-top: 1px solid var(--border); max-width: 800px; margin: 0 auto; }
+  .card-link h2 {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 1.4em;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .card-link.holy h2 {
+    background: linear-gradient(135deg, var(--purple-600), var(--pink-400));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-link.story h2 { color: var(--indigo-600); }
+  .card-link p {
+    font-size: 0.92em;
+    color: var(--text-sub);
+    line-height: 1.8;
+    max-width: 560px;
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 0.78em;
+    font-weight: 600;
+    padding: 5px 18px;
+    border-radius: 20px;
+    margin-top: 16px;
+  }
+  .card-link.holy .card-tag {
+    background: linear-gradient(135deg, var(--purple-100), var(--pink-100));
+    color: var(--purple-600);
+  }
+  .card-link.story .card-tag {
+    background: var(--indigo-100);
+    color: var(--indigo-600);
+  }
+
+  .portal-footer {
+    text-align: center;
+    padding: 48px 24px;
+    font-size: 0.8em;
+    color: var(--text-sub);
+    border-top: 1px solid var(--border);
+    max-width: 800px;
+    margin: 0 auto;
+  }
   .portal-footer strong { color: var(--text); font-weight: 600; }
+
   @media (max-width: 640px) {
     .hero { padding: 80px 24px 60px; }
     .hero h1 { font-size: 2em; }
@@ -57,7 +190,7 @@
   <a href="reports/holy-x-strategy-2026.html" class="card-link holy">
     <div class="card-emoji">🔮</div>
     <h2>HOLY — 𝕏 グローバル展開戦略 2026</h2>
-    <p>「スピリチュアル界隨の浄化」— AIエージェント完全自律運用 × Kindle世界販売連動。ロマネコンティ型ブランド論、DEEP Framework、IXアーキテクト10ヶ月ロードマップ。</p>
+    <p>「スピリチュアル界隈の浄化」— AIエージェント完全自律運用 × Kindle世界販売連動。ロマネコンティ型ブランド論、DEEP Framework、IXアーキテクト10ヶ月ロードマップ。</p>
     <span class="card-tag">HOLY 戦略を読む →</span>
   </a>
   <a href="dashboards/financial-story.html" class="card-link story">
