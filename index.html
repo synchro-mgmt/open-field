@@ -116,6 +116,10 @@
     border-left: 5px solid var(--purple-400);
     background: linear-gradient(135deg, #ffffff 0%, var(--purple-50) 60%, var(--pink-50) 100%);
   }
+  .card-link.roadmap {
+    border-left: 5px solid var(--gold-400);
+    background: linear-gradient(135deg, #ffffff 0%, var(--gold-50) 60%, var(--teal-50) 100%);
+  }
   .card-link.story {
     border-left: 5px solid var(--indigo-400);
     background: linear-gradient(135deg, #ffffff 0%, var(--indigo-50) 100%);
@@ -130,6 +134,12 @@
   }
   .card-link.holy h2 {
     background: linear-gradient(135deg, var(--purple-600), var(--pink-400));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-link.roadmap h2 {
+    background: linear-gradient(135deg, var(--gold-600), var(--teal-600));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -153,6 +163,10 @@
   .card-link.holy .card-tag {
     background: linear-gradient(135deg, var(--purple-100), var(--pink-100));
     color: var(--purple-600);
+  }
+  .card-link.roadmap .card-tag {
+    background: linear-gradient(135deg, var(--gold-100), var(--teal-100));
+    color: var(--gold-600);
   }
   .card-link.story .card-tag {
     background: var(--indigo-100);
@@ -187,6 +201,12 @@
   </div>
 </div>
 <div class="content">
+  <a href="kanda-roadmap.html" class="card-link roadmap">
+    <div class="card-emoji">🗺️</div>
+    <h2>神田昌典マスターマインド 統合ロードマップ</h2>
+    <p>五体力55の全教え33項目を4フェーズに統合。種まき→芽吹き→開花→結実の10ヶ月で、IXアーキテクトとして世界に立つまでの道筋。</p>
+    <span class="card-tag">ロードマップを見る →</span>
+  </a>
   <a href="reports/holy-x-strategy-2026.html" class="card-link holy">
     <div class="card-emoji">🔮</div>
     <h2>HOLY — 𝕏 グローバル展開戦略 2026</h2>
