@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOLY — X Global Expansion Strategy 2026</title>
+<link rel="icon" type="image/svg+xml" href="/open-field/assets/favicon.svg">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;500;700;900&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a28;
+    --surface3: #222235;
+    --accent: #a855f7;
+    --accent2: #6366f1;
+    --accent3: #ec4899;
+    --gold: #f59e0b;
+    --green: #10b981;
+    --cyan: #06b6d4;
+    --text: #e8e8f0;
+    --text-sub: #9ca3af;
+    --text-dim: #6b7280;
+    --border: #2a2a3d;
+    --gradient1: linear-gradient(135deg, #a855f7, #6366f1);
+    --gradient2: linear-gradient(135deg, #ec4899, #f59e0b);
+    --gradient3: linear-gradient(135deg, #10b981, #06b6d4);
+    --gradient-holy: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #f59e0b 100%);
+    --glow-purple: 0 0 30px rgba(168,85,247,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 15px;
+  }
+
+  .hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 900px 700px at 30% 20%, rgba(168,85,247,0.15), transparent),
+      radial-gradient(ellipse 700px 500px at 70% 80%, rgba(236,72,153,0.10), transparent),
+      radial-gradient(ellipse 500px 400px at 50% 50%, rgba(99,102,241,0.08), transparent);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 800px; }
+  .hero-brand {
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 900;
+    background: var(--gradient-holy);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.15em;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+  .hero-tagline {
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+  .hero h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+  .hero .subtitle { font-size: 1rem; color: var(--text-sub); font-weight: 300; line-height: 1.8; }
+  .hero .date-badge {
+    display: inline-block;
+    padding: 6px 20px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-top: 28px;
+  }
+  .back-link {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 10;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .back-link:hover { opacity: 1; }
+
+  .toc { max-width: 900px; margin: -40px auto 60px; padding: 0 24px; position: relative; z-index: 2; }
+  .toc-inner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--glow-purple);
+  }
+  .toc h2 { font-size: 0.85rem; color: var(--accent); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.15em; }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+  .toc a {
+    display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+    background: var(--surface2); border-radius: 10px; color: var(--text);
+    text-decoration: none; font-size: 0.9rem; transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  .toc a:hover { border-color: var(--accent); background: var(--surface3); transform: translateX(4px); }
+  .toc-num {
+    width: 28px; height: 28px; background: var(--gradient1); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; flex-shrink: 0; color: #fff;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  .section { margin-bottom: 80px; scroll-margin-top: 40px; }
+  .section-header {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 32px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    width: 48px; height: 48px; background: var(--gradient1); border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; font-weight: 900; flex-shrink: 0; color: #fff;
+  }
+  .section h2 { font-size: 1.5rem; font-weight: 700; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+  .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .card p { color: var(--text-sub); margin-bottom: 12px; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 24px 0; }
+  .stat-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 14px; padding: 24px; text-align: center; }
+  .stat-num { font-size: 1.8rem; font-weight: 900; background: var(--gradient1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .stat-label { font-size: 0.8rem; color: var(--text-sub); margin-top: 4px; }
+
+  .highlight {
+    background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(99,102,241,0.06));
+    border: 1px solid rgba(168,85,247,0.25); border-radius: 14px; padding: 24px; margin: 20px 0;
+  }
+  .highlight.pink { background: linear-gradient(135deg, rgba(236,72,153,0.08), rgba(245,158,11,0.05)); border-color: rgba(236,72,153,0.25); }
+  .highlight.green { background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(6,182,212,0.05)); border-color: rgba(16,185,129,0.25); }
+  .highlight.gold { background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(236,72,153,0.05)); border-color: rgba(245,158,11,0.25); }
+  .highlight-title { font-weight: 700; margin-bottom: 8px; font-size: 1rem; color: var(--text); }
+
+  .weight-bar { display: flex; align-items: center; gap: 12px; margin: 8px 0; }
+  .weight-label { width: 140px; font-size: 0.9rem; flex-shrink: 0; color: var(--text-sub); }
+  .weight-track { flex: 1; height: 28px; background: var(--surface2); border-radius: 8px; overflow: hidden; }
+  .weight-fill { height: 100%; border-radius: 8px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 0.75rem; font-weight: 700; color: #fff; }
+
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: var(--gradient1); }
+  .timeline-item { position: relative; margin-bottom: 32px; padding: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; }
+  .timeline-item::before { content: ''; position: absolute; left: -26px; top: 24px; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; border: 2px solid var(--bg); box-shadow: 0 0 0 2px var(--accent); }
+  .timeline-phase { font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .timeline-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
+  .compare-table th { background: var(--surface2); padding: 14px; text-align: left; font-weight: 700; border-bottom: 2px solid var(--accent); color: var(--text); }
+  .compare-table td { padding: 14px; border-bottom: 1px solid var(--border); color: var(--text-sub); }
+  .compare-table tr:hover td { background: rgba(168,85,247,0.06); }
+
+  .principle-box {
+    display: flex; gap: 16px; align-items: flex-start; padding: 20px;
+    background: var(--surface2); border-radius: 14px; margin: 12px 0;
+    border-left: 3px solid var(--accent);
+  }
+  .principle-num { font-size: 1.5rem; font-weight: 900; color: var(--accent); flex-shrink: 0; width: 32px; }
+  .principle-text h4 { font-weight: 700; margin-bottom: 4px; }
+  .principle-text p { color: var(--text-sub); font-size: 0.9rem; }
+
+  .agent-flow {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    padding: 20px; background: var(--surface2); border-radius: 14px; margin: 16px 0;
+  }
+  .agent-node {
+    padding: 10px 16px; border-radius: 10px; font-size: 0.85rem; font-weight: 700;
+    border: 1px solid var(--border); background: var(--surface);
+  }
+  .agent-node.active { border-color: var(--accent); box-shadow: 0 0 12px rgba(168,85,247,0.2); }
+  .agent-arrow { color: var(--accent); font-size: 1.2rem; }
+
+  .dual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .dual-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+  .dual-box h4 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+  .dual-box p { color: var(--text-sub); font-size: 0.9rem; }
+
+  .enemy-box {
+    background: linear-gradient(135deg, rgba(236,72,153,0.1), rgba(168,85,247,0.05));
+    border: 1px solid rgba(236,72,153,0.3); border-radius: 14px; padding: 24px; margin: 16px 0;
+  }
+  .enemy-box h4 { color: var(--accent3); font-weight: 700; margin-bottom: 8px; }
+
+  .footer {
+    text-align: center; padding: 60px 24px; color: var(--text-dim); font-size: 0.85rem;
+    border-top: 1px solid var(--border); background: var(--surface);
+  }
+
+  @media (max-width: 640px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .toc-grid { grid-template-columns: 1fr; }
+    .dual-grid { grid-template-columns: 1fr; }
+    .agent-flow { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<a href="/open-field/" class="back-link">← open-field に戻る</a>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-brand">HOLY</div>
+    <div class="hero-tagline">Inspiration Power × LDM</div>
+    <h1>𝕏 グローバル展開戦略 2026</h1>
+    <p class="subtitle">「スピリチュアル界隨の浄化」— 具体的な知性装メソッドを世界へ<br>AIエージェント完全自律運用 × Kindle世界販売連動</p>
+    <span class="date-badge">2026年5月 作成 ｜ エージェント運用設計書</span>
+  </div>
+</div>
+
+<div class="toc">
+  <div class="toc-inner">
+    <h2>Strategy Map</h2>
+    <div class="toc-grid">
+      <a href="#s1"><span class="toc-num">1</span>WHY — HOLYとは何か</a>
+      <a href="#s2"><span class="toc-num">2</span>BRAND — ロマネコンティ型ブランド論</a>
+      <a href="#s3"><span class="toc-num">3</span>ALGORITHM — Xアルゴリズム解剖</a>
+      <a href="#s4"><span class="toc-num">4</span>PROFILE — HOLYのプロフィール設計</a>
+      <a href="#s5"><span class="toc-num">5</span>CONTENT — テーゼ投稿戦略</a>
+      <a href="#s6"><span class="toc-num">6</span>DUAL MESSAGE — 海外×国内の二面戦略</a>
+      <a href="#s7"><span class="toc-num">7</span>GLOBAL — Kindle × X 連動戦略</a>
+      <a href="#s8"><span class="toc-num">8</span>AGENT — エージェント完全自律運用</a>
+      <a href="#s9"><span class="toc-num">9</span>MONETIZE — 収益構造設計</a>
+      <a href="#s10"><span class="toc-num">10</span>ROADMAP — 立ち上げロードマップ</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="section" id="s1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>WHY — HOLYとは何か</h2>
+  </div>
+  <div class="card">
+    <h3>🔥 HOLYの存在理由</h3>
+    <p><strong>HOLY</strong>は堀内恭隆の名前を出さない、グローバル展開専用のX/SNSブランド。目的はLDM（Life Design Method）の世界展開。「堀内恭隆」は日本のコミュニティの内側にいる存在であり、HOLYは外の世界に向けた表現。</p>
+    <div class="highlight">
+      <div class="highlight-title">命の同心円における位置</div>
+      <p style="color:var(--text-sub)">HOLYのX運用は命の同心円の<strong>最外周</strong>に位置する。堀内さん本人は一切触らない。AIエージェント（こあ・れん・にじ・そよ）が完全自律で運用する。堀内さんの役割は「承認」のみ。content-vaultに蓄積された素材（Facebook投稿6,600件、セミナー書き起こし、ハペログ等）から、エージェントが自律的にコンテンツを生成・投稿する。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>💎 コアコンセプト：スピリチュアル界隨の浄化</h3>
+    <p>HOLYが打ち出すのは「スピリチュアル」ではない。<strong>具体的な知性装メソッド</strong>。</p>
+    <p>世界中でスピリチュアル・意識変容への関心が高まる中、曖昧で再現性のないものが蔓延している。HOLYは「インスピレーション力」をテーマに、身体・意識・エネルギーを科学的かつ実践的に扱うLDMメソッドを世界に届ける。</p>
+    <div class="enemy-box">
+      <h4>⚔️ 敵の設計（アンチテーゼ戦略）</h4>
+      <p style="color:var(--text-sub)">HOLYが明確に「敵」とするもの：</p>
+      <p style="color:var(--text-sub)"><strong>① 曖昧なスピリチュアル</strong> — 「宇宙がどうの」「波動がどうの」で具体的なメソッドがないもの<br><strong>② 再現性のない“覚醒”ビジネス</strong> — 教祖型で依存を生み、受講者が自立しない構造<br><strong>③ 「意識高い系」の自己完結</strong> — 知識はあるが実際の人生は変わっていない状態</p>
+      <p style="color:var(--text-sub);margin-top:12px">HOLYはこれらに対して<strong>テーゼ（主張）を投げる</strong>。常識をぶち壊す投稿で、共感する人を強烈に惹きつける。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🌍 テーマ：インスピレーション力</h3>
+    <p>「インスピレーション」は世界共通語。日本語でも英語でもそのまま通じる。</p>
+    <p>LDMの核心 — 地球からエネルギーを受け取り、五次元からインスピレーションを降ろし、細胞に情報伝達し、行動になる — このプロセスを「インスピレーション力」として世界に発信する。</p>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-num">LDM</div><div class="stat-label">Life Design Method<br>核心メソッド</div></div>
+      <div class="stat-box"><div class="stat-num">Inspiration</div><div class="stat-label">世界共通のテーマ<br>言語の壁なし</div></div>
+      <div class="stat-box"><div class="stat-num">Science</div><div class="stat-label">身体×意識×エネルギー<br>具体的で再現可能</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>BRAND — ロマネコンティ型ブランド論</h2>
+  </div>
+  <div class="card">
+    <h3>🍷 ブランドの本質：「この人らしい」</h3>
+    <p>ロマネコンティ、ポルシェ911、B'z稲葉浩志、宮崎駿。時代を超えて支持される存在の共通点は一つだけ。<strong>「この人らしい」と一発でわかるアイデンティティ</strong>。</p>
+    <p>マーケティングテクニック、フォロワー獲得ハック、タイミング最適化 — そんなものはブランドの本質ではない。ロマネコンティはすべてのワインバーに営業しない。ポルシェ911は安い車を作らない。</p>
+    <div class="highlight pink">
+      <div class="highlight-title">HOLYのブランド原則</div>
+      <p style="color:var(--text-sub)">HOLYは「わかる人にだけわかる」存在。媚びない、擦り寄らない、安売りしない。コメントは基本無視。たまに返信する（飢餱感を作る）。フォロワー数を追わない — 質の高い「共鳴者」だけを集める。</p>
+    </div>
+  </div>
+  <div class="principle-box">
+    <div class="principle-num">1</div>
+    <div class="principle-text">
+      <h4>テーゼを投げる</h4>
+      <p>HOLYは常に主張（テーゼ）を持って発信する。「〇〇だと思います」ではなく「〇〇だ」と言い切る。反論が来ることを恐れない。反論が来ること自体が存在感の証明。</p>
+    </div>
+  </div>
+  <div class="principle-box">
+    <div class="principle-num">2</div>
+    <div class="principle-text">
+      <h4>敵を設計する</h4>
+      <p>明確な敵がいるからこそ、味方が集まる。HOLYの敵は「曖昧なスピリチュアル」「再現性のない覚醒ビジネス」。この敵に対するアンチテーゼ投稿が、HOLYの存在理由を際立たせる。</p>
+    </div>
+  </div>
+  <div class="principle-box">
+    <div class="principle-num">3</div>
+    <div class="principle-text">
+      <h4>飢餱感を作る</h4>
+      <p>すべてのコメントに返信しない。すべてのフォロワーに媚びない。手に入りにくいから価値が上がる。ロマネコンティは年間6,000本しか作らない。</p>
+    </div>
+  </div>
+  <div class="principle-box">
+    <div class="principle-num">4</div>
+    <div class="principle-text">
+      <h4>一貫したアイデンティティ</h4>
+      <p>投稿のトーン、ビジュアル、テーマが一貫している。ブレない。トレンドを追わない。HOLYはHOLYのことだけを語る。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="s3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2>ALGORITHM — Xアルゴリズム解剖</h2>
+  </div>
+  <div class="card">
+    <h3>⚙️ 3段階の処理フロー</h3>
+    <p><strong>① 候補ソーシング</strong> — フォロー中＋未フォローのアカウントから約1,500件の候補ポストを収集</p>
+    <p><strong>② ランキング</strong> — Heavy Rankerが各候補を「予測エンゲージメント」でスコアリング</p>
+    <p><strong>③ フィルタリング</strong> — コンテンツモデレーション＋著者の評判スコアで最終選別</p>
+    <div class="highlight green">
+      <div class="highlight-title">エージェント運用への意味</div>
+      <p style="color:var(--text-sub)">2026年、Xは「小さなアカウントを積極的に発見する」アルゴリズム変更を実施。フォロワー0からでも質の高いコンテンツは拡散される。HOLYはフォロワー数ではなく<strong>コンテンツの質と一貫性</strong>で勝負する。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📊 エンゲージメントの重み</h3>
+    <div class="weight-bar"><div class="weight-label">会話（相互リプ）</div><div class="weight-track"><div class="weight-fill" style="width:100%;background:var(--gradient2)">150x</div></div></div>
+    <div class="weight-bar"><div class="weight-label">リプライ（片方向）</div><div class="weight-track"><div class="weight-fill" style="width:18%;background:var(--gradient1)">27x</div></div></div>
+    <div class="weight-bar"><div class="weight-label">リツイート</div><div class="weight-track"><div class="weight-fill" style="width:5%;background:var(--gradient3)">~8x</div></div></div>
+    <div class="weight-bar"><div class="weight-label">いいね</div><div class="weight-track"><div class="weight-fill" style="width:0.67%;background:rgba(100,100,120,0.5)">1x</div></div></div>
+    <div class="highlight pink" style="margin-top:20px">
+      <div class="highlight-title">🎯 エージェント運用での活用</div>
+      <p style="color:var(--text-sub)"><strong>会話（150x）はエージェントが選択的に発生させる。</strong>ブランド原則「コメントは基本無視、たまに返信」を守りつつ、戦略的に選んだ相手にだけ返信することで飢餱感とアルゴリズムブーストの両方を得る。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📈 ブーストされるもの / 抑制されるもの</h3>
+    <table class="compare-table">
+      <tr><th style="color:var(--green)">ブースト 🚀</th><th style="color:var(--accent3)">抑制 ⛔</th></tr>
+      <tr><td>ネイティブ動画（直接アップロード）</td><td>外部リンク（YouTube等への誘導）</td></tr>
+      <tr><td>スレッド（連続投稿）</td><td>単発の一般的な挨拶ポスト</td></tr>
+      <tr><td>X Premium認証アカウント</td><td>エンゲージメントゼロのコンテンツ</td></tr>
+      <tr><td>長文コンテンツ</td><td>絵文字のみのリプライ</td></tr>
+      <tr><td>小規模アカウントの質の高い投稿</td><td>ボット的な反復投稿</td></tr>
+      <tr><td>引用リツイート＋コメント</td><td>非Premiumのリンク投稿</td></tr>
+    </table>
+    <div class="highlight">
+      <div class="highlight-title">⚠️ エージェント運用の注意</div>
+      <p style="color:var(--text-sub)">「ボット的な反復投稿」はアルゴリズムに抑制される。エージェントが投稿する際は、テンプレート的な定型文を避け、毎回content-vaultから異なる素材を引き出して新鮮なコンテンツを生成する。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2>PROFILE — HOLYのプロフィール設計</h2>
+  </div>
+  <div class="card">
+    <h3>🎨 アイコン — イラストで行く</h3>
+    <p>HOLYは堀内恭隆の顔を出さない。<strong>イラスト</strong>でブランドの世界観を表現する。LDMの世界観 — 地球・宇宙・エネルギー・身体の統合をビジュアルで。神秘的でありながら知的。</p>
+    <p>イラストレーターとの権利関係に注意（SNSアイコン・ヘッダー・コンテンツ内での使用権利を事前に明確化）。</p>
+  </div>
+  <div class="card">
+    <h3>🖼️ ヘッダー画像（1500×500px）</h3>
+    <p>HOLYのコアメッセージをビジュアルで伝える「第二のBio」。LDM構造図の英語版を配置する案も有力。「Inspiration Power」「Life Design Method」を視覧的に組み込む。</p>
+  </div>
+  <div class="card">
+    <h3>✍️ Bio設計</h3>
+    <div class="highlight gold">
+      <div class="highlight-title">Bio案</div>
+      <p style="color:var(--text)">
+        <strong>インスピレーション力で人生をデザインする。</strong><br>
+        LDM（Life Design Method）開発者。<br>
+        身体×意識×エネルギーの統合メソッド。<br>
+        スピリチュアルではない。具体的で再現できる知性装。<br>
+        <span style="color:var(--text-dim)">Designing life through Inspiration Power. 🌍</span>
+      </p>
+    </div>
+    <p>翻訳しやすいストレートな日本語。PREPメソッドを意識した構造。</p>
+  </div>
+  <div class="card">
+    <h3>📌 固定ポスト</h3>
+    <div class="highlight pink">
+      <div class="highlight-title">固定ポスト案（1投目）</div>
+      <p style="color:var(--text)">「スピリチュアルは曖昧だ」と言われる。<br>その通りだ。だから浄化する。<br><br>身体で感じる。意識でキャッチする。エネルギーで動かす。<br>全部、具体的にできる。再現できる。教えられる。<br><br>LDM — Life Design Method。<br>これがインスピレーション力。🧵</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🔗 リンク</h3>
+    <p>Kindle完成後はAmazon著者ページへ。それまではopen-fieldのポータル、またはリンクなしで運用。</p>
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2>CONTENT — テーゼ投稿戦略</h2>
+  </div>
+  <div class="card">
+    <h3>⚡ コンテンツの核：テーゼ＆アンチテーゼ</h3>
+    <p>HOLYの投稿は常に<strong>主張（テーゼ）</strong>を持つ。一般的な「価値提供コンテンツ」ではなく、業界の常識をぶち壊す「アンチテーゼ」投稿が中心。</p>
+    <div class="dual-grid">
+      <div class="dual-box">
+        <h4 style="color:var(--accent3)">❌ やらない投稿</h4>
+        <p>・「〜だと思います」的な曖昧な意見<br>・「参考になったらいいね」的なお願い<br>・トレンドに乗っかかるだけの投稿<br>・ハウツーまとめ（検索で出る情報の焼き直し）<br>・「おはようございます」的な日常報告</p>
+      </div>
+      <div class="dual-box">
+        <h4 style="color:var(--green)">✅ やる投稿</h4>
+        <p>・「〇〇は間違っている。本当は△△だ」<br>・体験から得た具体的な気づき<br>・常識を覆す逆説<br>・LDMメソッドの具体的な1ステップ<br>・「スピリチュアル界隨のここがおかしい」</p>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📝 ストレート＆シンプルな日本語</h3>
+    <p>Xの自動翻訳の精度を上げるため、回りくどい表現、二重否定、長い修飾節を避ける。</p>
+    <div class="highlight">
+      <div class="highlight-title">ストレート日本語の原則</div>
+      <p style="color:var(--text-sub)">
+        <strong>悪い例：</strong>「スピリチュアルというものは、ともすれば曖昧になりがちではないかと私は考えている次第です」<br>
+        <strong>良い例：</strong>「スピリチュアルは曖昧だ。だから浄化する。」
+      </p>
+      <p style="color:var(--text-sub);margin-top:8px">一文は短く。主語を明確に。受動態を避ける。これでXの自動翻訳が正確に英語に変換してくれる。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🎬 ネイティブ動画</h3>
+    <p>テキストの約<strong>10倍</strong>のエンゲージメント。セミナーの切り抜き、メソッドの1ステップ解説など。</p>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-num">60秒以内</div><div class="stat-label">最適な動画の長さ</div></div>
+      <div class="stat-box"><div class="stat-num">9:16</div><div class="stat-label">縦型がベスト</div></div>
+      <div class="stat-box"><div class="stat-num">字幕必須</div><div class="stat-label">日本語+英語<br>二重字幕</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>💬 コメント戦略：基本無視、たまに返信</h3>
+    <p>HOLYはすべてのコメントに返信しない。<strong>基本は無視。気が向いた時だけ返信する。</strong></p>
+    <div class="highlight green">
+      <div class="highlight-title">エージェントのコメント対応ルール</div>
+      <p style="color:var(--text-sub)">
+        ・一般的なコメント → 無視<br>
+        ・知的で深いコメント → 低頻度で返信（飢餱感を維持）<br>
+        ・明確な誤解や攻撃 → 無視（反応しない）<br>
+        ・インフルエンサーからのコメント → 選択的に返信（アルゴリズム150x活用）
+      </p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🧵 スレッド（強力なフォーマット）</h3>
+    <p>単発投稿の<strong>3倍</strong>のエンゲージメント。HOLYの深いメソッドを伝えるのに最適。</p>
+    <div class="highlight">
+      <div class="highlight-title">HOLYスレッドの構造（5〜7ポスト）</div>
+      <p style="color:var(--text-sub)">
+        <strong>① フック</strong> — テーゼ（常識を壊す主張）<br>
+        <strong>② なぜ嘘か</strong> — 具体的な根拠。LDMの視点から。<br>
+        <strong>③〜⑤ 本当はこうだ</strong> — メソッドの具体ステップ。体験談。<br>
+        <strong>⑥ だからどうする</strong> — 読者への問いかけ。<br>
+        <strong>⑦ 宣言</strong> — HOLYのスタンスを再確認。
+      </p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🔗 リンクの扱い</h3>
+    <div class="highlight pink">
+      <div class="highlight-title">⚠️ 外部リンクはリーチを殺す</div>
+      <p style="color:var(--text-sub)">非Premiumのリンク投稿はエンゲージメントがほぼゼロ。本文で価値を完結させ、リンクはリプライかbioに。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="s6">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <h2>DUAL MESSAGE — 海外×国内の二面戦略</h2>
+  </div>
+  <div class="card">
+    <h3>🌐 2つの文脈、1つのメソッド</h3>
+    <p>HOLYのメッセージは海外と国内で<strong>切り口が異なる</strong>。コアのメソッド（LDM）は同じ。</p>
+  </div>
+  <div class="dual-grid">
+    <div class="dual-box" style="border-color:var(--cyan)">
+      <h4 style="color:var(--cyan)">🌏 海外向けメッセージ</h4>
+      <p><strong>「Japanese Spirituality × Science」</strong></p>
+      <p style="margin-top:8px">日本の精神性・神秘性への憧れを活用。海外では日本は「Zen」「禅」「武士道」の国。そこに現代のサイエンスとメソッドを掛け合わせた独自のポジション。</p>
+      <p style="margin-top:8px">海外のスピリチュアル市場は巨大で受容的。「日本発の意識変容メソッド」は差別化要因として極めて強力。</p>
+    </div>
+    <div class="dual-box" style="border-color:var(--accent3)">
+      <h4 style="color:var(--accent3)">🇯🇵 国内向けメッセージ</h4>
+      <p><strong>「世界はスピリチュアルを受け入れている。日本だけが取り残されている。」</strong></p>
+      <p style="margin-top:8px">日本ではオウム真理教・統一教会の影響でスピリチュアル忌避が根強い。しかし海外では意識変容・マインドフルネス・エネルギーワークがビジネスの最前線にある。</p>
+      <p style="margin-top:8px">「日本の宗教アレルギーのせいで、世界の潮流から取り残されている」— これがアンチテーゼ。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🗣️ 言語戦略</h3>
+    <p>基本は<strong>ストレート＆シンプルな日本語</strong>で投稿。Xの自動翻訳に任せる設計。英語専用コンテンツはPREPメソッドで別途作成。</p>
+    <div class="highlight">
+      <div class="highlight-title">言語ミックスの実践パターン</div>
+      <p style="color:var(--text-sub)">
+        ・日常の投稿 → 日本語（自動翻訳に任せる）<br>
+        ・キースレッド → 日本語版 + 英語版を別投稿<br>
+        ・Bio → 日本語メイン + 英語1行<br>
+        ・ハッシュタグ → 日本語 + 英語の併用
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="s7">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <h2>GLOBAL — Kindle × X 連動戦略</h2>
+  </div>
+  <div class="card">
+    <h3>📚 Kindle × X = グローバル展開の両輪</h3>
+    <p>神田昌典マスターマインドの構想：<strong>Kindle × X の連動でグローバル市場を獲る</strong>。</p>
+    <p>KindleはAmazonという世界最大のプラットフォームでの販売。Xは世界6.1億ユーザーへのリーチ。この2つが連動することで、日本にいながらグローバルに展開できる。</p>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-num">6.11億</div><div class="stat-label">X 月間アクティブ<br>ユーザー</div></div>
+      <div class="stat-box"><div class="stat-num">世界13市場</div><div class="stat-label">Amazon Kindle<br>ストア展開</div></div>
+      <div class="stat-box"><div class="stat-num">$1億+</div><div class="stat-label">X クリエイター<br>報酬 (2026)</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🎯 海外展開3ステップモデル（神田マスターマインド）</h3>
+    <p>神田昌典マスターマインドで設計された、<strong>段階的に単価を上げていく3段構造</strong>。</p>
+    <div class="principle-box">
+      <div class="principle-num">1</div>
+      <div class="principle-text">
+        <h4>Kindle出版（入口）</h4>
+        <p>月1冊ペースで出版。英語版はAI翻訳+ネイティブ校正。目標：100冊。Amazonのアルゴリズムで自動的に読者に届く仕組み。</p>
+      </div>
+    </div>
+    <div class="principle-box">
+      <div class="principle-num">2</div>
+      <div class="principle-text">
+        <h4>動画講座（中間）— $199 × 50本</h4>
+        <p>Teachable等のプラットフォームで英語版動画講座を販売。Kindle読者がステップアップする先。ElevenLabs多言語AI音声で堀内さんの声を英語に。</p>
+      </div>
+    </div>
+    <div class="principle-box">
+      <div class="principle-num">3</div>
+      <div class="principle-text">
+        <h4>コーチング（頂点）— $5,000〜</h4>
+        <p>動画講座の受講者から選ばれた人だけが受けられるパーソナルコーチング。少人数・高額・深い変容。</p>
+      </div>
+    </div>
+    <div class="highlight gold">
+      <div class="highlight-title">💎 高額品から設計する原則</div>
+      <p style="color:var(--text-sub)">高いものから設計すると安いものは簡単に作れる。$5,000のコーチングで提供する価値を先に定義し、その一部をKindleに落とし込む。逆は不可能。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📖 DEEP Framework — Kindleの品質設計</h3>
+    <p>神田マスターマインドで共有された、世界で通用するKindle本の品質基準。</p>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-num">D</div><div class="stat-label">Desirable<br>読者が「欲しい」と<br>思うテーマ</div></div>
+      <div class="stat-box"><div class="stat-num">E</div><div class="stat-label">Effective<br>読んだら実際に<br>結果が出る</div></div>
+      <div class="stat-box"><div class="stat-num">E</div><div class="stat-label">Engaging<br>読み始めたら<br>止まらない</div></div>
+      <div class="stat-box"><div class="stat-num">P</div><div class="stat-label">Polished<br>プロの仕上がり<br>表紙・構成・文体</div></div>
+    </div>
+    <p>LDMは「Desirable」と「Effective」が圧倒的に強い。「Engaging」はストーリー構造とcontent-vaultの体験素材で担保。「Polished」はエージェント（kindle-editor-pipeline）の5段階編集で実現。</p>
+  </div>
+  <div class="card">
+    <h3>🔄 メディア螺旋戦略</h3>
+    <div class="highlight">
+      <div class="highlight-title">永久機関モデル — コンテンツが自動循環する仕組み</div>
+      <p style="color:var(--text-sub)">
+        <strong>X（一言の閃き）</strong> → テーゼ投稿で反応を見る<br>
+        ↓<br>
+        <strong>note記事（原液）</strong> → 反応が良かったテーマを深掘り<br>
+        ↓<br>
+        <strong>Kindle（資産化）</strong> → note記事群を構造化して書籍に<br>
+        ↓<br>
+        <strong>世界展開</strong> → 英語翻訳でグローバル市場へ<br>
+        ↓<br>
+        <strong>X/YouTube（拡散）</strong> → Kindle切り出しで新規フォロワー獲得<br>
+        ↓ （noteへ還流 → 次の原液が生まれる → ループ）
+      </p>
+    </div>
+    <p>すべてのコンテンツが一方通行ではなく<strong>螺旋的に循環</strong>する。Xの一言が最終的にKindleになり、Kindleの切り出しが次のXのバズを生む。</p>
+  </div>
+  <div class="card">
+    <h3>🔄 Kindle → X → Kindle の好循環</h3>
+    <div class="highlight gold">
+      <div class="highlight-title">連動の仕組み</div>
+      <p style="color:var(--text-sub)">
+        <strong>Step 1:</strong> Kindle本の核心部分を切り出してXスレッドにする（価値提供として）<br>
+        <strong>Step 2:</strong> スレッドで興味を持った人がKindleで深く学ぶ<br>
+        <strong>Step 3:</strong> Kindle読者がXでHOLYをフォロー、コメント、拡散<br>
+        <strong>Step 4:</strong> 拡散によって新しいXフォロワー＆Kindle読者が増える
+      </p>
+    </div>
+    <p>Xで直接Kindleリンクを貼ると抑制される。スレッドで価値を完結させ、bioのリンクからKindleに誘導。</p>
+  </div>
+  <div class="card">
+    <h3>🌍 LDM構造図の英語化</h3>
+    <p>LDMの構造図を英語化して公開。ビジュアルは言語の壁を超える。Xでの拡散性が極めて高いコンテンツタイプ。open-field（GitHub Pages）に英語版ページを作成し、Xからの流入先として活用。</p>
+  </div>
+  <div class="card">
+    <h3>💰 海外価格戦略</h3>
+    <p>海外向けには海外の相場で価格設定する。ロマネコンティは「高い」と言われても値下げしない。HOLYも同じ。<strong>価格が価値を定義する。</strong></p>
+  </div>
+</div>
+
+<div class="section" id="s8">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <h2>AGENT — エージェント完全自律運用</h2>
+  </div>
+  <div class="card">
+    <h3>🤖 運用体制：堀内さんは一切触らない</h3>
+    <p>HOLYのX運用は命の同心円の<strong>最外周</strong>。堀内さんは承認のみ。</p>
+    <div class="agent-flow">
+      <div class="agent-node active">📦 content-vault</div>
+      <div class="agent-arrow">→</div>
+      <div class="agent-node">🔮 みこ（収集）</div>
+      <div class="agent-arrow">→</div>
+      <div class="agent-node active">🔥 れん（ドラフト）</div>
+      <div class="agent-arrow">→</div>
+      <div class="agent-node">🌈 にじ（翻訳/サニタイズ）</div>
+      <div class="agent-arrow">→</div>
+      <div class="agent-node">✅ 堀内さん承認</div>
+      <div class="agent-arrow">→</div>
+      <div class="agent-node active">🌬️ そよ（配信）</div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📦 素材ソース（content-vault）</h3>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-num">6,600</div><div class="stat-label">Facebook投稿<br>（DB化済み）</div></div>
+      <div class="stat-box"><div class="stat-num">多数</div><div class="stat-label">セミナー<br>書き起こし</div></div>
+      <div class="stat-box"><div class="stat-num">蓄積中</div><div class="stat-label">ハペログ<br>セッション記録</div></div>
+      <div class="stat-box"><div class="stat-num">随時</div><div class="stat-label">閃きDB<br>キャプチャー</div></div>
+    </div>
+    <p>これらの素材からエージェントが「HOLYの声」で投稿を生成する。堀内さんが新たに何かを書く必要はない。過去の命の爆発が、今のXコンテンツになる。</p>
+  </div>
+  <div class="card">
+    <h3>🔥 れん（錬金術師）— ドラフト生成</h3>
+    <div class="highlight">
+      <div class="highlight-title">れんの生成ルール</div>
+      <p style="color:var(--text-sub)">
+        ・堀内さんの声パターン・NGパターンを参照（HOLY用にトーン調整）<br>
+        ・「堀内恭隆」の名前は絶対に出さない<br>
+        ・曖昧な表現を排除、ストレート＆シンプルに<br>
+        ・毎回テーゼ（主張）を持たせる<br>
+        ・翻訳しやすい構文（短文、能動態、主語明確）
+      </p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🌬️ そよ（配信者）— 投稿実行</h3>
+    <div class="highlight green">
+      <div class="highlight-title">そよの投稿ルール</div>
+      <p style="color:var(--text-sub)">
+        ・投稿頻度：1日1〜2投稿（ブランドの希少性を維持）<br>
+        ・投稿タイミング：火・水・木の朝8〜9時メイン<br>
+        ・スレッド：週1〜2本<br>
+        ・コメント返信：基本無視。知的なコメント・インフルエンサーにのみ低頻度で返信<br>
+        ・外部リンク：本文には入れない
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="s9">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <h2>MONETIZE — 収益構造設計</h2>
+  </div>
+  <div class="card">
+    <h3>💰 HOLYの収益モデル — 3段構造</h3>
+    <div class="highlight gold">
+      <div class="highlight-title">HOLYの収益ピラミッド（高額品から設計）</div>
+      <p style="color:var(--text-sub)">
+        <strong>🔺 頂点：パーソナルコーチング $5,000〜</strong> — 深い変容を求める少数精鋭<br>
+        <strong>🔶 中間：動画講座 $199 × 50本</strong> — Teachable等で英語版講座を販売<br>
+        <strong>🔷 入口：Kindle $9.99〜</strong> — 月1冊ペース、最終目標100冊<br>
+        <strong>🔹 副次：X Premium収益</strong> — フォロワー増加に伴う広告収益分配<br>
+        <strong>🔹 将来：サブスクコミュニティ $80/月</strong> — Kindle＋講座で信頼構築後
+      </p>
+    </div>
+    <p>現段階では<strong>Kindle販売が最優先</strong>。Xはそのための世界フォロワー基盤を作るツール。動画講座とコーチングは逆算で設計しておき、Kindleが軌道に乗ってから順次立ち上げる。</p>
+  </div>
+  <div class="card">
+    <h3>📊 X Premium</h3>
+    <table class="compare-table">
+      <tr><th>機能</th><th>Premium（$8/月）</th><th>Premium+（$16/月）</th></tr>
+      <tr><td>認証バッジ</td><td style="color:var(--green)">✓</td><td style="color:var(--green)">✓</td></tr>
+      <tr><td>リプライブースト</td><td style="color:var(--green)">✓</td><td style="color:var(--green)">✓✓（2倍）</td></tr>
+      <tr><td>表示ブースト</td><td>4倍</td><td>4倍+</td></tr>
+      <tr><td>広告削減</td><td>半減</td><td>完全広告なし</td></tr>
+      <tr><td>収益化参加</td><td style="color:var(--green)">✓</td><td style="color:var(--green)">✓</td></tr>
+    </table>
+    <div class="highlight green">
+      <div class="highlight-title">推奨：Premium（$8/月）から開始</div>
+      <p style="color:var(--text-sub)">認証バッジとアルゴリズムブーストで十分な差が出る。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="s10">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <h2>ROADMAP — IXアーキテクト1年ロードマップ</h2>
+  </div>
+  <div class="highlight" style="margin-bottom:32px">
+    <div class="highlight-title">🎯 大前提</div>
+    <p style="color:var(--text-sub)">すべてエージェントが実行。堀内さんは「承認」のみ。Kindle完成を最優先とし、XはKindle販売の世界フォロワー基盤として先行して育てる。<br>IXアーキテクト = Information eXperience Architect（情報体験設計者）— 神田昌典マスターマインドで堀内さんに与えられた肩書。</p>
+  </div>
+
+  <div class="card" style="border:2px solid var(--gold);margin-bottom:32px">
+    <h3>📅 10ヶ月ロードマップ（神田マスターマインド統合）</h3>
+    <p>神田マスターマインド全8回の集大成。2026年3月設計開始→12月プレス発表。</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item" style="border-color:var(--gold)">
+      <div class="timeline-phase">2026年5月 — セットアップ＆ブランド確立</div>
+      <div class="timeline-title">HOLYアカウント構築 + Kindleスプリント開始</div>
+      <p style="color:var(--text-sub)">
+        ・X Premiumに加入（$8/月）<br>
+        ・イラストアイコン＋ヘッダー画像を設定<br>
+        ・Bio設定（ストレート日本語 + 英語1行）<br>
+        ・固定ポスト（テーゼ宣言スレッド）を作成<br>
+        ・エージェントパイプラインのHOLY用設定<br>
+        ・content-vaultからHOLY向け素材の選定基準を定義<br>
+        ・<strong>Kindleスプリント開始</strong>（月1冊ペース、DEEP Framework準拠）
+      </p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-phase">2026年6月 ★ — 初Kindle出版</div>
+      <div class="timeline-title">Kindle第1弾出版 + テーゼ投稿でポジション確立</div>
+      <p style="color:var(--text-sub)">
+        ・<strong>★ 初Kindle出版（日本語版）</strong><br>
+        ・Kindle核心部分をXスレッドで先行公開<br>
+        ・1日1〜2投稿（エージェント自動生成・承認後投稿）<br>
+        ・週1本のテーゼスレッド<br>
+        ・「スピリチュアル界隨の浄化」テーマのアンチテーゼ投稿蓄積<br>
+        ・タイムボカンプロジェクト始動（柘6時同行投稿→30人同時リプライ→7:30に10万人リーチ）
+      </p>
+      <div class="highlight green" style="margin-top:12px">
+        <div class="highlight-title">目標：フォロワー500〜1,000人 / Kindle第1弾出版</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-phase">2026年7〜8月 — Kindle量産 + X成長</div>
+      <div class="timeline-title">月1冊ペースで蓄積 + 英語版展開開始</div>
+      <p style="color:var(--text-sub)">
+        ・Kindle第2弾・第3弾出版<br>
+        ・英語版Kindle翻訳開始（AI翻訳+ネイティブ校正）<br>
+        ・bioリンクをAmazon著者ページに変更<br>
+        ・英語版スレッドの本格展開（PREPメソッド）<br>
+        ・LDM構造図の英語化・open-fieldで公開<br>
+        ・メディア螺旋が回り始める（X→note→Kindle→X循環）
+      </p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-phase">2026年9〜10月 — 没入型IXシステムβ</div>
+      <div class="timeline-title">動画講座設計 + グローバルコミュニティの芽</div>
+      <p style="color:var(--text-sub)">
+        ・Teachable等で英語版動画講座β設計開始<br>
+        ・ElevenLabs多言語AI音声で堀内さんの声を英語化<br>
+        ・Kindle読者からのフォロワー流入が安定<br>
+        ・海外からの反応に応じて英語コンテンツ比率を調整<br>
+        ・ネイティブ動画の定期投稿開始<br>
+        ・note原液→Kindle資産化のパイプライン安定稼働
+      </p>
+    </div>
+    <div class="timeline-item" style="border-color:var(--gold)">
+      <div class="timeline-phase">2026年11月 ★ — 世界デビュー</div>
+      <div class="timeline-title">英語圏での本格ローンチ</div>
+      <p style="color:var(--text-sub)">
+        ・<strong>★ 英語版Kindle正式ローンチ</strong><br>
+        ・動画講座（$199）販売開始<br>
+        ・グローバルコミュニティの入口を開設<br>
+        ・海外メディア・インフルエンサーへのアプローチ<br>
+        ・AIエージェントカンパニーとしての側面も発信
+      </p>
+      <div class="highlight pink" style="margin-top:12px">
+        <div class="highlight-title">★ 世界デビューの月</div>
+        <p style="color:var(--text-sub)">Kindle複数冊 + 動画講座 + Xフォロワー基盤が揃った状態で英語圏に正式参入</p>
+      </div>
+    </div>
+    <div class="timeline-item" style="border-color:var(--gold)">
+      <div class="timeline-phase">2026年12月 ★ — プレス発表</div>
+      <div class="timeline-title">IXアーキテクトとしての公式発表</div>
+      <p style="color:var(--text-sub)">
+        ・<strong>★ プレス発表</strong> — AIエージェントカンパニー × LDMの統合ビジョン<br>
+        ・1年目の成果レビューと2027年計画策定<br>
+        ・コーチングプログラム（$5,000〜）の設計・案内開始<br>
+        ・代表作（集大成Kindle）の世界同時リリース準備
+      </p>
+      <div class="highlight gold" style="margin-top:12px">
+        <div class="highlight-title">12月末の到達目標</div>
+        <p style="color:var(--text-sub)">Kindle 6〜8冊出版 / Xフォロワー5,000〜10,000人 / 英語版講座販売中 / 海外読者・受講者が定常的に発生 / エージェント完全自律運用が安定</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:32px">
+    <h3>⏰ タイムボカンプロジェクト</h3>
+    <p>神田マスターマインドで共有された、<strong>朝の初速で10万人リーチを作る</strong>戦術。</p>
+    <div class="highlight">
+      <div class="highlight-title">朝の投稿サイクル</div>
+      <p style="color:var(--text-sub)">
+        <strong>6:00</strong> — HOLYのテーゼ投稿を配信<br>
+        <strong>6:00〜7:00</strong> — 同行者（仲間アカウント）30人が同時リプライ<br>
+        <strong>7:30</strong> — アルゴリズムが「会話が活発」と判定、For Youフィードに拡散<br>
+        <strong>結果</strong> — 10万人リーチの初速が生まれる
+      </p>
+    </div>
+    <p>エージェントがHOLYのタイムボカン用投稿を毎朝6時に自動配信。同行者ネットワークの構築はPhase 2以降で着手。</p>
+  </div>
+
+  <div class="card" style="border:2px solid var(--accent)">
+    <h3>🔄 エージェント自動化の範囲</h3>
+    <p><strong>エージェントがやること：</strong></p>
+    <p>・content-vaultから素材を選定し、HOLY用ドラフトを生成<br>
+    ・ストレート＆シンプル日本語でテーゼ投稿を作成<br>
+    ・英語版が必要な場合はPREPメソッドで別途作成<br>
+    ・堀内さんの承認を得て投稿<br>
+    ・コメント監視と選択的返信<br>
+    ・エンゲージメント分析と投稿パターンの最適化<br>
+    ・Kindle原稿のXスレッド切り出し<br>
+    ・メディア螺旋（X→note→Kindle→X）の循環運用</p>
+    <p style="margin-top:16px"><strong>堀内さんがやること：</strong></p>
+    <p>・ドラフトの承認（まとめて見て、OKかNGかだけ）<br>
+    ・新しい素材が降りてきた時、こあに話す（それだけでcontent-vaultに蓄積される）</p>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <p style="font-size:1.2rem;font-weight:700;background:var(--gradient-holy);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px">HOLY</p>
+  <p>𝕏 Global Expansion Strategy 2026 — Synchro Management | open-field</p>
+  <p style="margin-top:16px;font-size:0.75rem;color:var(--text-dim)">本レポートは2026年5月時点の情報に基づいて作成<br>佐野さんミーティング（2回分）+ 命の設計図 + 会社設計ロードマップ + 神田昌典マスターマインド全8回 を統合</p>
+</div>
+
+</body>
+</html>
