@@ -287,7 +287,7 @@
     <p><strong>HOLY</strong>は堀内恭隆の名前を出さない、グローバル展開専用のX/SNSブランド。目的はLDM（Life Design Method）の世界展開。「堀内恭隆」は日本のコミュニティの内側にいる存在であり、HOLYは外の世界に向けた表現。</p>
     <div class="highlight">
       <div class="highlight-title">命の同心円における位置</div>
-      <p style="color:var(--text-sub)">HOLYのX運用は命の同心円の<strong>最外周</strong>に位置する。堀内さん本人は一切触らない。AIエージェント（こあ・れん・にじ・そよ）が完全自律で運用する。堀内さんの役割は「承認」のみ。content-vaultに蓄積された素材（Facebook投稿6,600件、セミナー書き起こし、ハペログ等）から、エージェントが自律的にコンテンツを生成・投稿する。</p>
+      <p style="color:var(--text-sub)">HOLYのX運用は命の同心円の<strong>最外周</strong>に位置する。堀内さん本人は一切触らない。AIエージェントが完全自律で運用する。堀内さんの役割は「承認」のみ。長年蓄積されたコンテンツ素材（過去の発信、セミナー、セッション記録等）から、エージェントが自律的にコンテンツを生成・投稿する。</p>
     </div>
   </div>
   <div class="card">
@@ -407,7 +407,7 @@
     </div>
     <div class="highlight">
       <div class="highlight-title">⚠️ エージェント運用の注意</div>
-      <p style="color:var(--text-sub)">「ボット的な反復投稿」はアルゴリズムに抑制される。エージェントが投稿する際は、テンプレート的な定型文を避け、毎回content-vaultから異なる素材を引き出して新鮮なコンテンツを生成する。投稿パターンも時間帯・頻度をランダム化し、機械的なパターンを回避する。</p>
+      <p style="color:var(--text-sub)">「ボット的な反復投稿」はアルゴリズムに抑制される。エージェントが投稿する際は、テンプレート的な定型文を避け、毎回異なる素材を引き出して新鮮なコンテンツを生成する。投稿パターンも時間帯・頻度をランダム化し、機械的なパターンを回避する。</p>
     </div>
   </div>
 </div>
@@ -497,12 +497,12 @@
       <div class="highlight-title">HOLYの動画コンテンツ設計（週2〜3本）</div>
       <p style="color:var(--text-sub)">
         <strong>パターンA：LDMメソッド1ステップ解説（30秒）</strong><br>
-        content-vaultのセミナー書き起こしから核心部分を切り出し。ElevenLabsで英語版AI音声を生成。テキスト字幕付き。<br><br>
+        セミナー書き起こしから核心部分を切り出し。ElevenLabsで英語版AI音声を生成。テキスト字幕付き。<br><br>
         <strong>パターンB：アンチテーゼ動画（45秒）</strong><br>
         「スピリチュアル業界のここがおかしい」系。テーゼ投稿の動画版。視覚演出＋声で訴求力UP。<br><br>
         <strong>パターンC：体験切り出し（60秒）</strong><br>
         セミナー映像から受講者の変化の瞬間を切り出し（顔ボカシ・許可取得済みのもの）。<br><br>
-        <strong>制作パイプライン：</strong>content-vault素材 → れん（スクリプト生成）→ ElevenLabs（EN音声）→ にじ（字幕・サニタイズ）→ 承認 → そよ（配信）
+        <strong>制作パイプライン：</strong>素材選定 → スクリプト生成 → AI音声（EN）→ 字幕付与 → 承認 → 配信
       </p>
     </div>
   </div>
@@ -517,23 +517,19 @@
     <div class="highlight green">
       <div class="highlight-title">リプライターゲット — 10〜15アカウント</div>
       <p style="color:var(--text-sub)">
-        <strong>選定基準：</strong>HOLYのフォロワー数の2〜10倍のアカウント（小さすぎるとリーチなし、大きすぎるとリプライが埋もれる）<br><br>
+        <strong>選定基準：</strong>自分より大きいが大きすぎないアカウント（リーチとリプライの可視性のバランスが重要）<br><br>
         <strong>意識・パーソナル開発領域のターゲット例：</strong><br>
         ・英語圏：consciousness / mindfulness / personal development のインフルエンサー<br>
         ・日本語圏：意識変容・メソッド開発・ビジネス哲学のアカウント<br>
         ・共通：スピリチュアル界隈の「知性派」（HOLYの思想に共鳴しうる層）<br><br>
         <strong>リプライの質：</strong>「いいですね」は無価値。データを共有する、別の視点を提示する、関連する体験を語る、洞察ある質問をする。<br>
-        <strong>タイミング：</strong>ターゲットの投稿から15分以内にリプライ。通知ONにしておく。
+        <strong>タイミング：</strong>ターゲットの投稿に素早くリプライ。初速が命。
       </p>
     </div>
     <div class="highlight">
-      <div class="highlight-title">エージェント実装：リプライ自動生成パイプライン</div>
+      <div class="highlight-title">エージェント運用：リプライ自動生成</div>
       <p style="color:var(--text-sub)">
-        ① ターゲットアカウントの新規投稿を監視（そよが担当）<br>
-        ② 投稿内容をcontent-vaultのLDM知識と照合（みこが担当）<br>
-        ③ HOLYの声で価値あるリプライをドラフト生成（れんが担当）<br>
-        ④ 堀内さんの承認 or 自律投稿（リスクレベルに応じて）<br>
-        ⑤ 15分以内に投稿 → 会話チェーン発生を狙う
+        AIエージェントがターゲットアカウントの新規投稿を監視し、LDMの知見と照合。HOLYの声で価値あるリプライをドラフト生成し、承認後に素早く投稿。会話チェーン発生（150x）を狙う。
       </p>
     </div>
   </div>
@@ -675,7 +671,7 @@
       <div class="stat-box"><div class="stat-num">E</div><div class="stat-label">Engaging<br>読み始めたら<br>止まらない</div></div>
       <div class="stat-box"><div class="stat-num">P</div><div class="stat-label">Polished<br>プロの仕上がり<br>表紙・構成・文体</div></div>
     </div>
-    <p>LDMは「Desirable」と「Effective」が圧倒的に強い。「Engaging」はストーリー構造とcontent-vaultの体験素材で担保。「Polished」はエージェント（kindle-editor-pipeline）の5段階編集で実現。</p>
+    <p>LDMは「Desirable」と「Effective」が圧倒的に強い。「Engaging」はストーリー構造と蓄積された体験素材で担保。「Polished」はAIエージェントによる多段階編集で実現。</p>
   </div>
   <div class="card">
     <h3>🔄 メディア螺旋戦略</h3>
@@ -728,36 +724,35 @@
     <h3>🤖 運用体制：堀内さんは一切触らない</h3>
     <p>HOLYのX運用は命の同心円の<strong>最外周</strong>。堀内さんは承認のみ。</p>
     <div class="agent-flow">
-      <div class="agent-node active">📦 content-vault</div>
+      <div class="agent-node active">📦 素材データベース</div>
       <div class="agent-arrow">→</div>
-      <div class="agent-node">🔮 みこ（収集）</div>
+      <div class="agent-node">🔮 素材収集AI</div>
       <div class="agent-arrow">→</div>
-      <div class="agent-node active">🔥 れん（ドラフト）</div>
+      <div class="agent-node active">🔥 ドラフト生成AI</div>
       <div class="agent-arrow">→</div>
-      <div class="agent-node">🌈 にじ（翻訳/サニタイズ）</div>
+      <div class="agent-node">🌈 翻訳・品質チェックAI</div>
       <div class="agent-arrow">→</div>
-      <div class="agent-node">✅ 堀内さん承認</div>
+      <div class="agent-node">✅ 承認</div>
       <div class="agent-arrow">→</div>
-      <div class="agent-node active">🌬️ そよ（配信）</div>
+      <div class="agent-node active">🌬️ 配信AI</div>
     </div>
   </div>
   <div class="card">
-    <h3>📦 素材ソース（content-vault）</h3>
+    <h3>📦 素材ソース</h3>
     <div class="stats-grid">
-      <div class="stat-box"><div class="stat-num">6,600</div><div class="stat-label">Facebook投稿<br>（DB化済み）</div></div>
+      <div class="stat-box"><div class="stat-num">大量</div><div class="stat-label">過去のSNS投稿<br>（DB化済み）</div></div>
       <div class="stat-box"><div class="stat-num">多数</div><div class="stat-label">セミナー<br>書き起こし</div></div>
-      <div class="stat-box"><div class="stat-num">蓄積中</div><div class="stat-label">ハペログ<br>セッション記録</div></div>
-      <div class="stat-box"><div class="stat-num">随時</div><div class="stat-label">閃きDB<br>キャプチャー</div></div>
+      <div class="stat-box"><div class="stat-num">蓄積中</div><div class="stat-label">セッション記録</div></div>
+      <div class="stat-box"><div class="stat-num">随時</div><div class="stat-label">閃き<br>キャプチャー</div></div>
     </div>
     <p>これらの素材からエージェントが「HOLYの声」で投稿を生成する。堀内さんが新たに何かを書く必要はない。過去の命の爆発が、今のXコンテンツになる。</p>
   </div>
   <div class="card">
-    <h3>🔥 れん（錬金術師）— ドラフト生成</h3>
+    <h3>🔥 ドラフト生成AI</h3>
     <div class="highlight">
-      <div class="highlight-title">れんの生成ルール</div>
+      <div class="highlight-title">ドラフト生成の原則</div>
       <p style="color:var(--text-sub)">
-        ・堀内さんの声パターン・NGパターンを参照（HOLY用にトーン調整）<br>
-        ・「堀内恭隆」の名前は絶対に出さない<br>
+        ・声のパターンを学習し、HOLYのトーンで生成<br>
         ・曖昧な表現を排除、ストレート＆シンプルに<br>
         ・毎回テーゼ（主張）を持たせる<br>
         ・翻訳しやすい構文（短文、能動態、主語明確）
@@ -765,12 +760,12 @@
     </div>
   </div>
   <div class="card">
-    <h3>🌬️ そよ（配信者）— 投稿＋出撃リプライ実行</h3>
+    <h3>🌬️ 配信AI — 投稿＋出撃リプライ実行</h3>
     <div class="highlight green">
-      <div class="highlight-title">そよの投稿ルール（30%：自アカウント投稿）</div>
+      <div class="highlight-title">投稿運用（30%：自アカウント投稿）</div>
       <p style="color:var(--text-sub)">
-        ・投稿頻度：1日3〜5投稿（テキスト3 + 動画1〜2）<br>
-        ・投稿タイミング：朝8時・昼12時・夜20時を軸にランダム化<br>
+        ・テキスト＋動画を組み合わせた定期投稿<br>
+        ・投稿タイミングはランダム化（機械的パターン回避）<br>
         ・スレッド：週2〜3本<br>
         ・インバウンド返信：ロマネコンティ原則（選択的・飢餓感重視）<br>
         ・外部リンク：本文には絶対入れない。リプライスレッドに配置<br>
@@ -778,12 +773,11 @@
       </p>
     </div>
     <div class="highlight pink">
-      <div class="highlight-title">そよの出撃リプライ（70%：他アカウントへの戦略リプライ）</div>
+      <div class="highlight-title">出撃リプライ（70%：他アカウントへの戦略リプライ）</div>
       <p style="color:var(--text-sub)">
-        ・ターゲット10〜15アカウントの新規投稿を常時監視<br>
-        ・投稿検知から15分以内にリプライ（速度が命）<br>
-        ・1日20件以上の質の高いリプライを実行<br>
-        ・リプライ内容はれんが生成（LDM視点での洞察・データ・体験）<br>
+        ・ターゲットアカウントの新規投稿を常時監視<br>
+        ・素早いリプライで初速を確保（速度が命）<br>
+        ・LDM視点での洞察・データ・体験を含む質の高いリプライ<br>
         ・「いいですね」「同意です」のような薄いリプライは絶対にしない<br>
         ・相手からの返信を得たら即座に会話チェーンを形成（150x発動）
       </p>
@@ -854,7 +848,7 @@
         ・Bio設定（ストレート日本語 + 英語1行）<br>
         ・固定ポスト（テーゼ宣言スレッド）を作成<br>
         ・エージェントパイプラインのHOLY用設定<br>
-        ・content-vaultからHOLY向け素材の選定基準を定義<br>
+        ・HOLY向け素材の選定基準を定義<br>
         ・<strong>Kindleスプリント開始</strong>（月1冊ペース、DEEP Framework準拠）
       </p>
     </div>
@@ -938,12 +932,11 @@
     <div class="highlight green">
       <div class="highlight-title">✅ 初速エンジン v2 — オーガニック初速の作り方</div>
       <p style="color:var(--text-sub)">
-        <strong>6:00</strong> — HOLYのテーゼ投稿を配信（エージェント自動）<br>
-        <strong>6:00〜6:15</strong> — HOLY自身がターゲットアカウント3〜5件に出撃リプライ（他者の投稿に価値あるリプライ。自分の投稿のリーチとは別経路で可視性を獲得）<br>
-        <strong>6:15〜6:30</strong> — 仲間アカウントは「時間をずらして、各自の言葉で」自然にリプライ（同時ではなく15分〜2時間にばらす。定型文禁止。各自が自分の体験から語る）<br>
-        <strong>6:30〜7:30</strong> — 来たリプライに選択的に返信 → 会話チェーン発生（150x）<br>
-        <strong>結果</strong> — ポッド判定されない「自然な会話の盛り上がり」としてアルゴリズムが評価<br><br>
-        <strong>鍵：</strong>「30人同時」ではなく「自然な時間差 × 各自ユニークな内容 × 会話チェーン重視」
+        ポイントは「同時一斉リプライ」ではなく「自然な会話の盛り上がり」を作ること。<br><br>
+        ・投稿直後にHOLY自身がターゲットアカウントに出撃リプライ（別経路で可視性を獲得）<br>
+        ・関連アカウントからのリプライは時間をばらし、各自の言葉で自然に（定型文禁止）<br>
+        ・来たリプライに選択的に返信 → 会話チェーン発生（150x）<br><br>
+        <strong>鍵：</strong>「自然な時間差 × 各自ユニークな内容 × 会話チェーン重視」でポッド判定を回避
       </p>
     </div>
   </div>
@@ -951,21 +944,20 @@
   <div class="card" style="border:2px solid var(--accent)">
     <h3>🔄 エージェント自動化の範囲（2026年最新版）</h3>
     <p><strong>エージェントがやること：</strong></p>
-    <p>・content-vaultから素材を選定し、HOLY用ドラフトを生成（1日3〜5投稿）<br>
+    <p>・蓄積素材からHOLY用ドラフトを生成<br>
     ・ストレート＆シンプル日本語でテーゼ投稿を作成<br>
     ・英語版が必要な場合はPREPメソッドで別途作成<br>
-    ・ネイティブ短尺動画の制作（週2〜3本、ElevenLabs英語音声＋字幕）<br>
-    ・<strong>70/30出撃リプライの実行（1日20件+、ターゲット15分以内）</strong><br>
-    ・会話チェーン形成（来たリプライへの戦略的返信で150xを発動）<br>
-    ・堀内さんの承認を得て投稿（リスクレベルに応じて自律/承認を判定）<br>
+    ・ネイティブ短尺動画の制作（ElevenLabs英語音声＋字幕）<br>
+    ・<strong>70/30出撃リプライの実行</strong><br>
+    ・会話チェーン形成（戦略的返信で150xを発動）<br>
+    ・堀内さんの承認を得て投稿<br>
     ・インバウンドコメントの選択的返信（ロマネコンティ原則）<br>
     ・エンゲージメント分析と投稿パターンの最適化<br>
     ・Kindle原稿のXスレッド切り出し（リンクはリプ欄のみ）<br>
-    ・メディア螺旋（X→note→Kindle→X）の循環運用<br>
-    ・リプライターゲットアカウントの定期見直し（月1回）</p>
+    ・メディア螺旋（X→note→Kindle→X）の循環運用</p>
     <p style="margin-top:16px"><strong>堀内さんがやること：</strong></p>
     <p>・ドラフトの承認（まとめて見て、OKかNGかだけ）<br>
-    ・新しい素材が降りてきた時、こあに話す（それだけでcontent-vaultに蓄積される）</p>
+    ・新しい素材が降りてきた時、AIに話す（それだけで素材データベースに蓄積される）</p>
   </div>
 </div>
 
