@@ -74,6 +74,7 @@ body::after {
   font-family: inherit; transition: border-color 0.3s;
 }
 .form-row input:focus, .form-row select:focus { outline: none; border-color: #5a7a50; box-shadow: 0 0 0 3px rgba(90,122,80,0.1); }
+.form-row .hint { font-size: 0.72rem; color: #a09888; margin-left: 0.5rem; flex-shrink: 0; }
 
 .btn {
   background: linear-gradient(135deg, #6b9a5e, #5a7a50); color: #fff; border: none;
@@ -112,6 +113,7 @@ body::after {
 .drop-zone .drop-icon { font-size: 3rem; margin-bottom: 0.5rem; }
 .drop-zone strong { color: #3d3529; font-size: 1rem; }
 .drop-zone p { color: #7a7060; margin-top: 0.3rem; font-size: 0.8rem; }
+.drop-zone .target-preview { margin-top: 0.5rem; color: #5a7a50; font-size: 0.78rem; font-weight: 500; }
 
 .progress-bar { background: rgba(164,190,148,0.2); border-radius: 6px; height: 8px; margin: 1rem 0; overflow: hidden; display: none; }
 .progress-bar .fill { height: 100%; background: linear-gradient(90deg, #a4be94, #5a7a50); transition: width 0.3s; border-radius: 6px; }
@@ -153,6 +155,12 @@ body::after {
 <label>ブランチ</label>
 <input type="text" id="branch" value="main">
 </div>
+<div class="form-row">
+<label>サブディレクトリ</label>
+<input type="text" id="subdirectory" placeholder="例: earth（空欄はルート）" oninput="onSubdirChange()">
+<span class="hint">前後スラッシュ自動除去</span>
+</div>
+<div id="target-summary" style="font-size:0.78rem;color:#5a7a50;margin-top:0.3rem;padding:0.5rem 0.75rem;background:rgba(164,190,148,0.12);border-radius:8px"></div>
 <details style="margin-top:0.75rem">
 <summary style="cursor:pointer;color:#5a7a50;font-size:0.85rem;font-weight:500">リポジトリを管理</summary>
 <div class="repo-list" id="repo-list"></div>
@@ -178,6 +186,7 @@ body::after {
 <div class="drop-icon">🌏</div>
 <strong>ここに zip をドロップ</strong>
 <p>クリックでファイル選択もOK</p>
+<div class="target-preview" id="drop-target-preview"></div>
 </div>
 <input type="file" id="file-input" accept=".zip" style="display:none">
 
@@ -185,7 +194,7 @@ body::after {
 
 <div class="log" id="log"></div>
 
-<div class="footer">Synchro Management Deploy Tool v2.1</div>
+<div class="footer">Synchro Management Deploy Tool v2.2 — サブディレクトリ対応版</div>
 </div>
 
 <script>
@@ -215,6 +224,7 @@ function renderRepos() {
       <button class="btn-remove" onclick="removeRepo(${i})" title="削除">×</button>
     </div>`
   ).join('');
+  updateTargetSummary();
 }
 
 function addRepo() {
@@ -238,8 +248,40 @@ function removeRepo(idx) {
   renderRepos();
 }
 
+function getSubdirectory() {
+  return document.getElementById('subdirectory').value.trim().replace(/^\/+|\/+$/g, '');
+}
+
+function onSubdirChange() {
+  const subdir = getSubdirectory();
+  const repoFull = document.getElementById('repo-select').value;
+  // リポジトリ毎にsubdirectoryを記憶
+  if (repoFull) {
+    localStorage.setItem(`deploy-subdir-${repoFull}`, subdir);
+  }
+  updateTargetSummary();
+}
+
 function onRepoChange() {
-  localStorage.setItem('deploy-last-repo', document.getElementById('repo-select').value);
+  const repoFull = document.getElementById('repo-select').value;
+  localStorage.setItem('deploy-last-repo', repoFull);
+  // リポジトリに紐づいたsubdirectoryを復元
+  const savedSubdir = localStorage.getItem(`deploy-subdir-${repoFull}`) || '';
+  document.getElementById('subdirectory').value = savedSubdir;
+  updateTargetSummary();
+}
+
+function updateTargetSummary() {
+  const repoFull = document.getElementById('repo-select').value;
+  const branch = document.getElementById('branch').value || 'main';
+  const subdir = getSubdirectory();
+  const summary = document.getElementById('target-summary');
+  const dropPreview = document.getElementById('drop-target-preview');
+  if (!repoFull) return;
+  const path = subdir ? `/${subdir}/` : '/';
+  const text = `🎯 ${repoFull} @ ${branch} → ${path}`;
+  summary.textContent = text;
+  if (dropPreview) dropPreview.textContent = `→ ${path} にデプロイされます`;
 }
 
 function saveToken() {
@@ -257,6 +299,15 @@ function loadToken() {
 
 loadToken();
 renderRepos();
+// 初期表示時にも最後に選んだリポジトリのsubdirを復元
+const initRepo = document.getElementById('repo-select').value;
+if (initRepo) {
+  const savedSubdir = localStorage.getItem(`deploy-subdir-${initRepo}`) || '';
+  document.getElementById('subdirectory').value = savedSubdir;
+}
+updateTargetSummary();
+
+document.getElementById('branch').addEventListener('input', updateTargetSummary);
 
 function log(msg, type = 'info') {
   const el = document.getElementById('log');
@@ -353,6 +404,7 @@ async function processZip(file) {
   const token = document.getElementById('token').value;
   const repoFull = document.getElementById('repo-select').value;
   const branch = document.getElementById('branch').value;
+  const subdirectory = getSubdirectory();
 
   if (!token) { log('GitHub Token を設定してください', 'error'); return; }
   if (!repoFull) { log('リポジトリを選択してください', 'error'); return; }
@@ -360,6 +412,7 @@ async function processZip(file) {
   localStorage.setItem('deploy-branch', branch);
   dropZone.classList.add('processing');
   log(`📦 ${file.name} (${(file.size/1024/1024).toFixed(1)}MB) を処理中...`, 'progress');
+  log(`🎯 デプロイ先: ${repoFull} @ ${branch} → ${subdirectory ? '/' + subdirectory + '/' : '/'}`, 'info');
 
   try {
     log('zip を解凍中...', 'info');
@@ -367,7 +420,7 @@ async function processZip(file) {
     const entries = Object.entries(zip.files).filter(([_, f]) => !f.dir);
     log(`${entries.length} ファイルを検出`, 'info');
 
-    const cacheKey = `deploy-uploaded-${repoFull}`;
+    const cacheKey = `deploy-uploaded-${repoFull}${subdirectory ? '-' + subdirectory : ''}`;
     let uploaded = {};
     try { uploaded = JSON.parse(localStorage.getItem(cacheKey) || '{}'); } catch(e) {}
 
@@ -380,6 +433,9 @@ async function processZip(file) {
       let cleanPath = path;
       const firstSlash = path.indexOf('/');
       if (firstSlash > 0) cleanPath = path.substring(firstSlash + 1);
+
+      // サブディレクトリ指定がある場合はprefixを付与
+      const finalPath = subdirectory ? `${subdirectory}/${cleanPath}` : cleanPath;
 
       const blob = await zipEntry.async('blob');
       totalOrig += blob.size;
@@ -395,7 +451,7 @@ async function processZip(file) {
       totalResized += finalBlob.size;
 
       const arrayBuf = await finalBlob.arrayBuffer();
-      files.push({ path: cleanPath, content: arrayBufferToBase64(arrayBuf) });
+      files.push({ path: finalPath, content: arrayBufferToBase64(arrayBuf) });
       setProgress((idx + 1) / entries.length * 40);
     }
 
@@ -442,8 +498,11 @@ async function processZip(file) {
     const tree = await ghAPI('POST', `/repos/${repoFull}/git/trees`, token, { base_tree: baseTreeSha, tree: treeEntries });
     if (!tree.sha) throw new Error(`ツリー作成失敗: ${tree.message || JSON.stringify(tree)}`);
     log('コミットを作成中...', 'info');
+    const commitMsg = subdirectory
+      ? `Deploy: ${file.name} → /${subdirectory}/ (${new Date().toLocaleString('ja-JP')})`
+      : `Deploy: ${file.name} (${new Date().toLocaleString('ja-JP')})`;
     const commit = await ghAPI('POST', `/repos/${repoFull}/git/commits`, token, {
-      message: `Deploy: ${file.name} (${new Date().toLocaleString('ja-JP')})`,
+      message: commitMsg,
       tree: tree.sha,
       parents: [currentCommitSha]
     });
@@ -455,7 +514,7 @@ async function processZip(file) {
     setProgress(100);
 
     log(`✅ デプロイ完了！ ${files.length} ファイルをプッシュしました`, 'success');
-    log(`🔗 https://github.com/${repoFull}`, 'success');
+    log(`🔗 https://github.com/${repoFull}${subdirectory ? '/tree/' + branch + '/' + subdirectory : ''}`, 'success');
     dropZone.classList.remove('processing');
     dropZone.classList.add('done');
 
