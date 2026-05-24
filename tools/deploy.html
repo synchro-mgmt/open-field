@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌿 Deploy Tool v2.4 - Synchro Management</title>
+<title>🌿 Deploy Tool v2.5 - Synchro Management</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236b9e78'/%3E%3Cstop offset='100%25' stop-color='%233d7a4a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Cpath d='M32 14 L42 30 H36 V44 H28 V30 H22 Z' fill='white' opacity='0.95'/%3E%3Cpath d='M22 48 H42' stroke='white' stroke-width='3' stroke-linecap='round' opacity='0.8'/%3E%3C/svg%3E">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -114,7 +114,7 @@ body::after { content: ''; position: fixed; bottom: -10%; left: -10%; width: 400
 <div class="container">
 <div class="header">
 <h1>🌿 Deploy Tool</h1>
-<p class="subtitle">zip / 個別ファイル をドロップ → 画像最適化 → GitHub に自動デプロイ <span style="opacity:0.7">v2.4</span></p>
+<p class="subtitle">zip / 個別ファイル をドロップ → 画像最適化 → GitHub に自動デプロイ <span style="opacity:0.7">v2.5</span></p>
 </div>
 
 <div class="card">
@@ -223,7 +223,7 @@ body::after { content: ''; position: fixed; bottom: -10%; left: -10%; width: 400
 <div class="history-list" id="history-list" style="margin-top:0.75rem"></div>
 </details>
 
-<div class="footer">Synchro Management Deploy Tool v2.4 — CAS並行制御 / 部分更新 / 個別ファイル対応</div>
+<div class="footer">Synchro Management Deploy Tool v2.5 — XSS防御 / CAS強化 / zip slipガード / subdir単位ロールバック</div>
 </div>
 
 <!-- トースト -->
@@ -266,11 +266,53 @@ body::after { content: ''; position: fixed; bottom: -10%; left: -10%; width: 400
 </div>
 
 <script>
+// ==================== 安全ヘルパー（v2.5） ====================
+// XSS: HTMLエスケープ。innerHTMLに流す全ての動的文字列に必ず適用
+function esc(s) {
+  if (s === null || s === undefined) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+// URL用エスケープ（href属性）
+function escAttr(s) { return esc(s); }
+// zip slip / 危険パス防御
+const DANGEROUS_PATH_RE = /^(\.\.\/|\/|.*\/\.\.\/|.*\\)/;
+const BLOCKED_PREFIXES = ['.github/workflows/', '.github/actions/', '.git/'];
+function safePath(p) {
+  if (!p || typeof p !== 'string') return { ok: false, reason: 'パスが空' };
+  // 正規化: 連続スラッシュを単一に、先頭末尾の/除去、Windows '\\' を '/' に
+  let n = p.replace(/\\/g, '/').replace(/\/+/g, '/').replace(/^\/+|\/+$/g, '');
+  // 絶対パス、ドライブレター、null byte 拒否
+  if (p.startsWith('/') || /^[A-Za-z]:/.test(p) || p.includes('\0')) return { ok: false, reason: '絶対パスまたは制御文字' };
+  // ..ガード（traversal）
+  if (n.split('/').some(seg => seg === '..' || seg === '.')) return { ok: false, reason: 'パストラバーサル（..）' };
+  // CI/Git設定の書き換え拒否
+  for (const prefix of BLOCKED_PREFIXES) {
+    if (n === prefix.replace(/\/$/, '') || n.startsWith(prefix)) return { ok: false, reason: `保護パス（${prefix}）` };
+  }
+  return { ok: true, path: n };
+}
+// トークン形式の検証（GitHub PATの主要プレフィックス）
+function isLikelyValidToken(t) {
+  if (!t || typeof t !== 'string') return false;
+  return /^(ghp|gho|ghu|ghs|github_pat)_[A-Za-z0-9_]{20,}$/.test(t.trim());
+}
+
 // ==================== 既定値 ====================
 const DEFAULT_REPOS = [
   { owner: 'synchro-mgmt', name: 'ldm-earth-journey', label: 'LDM アースジャーニー LP', domain: 'ej.ldm.international', protectRoot: true },
   { owner: 'synchro-mgmt', name: 'open-field', label: '公開サイト (open-field)', domain: 'synchro-mgmt.github.io/open-field', protectRoot: false }
 ];
+// 保護リポジトリの「初期値」（localStorageに書き換えられても、ここで上書き保護）
+const HARDCODED_PROTECT_ROOT = new Set(['synchro-mgmt/ldm-earth-journey']);
+function isProtected(repo) {
+  if (!repo) return false;
+  return HARDCODED_PROTECT_ROOT.has(`${repo.owner}/${repo.name}`) || !!repo.protectRoot;
+}
 
 // ==================== State ====================
 let subdirMode = 'existing';
@@ -304,18 +346,21 @@ function renderRepos() {
   const select = document.getElementById('repo-select');
   const list = document.getElementById('repo-list');
   const lastSelected = localStorage.getItem('deploy-last-repo') || `${repos[0].owner}/${repos[0].name}`;
-  select.innerHTML = repos.map(r =>
-    `<option value="${r.owner}/${r.name}" ${lastSelected === `${r.owner}/${r.name}` ? 'selected' : ''}>${r.label || r.name}</option>`
-  ).join('');
-  list.innerHTML = repos.map((r, i) =>
-    `<div class="repo-item">
-      <span class="repo-name">${r.owner}/${r.name}</span>
-      <span class="repo-label">${r.label || ''}</span>
-      ${r.domain ? `<span class="repo-label" style="color:#3a5639">→ ${r.domain}</span>` : ''}
-      ${r.protectRoot ? '<span class="protected-badge">🔒 ルート保護</span>' : ''}
-      <button class="btn-remove" onclick="removeRepo(${i})" title="削除">×</button>
-    </div>`
-  ).join('');
+  // v2.5: 全動的値をescapeしてからinnerHTML
+  select.innerHTML = repos.map(r => {
+    const full = `${r.owner}/${r.name}`;
+    return `<option value="${esc(full)}" ${lastSelected === full ? 'selected' : ''}>${esc(r.label || r.name)}</option>`;
+  }).join('');
+  list.innerHTML = repos.map((r, i) => {
+    const protectedFlag = isProtected(r);
+    return `<div class="repo-item">
+      <span class="repo-name">${esc(r.owner)}/${esc(r.name)}</span>
+      <span class="repo-label">${esc(r.label || '')}</span>
+      ${r.domain ? `<span class="repo-label" style="color:#3a5639">→ ${esc(r.domain)}</span>` : ''}
+      ${protectedFlag ? '<span class="protected-badge">🔒 ルート保護</span>' : ''}
+      <button class="btn-remove" onclick="removeRepo(${Number(i)})" title="削除">×</button>
+    </div>`;
+  }).join('');
 }
 function addRepo() {
   const owner = document.getElementById('new-repo-owner').value.trim();
@@ -324,6 +369,14 @@ function addRepo() {
   const domain = document.getElementById('new-repo-domain').value.trim();
   const protectRoot = document.getElementById('new-repo-protect').checked;
   if (!owner || !name) { toast('オーナーとリポジトリ名は必須', 'error'); return; }
+  // v2.5: GitHubの仕様に合わせて文字種を制限（XSSペイロード混入防止）
+  const idRe = /^[A-Za-z0-9._-]+$/;
+  if (!idRe.test(owner) || !idRe.test(name)) {
+    toast('オーナー/リポジトリ名は英数字 . _ - のみ使用可', 'error', 5000); return;
+  }
+  if (domain && !/^[A-Za-z0-9.\/_-]+$/.test(domain)) {
+    toast('ドメインに使えない文字が含まれています', 'error'); return;
+  }
   const repos = getRepos();
   repos.push({ owner, name, label: label || name, domain, protectRoot });
   saveRepos(repos);
@@ -393,7 +446,8 @@ async function loadExistingPaths() {
     if (existingPaths.length === 0) {
       select.innerHTML = '<option value="">（ディレクトリなし。新規作成モードを使用）</option>';
     } else {
-      select.innerHTML = existingPaths.map(p => `<option value="${p}" ${p === last ? 'selected' : ''}>${p}/</option>`).join('');
+      // v2.5: ディレクトリ名（GitHubから取得）もエスケープ
+      select.innerHTML = existingPaths.map(p => `<option value="${esc(p)}" ${p === last ? 'selected' : ''}>${esc(p)}/</option>`).join('');
     }
     updateSummary();
   } catch (e) {
@@ -417,13 +471,14 @@ function updateSummary() {
   const path = subdir ? `/${subdir}/` : '/';
   const url = getPublicUrl(repo, subdir);
   const isRoot = subdirMode === 'root' || subdir === '';
-  const blocked = isRoot && repo.protectRoot;
+  const blocked = isRoot && isProtected(repo);
   const syncLabel = syncMode === 'full' ? '🔴 フル同期（削除あり）' : '🟢 追加・更新のみ';
   sum.className = 'summary' + (blocked || (isRoot && syncMode === 'full') ? ' danger' : '');
+  // v2.5: 全動的値をエスケープしてからinnerHTML
   sum.innerHTML = `
-    🎯 デプロイ先: <span class="target">${repo.owner}/${repo.name}</span> @ ${branch} → <span class="target">${path}</span><br>
+    🎯 デプロイ先: <span class="target">${esc(repo.owner)}/${esc(repo.name)}</span> @ ${esc(branch)} → <span class="target">${esc(path)}</span><br>
     🔄 同期モード: ${syncLabel}<br>
-    ${url ? `🌐 公開後URL: <span class="url">${url}</span><br>` : ''}
+    ${url ? `🌐 公開後URL: <span class="url">${esc(url)}</span><br>` : ''}
     ${blocked ? `🔒 <strong style="color:#9a3d2e">このリポジトリはルート展開が保護されています。サブディレクトリを指定してください。</strong>` : ''}
     ${isRoot && !blocked ? `⚠️ ルート展開モード（既存ファイル全${syncMode === 'full' ? '削除' : '上書き'}リスクあり）` : ''}
   `;
@@ -447,21 +502,53 @@ function onRepoChange() {
   updateSummary();
 }
 
-// ==================== Token ====================
-function getToken() {
-  return sessionStorage.getItem('deploy-token-session') || localStorage.getItem('deploy-token') || document.getElementById('token').value;
+// ==================== Token（v2.5: input > session > local, 期限付き） ====================
+const TOKEN_TTL_MS = 7 * 24 * 3600 * 1000; // 7日
+
+function readPersistedToken() {
+  const raw = localStorage.getItem('deploy-token-v25');
+  if (!raw) {
+    // 旧キーからのマイグレーション（v2.4以前）
+    const legacy = localStorage.getItem('deploy-token');
+    if (legacy && isLikelyValidToken(legacy)) {
+      // 旧形式は即座に期限なしと見做して破棄を促す
+      localStorage.removeItem('deploy-token');
+      return legacy;
+    }
+    return null;
+  }
+  try {
+    const obj = JSON.parse(raw);
+    if (obj && obj.v && obj.exp && Date.now() < obj.exp) return obj.v;
+    localStorage.removeItem('deploy-token-v25'); // 期限切れ
+  } catch (e) { localStorage.removeItem('deploy-token-v25'); }
+  return null;
 }
+
+function getToken() {
+  // 優先順: 画面に手入力されている値 > セッション > 永続。最新ユーザ意思を尊重
+  const fromUi = (document.getElementById('token').value || '').trim();
+  if (fromUi) return fromUi;
+  return sessionStorage.getItem('deploy-token-session') || readPersistedToken() || '';
+}
+
 function saveToken() {
-  const v = document.getElementById('token').value;
+  const v = (document.getElementById('token').value || '').trim();
+  if (!isLikelyValidToken(v)) {
+    toast('Tokenの形式が不正です（ghp_/github_pat_ で始まる必要）', 'error', 5000);
+    return;
+  }
   const persist = document.getElementById('token-persist').checked;
   if (persist) {
-    localStorage.setItem('deploy-token', v);
+    const payload = { v, exp: Date.now() + TOKEN_TTL_MS };
+    localStorage.setItem('deploy-token-v25', JSON.stringify(payload));
     sessionStorage.removeItem('deploy-token-session');
-    toast('Token をブラウザに保存しました（localStorage）', 'success');
+    toast('Token保存（localStorage / 7日で自動失効）', 'success');
   } else {
     sessionStorage.setItem('deploy-token-session', v);
+    localStorage.removeItem('deploy-token-v25');
     localStorage.removeItem('deploy-token');
-    toast('Token をセッション中のみ保持（タブを閉じると消えます）', 'success');
+    toast('Tokenはセッション中のみ保持（タブを閉じると消えます）', 'success');
   }
   const msg = document.getElementById('saved-msg');
   msg.style.display = 'inline';
@@ -469,20 +556,28 @@ function saveToken() {
   loadExistingPaths();
 }
 function onTokenPersistChange() {
-  // チェックボックスを切り替えただけでは保存しない。保存ボタンで反映。
+  // 保存ボタンで反映する設計。ON化時に既存セッション値を引き継ぐ案内のみ。
 }
 function loadToken() {
-  const persisted = localStorage.getItem('deploy-token');
+  const persisted = readPersistedToken();
   const sess = sessionStorage.getItem('deploy-token-session');
-  if (persisted) {
-    document.getElementById('token').value = persisted;
-    document.getElementById('token-persist').checked = true;
-  } else if (sess) {
+  if (sess) {
     document.getElementById('token').value = sess;
     document.getElementById('token-persist').checked = false;
+  } else if (persisted) {
+    document.getElementById('token').value = persisted;
+    document.getElementById('token-persist').checked = true;
   }
   const b = localStorage.getItem('deploy-branch');
   if (b) document.getElementById('branch').value = b;
+}
+function clearAllTokens() {
+  localStorage.removeItem('deploy-token-v25');
+  localStorage.removeItem('deploy-token');
+  sessionStorage.removeItem('deploy-token-session');
+  document.getElementById('token').value = '';
+  document.getElementById('token-persist').checked = false;
+  toast('保存されたTokenを全て削除しました', 'success');
 }
 
 // ==================== Log ====================
@@ -515,22 +610,28 @@ function renderHistory() {
   const list = document.getElementById('history-list');
   const h = getHistory();
   if (h.length === 0) { list.innerHTML = '<div style="font-size:0.8rem;color:#5a4f3e;padding:0.5rem">履歴なし</div>'; return; }
-  list.innerHTML = h.map((e, i) => `
+  // v2.5: 全動的値をescape。URLはhref安全のために形式チェック
+  list.innerHTML = h.map((e, i) => {
+    const subdirPath = e.subdir ? '/' + e.subdir + '/' : '/';
+    const sha7 = String(e.commitSha || '').substring(0, 7);
+    const pubUrl = (typeof e.publicUrl === 'string' && /^https?:\/\//.test(e.publicUrl)) ? e.publicUrl : '';
+    const repoSafe = String(e.repo || '').replace(/[^A-Za-z0-9._/-]/g, '');
+    return `
     <div class="history-item">
       <div class="row1">
         <div>
-          <span class="target-path">${e.repo} → ${e.subdir ? '/' + e.subdir + '/' : '/'}</span>
-          <div class="meta">${e.fileName} (${e.fileCount} files / ${e.syncMode === 'full' ? 'フル同期' : '追加・更新'}) / commit ${e.commitSha.substring(0,7)}</div>
+          <span class="target-path">${esc(e.repo)} → ${esc(subdirPath)}</span>
+          <div class="meta">${esc(e.fileName)} (${Number(e.fileCount)} files / ${e.syncMode === 'full' ? 'フル同期' : (e.syncMode === 'rollback' ? 'rollback' : '追加・更新')}) / commit ${esc(sha7)}</div>
         </div>
-        <span class="timestamp">${new Date(e.timestamp).toLocaleString('ja-JP')}</span>
+        <span class="timestamp">${esc(new Date(e.timestamp).toLocaleString('ja-JP'))}</span>
       </div>
       <div class="actions">
-        <button class="btn btn-small btn-warning" onclick="confirmRollback(${i})">🔙 取り消す</button>
-        ${e.publicUrl ? `<a class="btn btn-small btn-outline" href="${e.publicUrl}" target="_blank">🔗 開く</a>` : ''}
-        <a class="btn btn-small btn-outline" href="https://github.com/${e.repo}/commit/${e.commitSha}" target="_blank">📜 コミット</a>
+        <button class="btn btn-small btn-warning" onclick="confirmRollback(${Number(i)})">🔙 取り消す</button>
+        ${pubUrl ? `<a class="btn btn-small btn-outline" href="${escAttr(pubUrl)}" target="_blank" rel="noopener noreferrer">🔗 開く</a>` : ''}
+        <a class="btn btn-small btn-outline" href="https://github.com/${escAttr(repoSafe)}/commit/${escAttr(sha7)}" target="_blank" rel="noopener noreferrer">📜 コミット</a>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 // ==================== Init ====================
@@ -579,7 +680,7 @@ async function handleSingleFiles(files) {
   if (!repo) { toast('リポジトリを選択してください', 'error'); return; }
 
   const subdir = getSubdir();
-  if ((subdirMode === 'root' || !subdir) && repo.protectRoot) {
+  if ((subdirMode === 'root' || !subdir) && isProtected(repo)) {
     toast(`🔒 ${repo.owner}/${repo.name} はルート展開が保護されています`, 'error');
     return;
   }
@@ -592,15 +693,17 @@ async function handleSingleFiles(files) {
 function showSingleFileModal() {
   const sf = pendingSingleFile;
   const body = document.getElementById('single-file-body');
+  // v2.5: 全動的値をescape、input value属性も保護
   let html = `<p>個別ファイルとしてデプロイします。配置パスを確認してください。</p>`;
   sf.files.forEach((f, i) => {
     html += `<div class="field-edit-row">
-      <label>${f.name}</label>
-      <input type="text" id="single-path-${i}" value="${sf.suggestedPaths[i]}" placeholder="リポジトリ内のフルパス">
+      <label>${esc(f.name)}</label>
+      <input type="text" id="single-path-${Number(i)}" value="${escAttr(sf.suggestedPaths[i] || '')}" placeholder="リポジトリ内のフルパス">
     </div>`;
   });
   html += `<div style="margin-top:0.85rem; padding:0.6rem 0.85rem; border-radius:8px; background: rgba(164,190,148,0.16); font-size:0.82rem; color:#2a2418">
-    📝 同期モードは <strong>追加・更新のみ</strong> 固定（個別ファイルは削除しません）
+    📝 同期モードは <strong>追加・更新のみ</strong> 固定（個別ファイルは削除しません）<br>
+    🛡️ <code>..</code>、絶対パス、<code>.github/workflows/</code> などへの書き込みはブロックされます
   </div>`;
   body.innerHTML = html;
   document.getElementById('single-file-modal').classList.add('active');
@@ -617,6 +720,16 @@ async function confirmSingleFile() {
   const finalPaths = sf.files.map((_, i) => document.getElementById(`single-path-${i}`).value.trim().replace(/^\/+|\/+$/g, ''));
   const invalid = finalPaths.findIndex(p => !p);
   if (invalid >= 0) { toast(`${sf.files[invalid].name}: パスが空です`, 'error'); return; }
+  // v2.5: zip slip / 保護パス防御
+  for (let i = 0; i < finalPaths.length; i++) {
+    const check = safePath(finalPaths[i]);
+    if (!check.ok) {
+      toast(`${sf.files[i].name}: ${check.reason}`, 'error', 6000);
+      dropZone.classList.remove('processing');
+      return;
+    }
+    finalPaths[i] = check.path;
+  }
 
   // ファイル準備
   dropZone.classList.add('processing');
@@ -725,12 +838,17 @@ async function analyzeZip(file) {
   const subdir = getSubdir();
   if (!token) { toast('Token を設定してください', 'error'); return; }
   if (!repo) { toast('リポジトリを選択してください', 'error'); return; }
-  if ((subdirMode === 'root' || !subdir) && repo.protectRoot) {
+  if ((subdirMode === 'root' || !subdir) && isProtected(repo)) {
     toast(`🔒 ${repo.owner}/${repo.name} はルート展開が保護されています`, 'error');
     return;
   }
   if (subdirMode === 'new' && !subdir) {
     toast('新規サブディレクトリ名を入力してください', 'error'); return;
+  }
+  // v2.5: subdir 自体も safePath 検査（"earth/../" 等を拒否）
+  if (subdir) {
+    const check = safePath(subdir);
+    if (!check.ok) { toast(`サブディレクトリ名が不正: ${check.reason}`, 'error', 5000); return; }
   }
 
   dropZone.classList.add('processing');
@@ -742,6 +860,7 @@ async function analyzeZip(file) {
     log(`${entries.length} ファイルを検出`, 'info');
 
     const files = [];
+    const rejected = [];
     let totalOrig = 0, totalResized = 0;
     const imageExts = ['jpg','jpeg','png','webp','gif'];
 
@@ -750,7 +869,14 @@ async function analyzeZip(file) {
       let cleanPath = path;
       const firstSlash = path.indexOf('/');
       if (firstSlash > 0) cleanPath = path.substring(firstSlash + 1);
-      const finalPath = subdir ? `${subdir}/${cleanPath}` : cleanPath;
+      const finalPathRaw = subdir ? `${subdir}/${cleanPath}` : cleanPath;
+      // v2.5: zip slip / 保護パス防御。1ファイルでも危険なら全体を中止
+      const check = safePath(finalPathRaw);
+      if (!check.ok) {
+        rejected.push({ path: path, reason: check.reason });
+        continue;
+      }
+      const finalPath = check.path;
 
       const blob = await zipEntry.async('blob');
       totalOrig += blob.size;
@@ -760,6 +886,21 @@ async function analyzeZip(file) {
       totalResized += finalBlob.size;
       const arrayBuf = await finalBlob.arrayBuffer();
       files.push({ path: finalPath, content: arrayBufferToBase64(arrayBuf), size: finalBlob.size });
+    }
+    // v2.5: 危険パスが見つかったらユーザに明示し中止
+    if (rejected.length > 0) {
+      log(`🛑 ${rejected.length} 件の危険パスを検出してデプロイを中止しました`, 'error');
+      rejected.slice(0, 5).forEach(r => log(`  ❌ ${r.path} (${r.reason})`, 'error'));
+      if (rejected.length > 5) log(`  ...他 ${rejected.length - 5} 件`, 'error');
+      toast(`🛑 zip内に危険パス検出（${rejected.length}件）`, 'error', 8000);
+      dropZone.classList.remove('processing');
+      return;
+    }
+    if (files.length === 0) {
+      log('⚠️ デプロイ対象ファイルが0件です', 'warning');
+      toast('対象ファイルが0件', 'warning');
+      dropZone.classList.remove('processing');
+      return;
     }
 
     log('既存ファイル差分を確認中...', 'info');
@@ -830,25 +971,26 @@ function showConfirmModal() {
   const isRoot = !d.subdir;
   const isFullSync = d.syncModeUsed === 'full';
   const body = document.getElementById('confirm-body');
+  // v2.5: 全動的値をescape
   let html = `
     <p>以下の内容でデプロイを実行します。</p>
     <table class="diff-table">
-      <tr><td>リポジトリ</td><td>${d.repo.owner}/${d.repo.name}</td></tr>
-      <tr><td>ブランチ</td><td>${d.branch}</td></tr>
-      <tr><td>サブディレクトリ</td><td><span class="target">${path}</span></td></tr>
+      <tr><td>リポジトリ</td><td>${esc(d.repo.owner)}/${esc(d.repo.name)}</td></tr>
+      <tr><td>ブランチ</td><td>${esc(d.branch)}</td></tr>
+      <tr><td>サブディレクトリ</td><td><span class="target">${esc(path)}</span></td></tr>
       <tr><td>同期モード</td><td>${isFullSync ? '🔴 フル同期（削除あり）' : '🟢 追加・更新のみ'}</td></tr>
-      ${url ? `<tr><td>公開後URL</td><td><span class="url">${url}</span></td></tr>` : ''}
-      <tr><td>${d.isSingleFile ? 'ファイル' : 'zip'}</td><td>${d.file.name} (${(d.file.size/1024/1024).toFixed(2)}MB)</td></tr>
-      <tr><td>ファイル数</td><td>${d.files.length}</td></tr>
+      ${url ? `<tr><td>公開後URL</td><td><span class="url">${esc(url)}</span></td></tr>` : ''}
+      <tr><td>${d.isSingleFile ? 'ファイル' : 'zip'}</td><td>${esc(d.file.name)} (${(d.file.size/1024/1024).toFixed(2)}MB)</td></tr>
+      <tr><td>ファイル数</td><td>${Number(d.files.length)}</td></tr>
       ${d.totalOrig && d.totalOrig !== d.totalResized ? `<tr><td>画像最適化</td><td>${(d.totalOrig/1024/1024).toFixed(2)}MB → ${(d.totalResized/1024/1024).toFixed(2)}MB (${Math.round((1-d.totalResized/d.totalOrig)*100)}% 削減)</td></tr>` : ''}
       <tr><td colspan="2" style="font-weight:600;color:#3a5639;padding-top:0.6rem">差分プレビュー</td></tr>
-      <tr><td>🆕 新規追加</td><td>${d.diffStats.add} ファイル</td></tr>
-      <tr><td>🔄 上書き</td><td>${d.diffStats.update} ファイル</td></tr>
-      ${isFullSync ? `<tr><td>🗑️ 削除</td><td style="color:#9a3d2e">${d.diffStats.deleteIfFullSync} ファイル</td></tr>` : ''}
+      <tr><td>🆕 新規追加</td><td>${Number(d.diffStats.add)} ファイル</td></tr>
+      <tr><td>🔄 上書き</td><td>${Number(d.diffStats.update)} ファイル</td></tr>
+      ${isFullSync ? `<tr><td>🗑️ 削除</td><td style="color:#9a3d2e">${Number(d.diffStats.deleteIfFullSync)} ファイル</td></tr>` : ''}
     </table>
   `;
   if (isFullSync && d.diffStats.deleteIfFullSync > 0) {
-    html += `<div class="warn">🔴 <strong>フル同期モード</strong>です。${d.diffStats.deleteIfFullSync} ファイルが削除されます。実行前にもう一度確認してください。</div>`;
+    html += `<div class="warn">🔴 <strong>フル同期モード</strong>です。${Number(d.diffStats.deleteIfFullSync)} ファイルが削除されます。実行前にもう一度確認してください。</div>`;
   }
   if (isRoot) {
     html += `<div class="root-zone">
@@ -907,32 +1049,41 @@ async function executeDeploy() {
       const commitData = await ghAPI('GET', `/repos/${d.repo.owner}/${d.repo.name}/git/commits/${currentCommitSha}`, d.token);
       const baseTreeSha = commitData.tree.sha;
 
-      // フル同期：ベースツリーから対象パスを削除した tree entries を構築
+      // v2.5: ベースツリーは毎回再取得。フル同期: 削除エントリのmodeを既存ツリーから継承
       let baseTreeForBuild = baseTreeSha;
       let extraDeleteEntries = [];
-      if (d.syncModeUsed === 'full') {
-        try {
-          const tree = await ghAPI('GET', `/repos/${d.repo.owner}/${d.repo.name}/git/trees/${baseTreeSha}?recursive=1`, d.token);
-          const existing = (tree.tree || []).filter(t => t.type === 'blob');
+      let existingModeMap = new Map(); // path → mode（更新ファイルでもmode継承）
+      try {
+        const tree = await ghAPI('GET', `/repos/${d.repo.owner}/${d.repo.name}/git/trees/${baseTreeSha}?recursive=1`, d.token);
+        if (tree.truncated) {
+          log('⚠️ 既存ツリーが大きすぎてGitHub APIが切り詰めました。フル同期は安全のため中止します。', 'warning');
+          if (d.syncModeUsed === 'full') throw new Error('tree truncated: フル同期は実行できません');
+        }
+        const existing = (tree.tree || []).filter(t => t.type === 'blob');
+        for (const e of existing) existingModeMap.set(e.path, e.mode || '100644');
+        if (d.syncModeUsed === 'full') {
           const inSubdir = d.subdir ? existing.filter(e => e.path.startsWith(d.subdir + '/') || e.path === d.subdir) : existing;
           const newPaths = new Set(d.files.map(f => f.path));
           for (const e of inSubdir) {
             if (!newPaths.has(e.path)) {
-              extraDeleteEntries.push({ path: e.path, mode: '100644', type: 'blob', sha: null }); // sha:null で削除
+              // sha:null で削除。modeは既存を継承（実行ファイル100755等を考慮）
+              extraDeleteEntries.push({ path: e.path, mode: e.mode || '100644', type: 'blob', sha: null });
             }
           }
           if (extraDeleteEntries.length > 0) log(`🗑️ フル同期: ${extraDeleteEntries.length} ファイルを削除対象として追加`, 'info');
-        } catch (e) {
-          log(`削除対象計算失敗、フル同期をスキップして追加・更新のみで進行: ${e.message}`, 'warning');
         }
+      } catch (e) {
+        if (d.syncModeUsed === 'full') throw e;
+        log(`既存ツリー取得失敗、追加・更新のみで進行: ${e.message}`, 'warning');
       }
 
-      // blob 作成
+      // blob 作成（更新ファイルのmodeも継承して既存実行ビットを守る）
       const treeEntries = [];
       for (let i = 0; i < d.files.length; i++) {
         const f = d.files[i];
         const blob = await ghAPI('POST', `/repos/${d.repo.owner}/${d.repo.name}/git/blobs`, d.token, { content: f.content, encoding: 'base64' });
-        treeEntries.push({ path: f.path, mode: '100644', type: 'blob', sha: blob.sha });
+        const mode = existingModeMap.get(f.path) || '100644';
+        treeEntries.push({ path: f.path, mode, type: 'blob', sha: blob.sha });
         setProgress(((i + 1) / d.files.length) * 75);
         if ((i + 1) % 5 === 0 || i === d.files.length - 1) {
           log(`アップロード中... ${i + 1}/${d.files.length}`, 'info');
@@ -1008,23 +1159,31 @@ async function executeDeploy() {
   }
 }
 
-// ==================== ロールバック ====================
+// ==================== ロールバック（v2.5: subdir単位差分復元） ====================
 function confirmRollback(idx) {
   const h = getHistory();
   pendingRollback = h[idx];
   if (!pendingRollback) return;
+  const r = pendingRollback;
   const body = document.getElementById('rollback-body');
+  const sha7 = String(r.commitSha || '').substring(0,7);
+  const parent7 = String(r.parentSha || '').substring(0,7);
+  const subdirPath = r.subdir ? '/' + r.subdir + '/' : '/';
+  const scopeNote = r.subdir
+    ? `<strong>${esc('/' + r.subdir + '/')}</strong> 配下のみ復元します（他ディレクトリの最新変更は維持）。`
+    : `<strong style="color:#9a3d2e">ルート配下全体</strong>を復元します。リポジトリ全体に影響します。`;
   body.innerHTML = `
     <p>以下のデプロイを取り消します（revert コミットを作成）。</p>
     <table class="diff-table">
-      <tr><td>リポジトリ</td><td>${pendingRollback.repo}</td></tr>
-      <tr><td>サブディレクトリ</td><td><span class="target">${pendingRollback.subdir ? '/' + pendingRollback.subdir + '/' : '/'}</span></td></tr>
-      <tr><td>取り消し対象 commit</td><td>${pendingRollback.commitSha.substring(0,7)}</td></tr>
-      <tr><td>戻り先 (parent)</td><td>${pendingRollback.parentSha.substring(0,7)}</td></tr>
-      <tr><td>元のデプロイ日時</td><td>${new Date(pendingRollback.timestamp).toLocaleString('ja-JP')}</td></tr>
+      <tr><td>リポジトリ</td><td>${esc(r.repo)}</td></tr>
+      <tr><td>サブディレクトリ</td><td><span class="target">${esc(subdirPath)}</span></td></tr>
+      <tr><td>取り消し対象 commit</td><td>${esc(sha7)}</td></tr>
+      <tr><td>戻り先 (parent)</td><td>${esc(parent7)}</td></tr>
+      <tr><td>元のデプロイ日時</td><td>${esc(new Date(r.timestamp).toLocaleString('ja-JP'))}</td></tr>
+      <tr><td>復元範囲</td><td>${scopeNote}</td></tr>
     </table>
     <div class="warn">⚠️ ロールバックは新しいコミットとして記録されます。元のコミットは履歴に残ります。<br>
-    ※ 1段戻し専用。複数世代戻したい場合はGitHub UIから手動でcheckout/revertを推奨。</div>
+    🛡️ <strong>v2.5</strong>: subdir指定時はそのディレクトリのファイル群だけを parent 時点に戻し、他は触りません。</div>
   `;
   document.getElementById('rollback-modal').classList.add('active');
 }
@@ -1041,21 +1200,71 @@ async function executeRollback() {
   if (!r || !token) { toast('Token を確認してください', 'error'); return; }
 
   try {
-    log(`🔙 ロールバック開始: ${r.repo} ${r.commitSha.substring(0,7)} → ${r.parentSha.substring(0,7)}`, 'progress');
-    const parentCommit = await ghAPI('GET', `/repos/${r.repo}/git/commits/${r.parentSha}`, token);
-    if (!parentCommit.tree) throw new Error('parent コミット取得失敗');
+    log(`🔙 ロールバック開始: ${r.repo} ${r.commitSha.substring(0,7)} → ${r.parentSha.substring(0,7)}${r.subdir ? ' (/' + r.subdir + '/ 単位)' : ' (全体)'}`, 'progress');
+
+    // 現状HEAD
     const ref = await ghAPI('GET', `/repos/${r.repo}/git/ref/heads/${r.branch}`, token);
     const currentSha = ref.object.sha;
+    const currentCommit = await ghAPI('GET', `/repos/${r.repo}/git/commits/${currentSha}`, token);
+    const currentTreeSha = currentCommit.tree.sha;
     log(`現在のHEAD: ${currentSha.substring(0,7)}`, 'info');
 
+    // parent コミット（戻り先）
+    const parentCommit = await ghAPI('GET', `/repos/${r.repo}/git/commits/${r.parentSha}`, token);
+    if (!parentCommit.tree) throw new Error('parent コミット取得失敗');
+
+    let newTreeSha;
+    if (!r.subdir) {
+      // ルート展開だったケース: 全体置き換え（従来通り）
+      newTreeSha = parentCommit.tree.sha;
+      log('⚠️ subdirなし。リポジトリ全体を parent ツリーへ置き換えます', 'warning');
+    } else {
+      // v2.5: subdir 単位の差分復元
+      // 1. parent ツリーから subdir 配下のエントリ取得
+      // 2. current ツリーから subdir 配下のエントリ取得
+      // 3. 差分: parent側にあるもの→そのSHAで上書き、parent側になくcurrent側にあるもの→sha:null削除
+      const parentTree = await ghAPI('GET', `/repos/${r.repo}/git/trees/${parentCommit.tree.sha}?recursive=1`, token);
+      const currentTree = await ghAPI('GET', `/repos/${r.repo}/git/trees/${currentTreeSha}?recursive=1`, token);
+      if (parentTree.truncated || currentTree.truncated) {
+        log('⚠️ ツリーが大きすぎて切り詰められました。subdir単位ロールバックは安全のため中止', 'error');
+        throw new Error('tree truncated: subdir単位ロールバック不可');
+      }
+      const subdir = r.subdir;
+      const isInSubdir = (path) => path === subdir || path.startsWith(subdir + '/');
+      const parentEntries = (parentTree.tree || []).filter(t => t.type === 'blob' && isInSubdir(t.path));
+      const currentEntries = (currentTree.tree || []).filter(t => t.type === 'blob' && isInSubdir(t.path));
+      const parentMap = new Map(parentEntries.map(e => [e.path, e]));
+      const currentPaths = new Set(currentEntries.map(e => e.path));
+
+      const tree = [];
+      // parent側にあるエントリを復元
+      for (const e of parentEntries) {
+        tree.push({ path: e.path, mode: e.mode || '100644', type: 'blob', sha: e.sha });
+      }
+      // current側にあって parent側にない = 削除
+      for (const e of currentEntries) {
+        if (!parentMap.has(e.path)) {
+          tree.push({ path: e.path, mode: e.mode || '100644', type: 'blob', sha: null });
+        }
+      }
+      if (tree.length === 0) {
+        throw new Error('復元対象が0件です（既にparent状態と同じ可能性）');
+      }
+      log(`subdir差分: 復元 ${parentEntries.length} / 削除 ${tree.length - parentEntries.length}`, 'info');
+
+      const newTree = await ghAPI('POST', `/repos/${r.repo}/git/trees`, token, { base_tree: currentTreeSha, tree });
+      if (!newTree.sha) throw new Error(`ロールバックツリー作成失敗: ${newTree.message || ''}`);
+      newTreeSha = newTree.sha;
+    }
+
     const revertCommit = await ghAPI('POST', `/repos/${r.repo}/git/commits`, token, {
-      message: `Revert deploy: ${r.fileName} (was ${r.commitSha.substring(0,7)}, restored to ${r.parentSha.substring(0,7)})\n\nRollback at ${new Date().toLocaleString('ja-JP')}`,
-      tree: parentCommit.tree.sha,
+      message: `Revert deploy${r.subdir ? ' (/' + r.subdir + '/)' : ''}: ${r.fileName} (was ${r.commitSha.substring(0,7)}, restored to ${r.parentSha.substring(0,7)})\n\nRollback at ${new Date().toLocaleString('ja-JP')}`,
+      tree: newTreeSha,
       parents: [currentSha]
     });
     if (!revertCommit.sha) throw new Error(`revert コミット作成失敗: ${revertCommit.message || ''}`);
 
-    log('ref 更新中...', 'info');
+    log('ref 更新中（CAS）...', 'info');
     const upd = await fetch(`https://api.github.com/repos/${r.repo}/git/refs/heads/${r.branch}`, {
       method: 'PATCH',
       headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
@@ -1068,7 +1277,7 @@ async function executeRollback() {
     pushHistory({
       timestamp: Date.now(),
       repo: r.repo, branch: r.branch, subdir: r.subdir,
-      fileName: `[ROLLBACK] ${r.fileName}`,
+      fileName: `[ROLLBACK${r.subdir ? ' /' + r.subdir + '/' : ''}] ${r.fileName}`,
       fileCount: 0, commitSha: revertCommit.sha,
       parentSha: currentSha, publicUrl: r.publicUrl, syncMode: 'rollback'
     });
