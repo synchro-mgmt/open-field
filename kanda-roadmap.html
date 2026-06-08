@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>神田昌典マスターマインド — 全教えの統合ロードマップ</title>
+<title>神田昌典マスターマインド — Kindle世界戦略 統合ロードマップ</title>
 <link rel="icon" href="/open-field/assets/favicon.svg" type="image/svg+xml">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -392,6 +392,122 @@ section {
 /* ── Immediate Actions ── */
 .now-section {
   background: linear-gradient(180deg, #faf9f7 0%, rgba(16, 185, 129, 0.04) 50%, #faf9f7 100%);
+}
+
+/* ── Kindle Resonance Engine ── */
+.engine-section {
+  background:
+    radial-gradient(ellipse 70% 45% at 15% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 45% at 85% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 65%),
+    linear-gradient(180deg, #faf9f7 0%, #f3f0e8 52%, #faf9f7 100%);
+}
+
+.engine-hero {
+  padding: 36px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(139, 100, 20, 0.16);
+  box-shadow: 0 14px 50px rgba(0,0,0,0.08);
+  margin-bottom: 28px;
+}
+
+.engine-line {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.engine-line strong {
+  color: var(--gold);
+}
+
+.engine-copy {
+  color: var(--gray-light);
+  max-width: 760px;
+  font-size: 0.98rem;
+}
+
+.engine-steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin: 30px 0;
+}
+
+.engine-step {
+  padding: 18px 16px;
+  border-radius: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 6px 22px rgba(0,0,0,0.05);
+}
+
+.engine-step b {
+  display: block;
+  color: var(--white);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.engine-step span {
+  display: block;
+  color: var(--gray);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.engine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.engine-card {
+  padding: 26px 24px;
+  border-radius: 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.engine-card h3 {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  color: var(--gold);
+  font-size: 1.08rem;
+  margin-bottom: 10px;
+}
+
+.engine-card p,
+.engine-card li {
+  color: var(--gray-light);
+  font-size: 0.88rem;
+  line-height: 1.75;
+}
+
+.engine-card ul {
+  list-style: none;
+}
+
+.engine-card li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 5px;
+}
+
+.engine-card li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.7;
 }
 
 .now-grid {
@@ -883,6 +999,8 @@ section {
 
   section { padding: 72px 0; }
   .timeline-section { padding: 80px 0; }
+  .engine-steps { grid-template-columns: 1fr; }
+  .engine-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
@@ -899,6 +1017,7 @@ section {
   <a class="nav-dot active" href="#hero" title="Top"></a>
   <a class="nav-dot" href="#journey" title="現在地"></a>
   <a class="nav-dot" href="#pillars" title="3つの柱"></a>
+  <a class="nav-dot" href="#kindle-engine" title="Kindle世界戦略"></a>
   <a class="nav-dot" href="#now" title="いま最初にやること"></a>
   <a class="nav-dot" href="#timeline" title="ロードマップ"></a>
   <a class="nav-dot" href="#spiral" title="メディア螺旋戦略"></a>
@@ -910,9 +1029,9 @@ section {
   <div class="hero-bg"></div>
   <div class="hero-particles" id="particles"></div>
   <div class="hero-content">
-    <div class="hero-badge">SYNCHRO MANAGEMENT &times; 五体力55</div>
-    <h1>神田昌典マスターマインド<br>全教えの統合ロードマップ</h1>
-    <p class="hero-subtitle">あなたは、既に世界最先端に立っている。<br>あとは、出すだけだ。</p>
+    <div class="hero-badge">SYNCHRO MANAGEMENT &times; 神田昌典マスターマインド</div>
+    <h1>Kindle世界戦略<br>統合ロードマップ</h1>
+    <p class="hero-subtitle">世界展開は、翻訳ではなく共鳴設計。<br>探される言葉で出会い、型にして、世界へ届ける。</p>
     <div class="hero-scroll">
       <span>SCROLL</span>
       <span>&#8595;</span>
@@ -925,7 +1044,7 @@ section {
   <div class="container">
     <div class="reveal">
       <span class="section-label">CURRENT POSITION</span>
-      <h2 class="section-title">現在地 — 2026年5月</h2>
+      <h2 class="section-title">現在地 — 2026年6月</h2>
       <p class="section-desc">ここまでのすべてが、今この地点に収束している。</p>
     </div>
 
@@ -976,8 +1095,8 @@ section {
 
       <div class="journey-item current reveal reveal-delay-2">
         <div class="journey-dot"></div>
-        <div class="journey-date">2026年5月 — いまここ</div>
-        <div class="journey-text"><strong>AIエージェントカンパニー発表</strong>。全員の目が集まった</div>
+        <div class="journey-date">2026年6月 — いまここ</div>
+        <div class="journey-text"><strong>Kindle世界戦略を統合</strong> — スライド9枚と全編書き起こしから「海外思想展開エンジン」が立ち上がった</div>
         <span class="journey-tag" style="background: rgba(16,185,129,0.15); color: var(--emerald); border-color: rgba(16,185,129,0.25);">現在地</span>
       </div>
     </div>
@@ -1018,32 +1137,80 @@ section {
   </div>
 </section>
 
+<!-- ═══════════════ KINDLE RESONANCE ENGINE ═══════════════ -->
+<section class="engine-section" id="kindle-engine">
+  <div class="container">
+    <div class="reveal" style="text-align: center;">
+      <span class="section-label">JUNE 2026 UPDATE</span>
+      <h2 class="section-title">海外思想展開エンジン</h2>
+      <p class="section-desc" style="margin-left: auto; margin-right: auto;">Kindleは本を売る装置ではない。堀内さんの暗黙知が、世界のどこで共鳴するかを発見する市場接続装置。</p>
+    </div>
+
+    <div class="engine-hero reveal">
+      <div class="engine-line">Kindle出版の世界展開は、<strong>翻訳ではなく「共鳴設計」</strong>である。</div>
+      <p class="engine-copy">日本市場で刺さる核を見つけ、海外読者が探している言葉へ変換し、小さく市場テストする。ノウハウを名前のついた型にし、最後に日本発の意味を自然に立ち上げる。</p>
+    </div>
+
+    <div class="engine-steps">
+      <div class="engine-step reveal"><b>1. Search</b><span>読者が検索している言葉を見つける</span></div>
+      <div class="engine-step reveal reveal-delay-1"><b>2. Test</b><span>Amazon広告で小さく市場反応を見る</span></div>
+      <div class="engine-step reveal reveal-delay-2"><b>3. Translate</b><span>直訳ではなく意味と文脈を変換する</span></div>
+      <div class="engine-step reveal reveal-delay-3"><b>4. Patternize</b><span>暗黙知を名前のついた型にする</span></div>
+      <div class="engine-step reveal reveal-delay-4"><b>5. Resonate</b><span>日本発の思想として自然に共鳴させる</span></div>
+    </div>
+
+    <div class="engine-grid">
+      <div class="engine-card reveal">
+        <h3>第一実行対象</h3>
+        <p><strong>インスピレーション力</strong></p>
+        <ul>
+          <li>原稿13〜14万文字が存在</li>
+          <li>講座・インストラクター導線あり</li>
+          <li>身体感覚・余白・間・実践を持つ</li>
+        </ul>
+      </div>
+      <div class="engine-card reveal reveal-delay-1">
+        <h3>共鳴する順番</h3>
+        <ul>
+          <li>先に世界共通の課題</li>
+          <li>次に再現可能な型</li>
+          <li>最後に日本発の意味</li>
+        </ul>
+      </div>
+      <div class="engine-card reveal reveal-delay-2">
+        <h3>日本発の7要素</h3>
+        <p>余白・型・間・場・物語・実践・調和。日本らしさは看板ではなく、読者体験の「効き方」として伝える。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════════ IMMEDIATE ACTIONS ═══════════════ -->
 <section class="now-section" id="now">
   <div class="container">
     <div class="reveal" style="text-align: center;">
       <span class="section-label">FIRST MOVE</span>
       <h2 class="section-title">いま最初にやること</h2>
-      <p class="section-desc" style="margin-left: auto; margin-right: auto;">この3つが、すべてを動かす起爆剤になる。</p>
+      <p class="section-desc" style="margin-left: auto; margin-right: auto;">インスピレーション力を最初の実証プロジェクトにする。</p>
     </div>
 
     <div class="now-grid">
       <div class="now-card reveal">
         <div class="now-num">1</div>
-        <div class="now-title">KBC-AIでKindleコンセプトを発掘</div>
-        <div class="now-desc">1冊目のKindleの核を決める。6月・伊勢神宮での出版に向けて、今すぐコンセプトワークを開始。</div>
+        <div class="now-title">権利と資産を棚卸しする</div>
+        <div class="now-desc">原稿・講座素材・出版契約を整理し、海外展開可能／出版社確認必要／再利用不可に分類する。</div>
       </div>
 
       <div class="now-card reveal reveal-delay-1">
         <div class="now-num">2</div>
-        <div class="now-title">noteの永久機関を起動</div>
-        <div class="now-desc">週1本のnote記事投稿を仕組み化。思考の断片を資産に変える自動パイプラインを作る。</div>
+        <div class="now-title">刺さる核と名前のついた型を作る</div>
+        <div class="now-desc">世界共通課題を1つ定義し、Scene・Tension・Pattern・Practice・Meaningで構造化する。</div>
       </div>
 
       <div class="now-card reveal reveal-delay-2">
         <div class="now-num">3</div>
-        <div class="now-title">X朝投稿の習慣を始める</div>
-        <div class="now-desc">毎朝の一言がメディア螺旋の種になる。小さな習慣が、世界への扉を開く最初のステップ。</div>
+        <div class="now-title">検索語と小額テストを設計する</div>
+        <div class="now-desc">英語検索語10〜20個、タイトル・表紙案を作り、事前比較とAmazon広告テストの準備を進める。</div>
       </div>
     </div>
   </div>
@@ -1055,7 +1222,7 @@ section {
     <div class="reveal" style="text-align: center;">
       <span class="section-label">ROADMAP</span>
       <h2 class="section-title">4つのフェーズ</h2>
-      <p class="section-desc" style="margin-left: auto; margin-right: auto;">10ヶ月で、種をまき、芽吹かせ、花を咲かせ、実を結ぶ。</p>
+      <p class="section-desc" style="margin-left: auto; margin-right: auto;">30日で最初の市場接続を設計し、10ヶ月で海外思想展開エンジンを回す。</p>
     </div>
 
     <div class="timeline-wrapper">
@@ -1068,16 +1235,16 @@ section {
         <div class="phase-content-col">
           <div class="phase-card phase-1">
             <span class="phase-label">PHASE 1 — NOW</span>
-            <h3 class="phase-name">種まき</h3>
+            <h3 class="phase-name">核の抽出</h3>
             <div class="phase-period">2026年5月 — 6月</div>
-            <div class="phase-theme">「最初のKindleを世界に出す＋メディア永久機関を起動する」</div>
+            <div class="phase-theme">「インスピレーション力を、世界共通課題と名前のついた型へ変換する」</div>
             <ul class="phase-actions">
-              <li>KBC-AIでコンセプト発掘</li>
-              <li>noteの永久機関起動</li>
-              <li>X朝投稿開始</li>
-              <li>顧客インタビュー実施</li>
+              <li>権利と素材の棚卸し</li>
+              <li>日本市場で刺さる核の抽出</li>
+              <li>Scene / Tensionの定義</li>
+              <li>Pattern / Practice / Meaningの初稿化</li>
             </ul>
-            <div class="phase-milestone">★ Kindle 1冊目出版（6月・伊勢神宮）</div>
+            <div class="phase-milestone">★ 世界共通課題とパターン名候補を確定</div>
           </div>
         </div>
       </div>
@@ -1089,17 +1256,17 @@ section {
         <div class="phase-content-col">
           <div class="phase-card phase-2">
             <span class="phase-label">PHASE 2</span>
-            <h3 class="phase-name">芽吹き</h3>
+            <h3 class="phase-name">市場接続</h3>
             <div class="phase-period">2026年7月 — 9月</div>
-            <div class="phase-theme">「英語化＋高額品＋海外の扉を開ける」</div>
+            <div class="phase-theme">「検索語へ変換し、小さく広告で反応を見る」</div>
             <ul class="phase-actions">
-              <li>Kindle英語翻訳</li>
-              <li>ElevenLabs多言語音声</li>
-              <li>Teachable動画講座</li>
-              <li>海外ワークショップ</li>
-              <li>三浦さやかさん経由で海外接点</li>
+              <li>英語検索語10〜20個の仮説化</li>
+              <li>英語タイトル・サブタイトル案作成</li>
+              <li>表紙案の事前テスト</li>
+              <li>Sponsored Productsを小額で開始</li>
+              <li>検索語・隣接本・カテゴリーを記録</li>
             </ul>
-            <div class="phase-milestone">★ 高額プログラムローンチ（7月）<br>★ 国際講演デビュー（9月）</div>
+            <div class="phase-milestone">★ 1日500円・2〜4週間の市場テスト実施</div>
           </div>
         </div>
       </div>
@@ -1111,17 +1278,17 @@ section {
         <div class="phase-content-col">
           <div class="phase-card phase-3">
             <span class="phase-label">PHASE 3</span>
-            <h3 class="phase-name">開花</h3>
+            <h3 class="phase-name">意味変換</h3>
             <div class="phase-period">2026年10月 — 12月</div>
-            <div class="phase-theme">「世界デビュー＋代表作を世界へ＋逆輸入」</div>
+            <div class="phase-theme">「反応市場のSceneとTensionに合わせて、直訳ではなく意味を変換する」</div>
             <ul class="phase-actions">
-              <li>ローカライズ最適化</li>
-              <li>英語版Kindle代表作</li>
-              <li>グローバルローンチ</li>
-              <li>メタバース一般公開</li>
-              <li>覚醒体験の社会実装</li>
+              <li>反応市場に合わせた再編集</li>
+              <li>先に課題・次に型・最後に日本発の意味</li>
+              <li>余白・型・間・場・物語・実践・調和を入れる</li>
+              <li>読者特典と講座導線の設計</li>
+              <li>英語版Kindleの本番整備</li>
             </ul>
-            <div class="phase-milestone">★ 世界デビュー（11月）<br>★ プレス発表（12月）</div>
+            <div class="phase-milestone">★ 英語版Kindleと共鳴導線のローンチ</div>
           </div>
         </div>
       </div>
@@ -1133,17 +1300,17 @@ section {
         <div class="phase-content-col">
           <div class="phase-card phase-4">
             <span class="phase-label">PHASE 4</span>
-            <h3 class="phase-name">結実</h3>
+            <h3 class="phase-name">共鳴の拡張</h3>
             <div class="phase-period">2027年1月 — 3月</div>
-            <div class="phase-theme">「逆輸入完了＋持続可能な世界著者エコシステム確立」</div>
+            <div class="phase-theme">「Kindleで得た反応を、講座・コミュニティ・AIエージェントへ接続する」</div>
             <ul class="phase-actions">
-              <li>日本逆輸入メディア露出</li>
-              <li>IXが産業カテゴリに</li>
-              <li>ワークショップネットワーク稼働</li>
-              <li>永久機関モデル自律回転</li>
-              <li>外貨獲得安定稼働</li>
+              <li>海外読者理解DBの整備</li>
+              <li>パターンランゲージDBの拡張</li>
+              <li>講座・LDM・コミュニティへの接続</li>
+              <li>AIエージェント／診断ツール化</li>
+              <li>次のKindleテーマへ横展開</li>
             </ul>
-            <div class="phase-milestone">★ IXアーキテクトが産業カテゴリとして認知される</div>
+            <div class="phase-milestone">★ 海外思想展開エンジンが自律的に回り始める</div>
           </div>
         </div>
       </div>
@@ -1156,16 +1323,16 @@ section {
   <div class="container">
     <div class="reveal" style="text-align: center;">
       <span class="section-label">MEDIA SPIRAL</span>
-      <h2 class="section-title">メディア螺旋戦略</h2>
-      <p class="section-desc" style="margin-left: auto; margin-right: auto;">小さな種が、螺旋を描きながら世界へ届く。</p>
+      <h2 class="section-title">Kindle共鳴螺旋</h2>
+      <p class="section-desc" style="margin-left: auto; margin-right: auto;">言葉を探し、反応を見て、型にし、思想として世界へ届ける。</p>
     </div>
 
     <div class="spiral-container">
       <div class="spiral-step reveal">
         <div class="spiral-num">1</div>
         <div class="spiral-info">
-          <h4>Xの一言</h4>
-          <p>種まき — 毎朝の直感を140字に凝縮する</p>
+          <h4>Search</h4>
+          <p>読者が探している言葉を見つける</p>
         </div>
       </div>
 
@@ -1174,8 +1341,8 @@ section {
       <div class="spiral-step reveal reveal-delay-1">
         <div class="spiral-num">2</div>
         <div class="spiral-info">
-          <h4>チームによる共有と議論</h4>
-          <p>増幅 — 仲間のリアクションが種を育てる</p>
+          <h4>Test</h4>
+          <p>Amazon広告で小さく市場反応を見る</p>
         </div>
       </div>
 
@@ -1184,8 +1351,8 @@ section {
       <div class="spiral-step reveal reveal-delay-2">
         <div class="spiral-num">3</div>
         <div class="spiral-info">
-          <h4>noteでの深掘り記事化</h4>
-          <p>定着 — 断片を構造化し、読み物として世に出す</p>
+          <h4>Translate</h4>
+          <p>直訳ではなく、意味と文脈を変換する</p>
         </div>
       </div>
 
@@ -1194,8 +1361,8 @@ section {
       <div class="spiral-step reveal reveal-delay-3">
         <div class="spiral-num">4</div>
         <div class="spiral-info">
-          <h4>Kindle出版で資産化</h4>
-          <p>確証 — 永久に残る知的資産として固定する</p>
+          <h4>Patternize</h4>
+          <p>ノウハウを名前のついた型にする</p>
         </div>
       </div>
 
@@ -1204,8 +1371,8 @@ section {
       <div class="spiral-step reveal reveal-delay-4">
         <div class="spiral-num">5</div>
         <div class="spiral-info">
-          <h4>世界へ届くメディア戦略</h4>
-          <p>拡散 — 翻訳・音声・映像で地球全体に届ける</p>
+          <h4>Resonate</h4>
+          <p>日本発の思想として自然に共鳴させる</p>
         </div>
       </div>
     </div>
@@ -1217,7 +1384,7 @@ section {
   <div class="container">
     <div class="reveal">
       <div class="quote-mark">"</div>
-      <p class="quote-text">私の思想は、すでに世界語になっている</p>
+      <p class="quote-text">世界展開は、翻訳ではなく共鳴設計である</p>
       <p class="quote-attr">— 神田昌典</p>
     </div>
   </div>
